@@ -1,0 +1,209 @@
+/* Form */
+.error-msg {
+    color: #c40000;
+    padding: 5px 5px 0px 5px;
+    font-size: 12px;
+}
+
+/* Header */
+.web-title {
+    color: white;
+    font-size: 28px;
+}
+
+/* Web structure */
+.container-wrapper {
+    padding: 80px 0px 20px 0px;
+}
+
+/* CRUD */
+.visible-icon {
+    color: #1e90ff;
+}
+
+.invisible-icon {
+    color: #ff4d4d;
+}
+
+.crud-btn {
+    height: 42px;
+    width: 42px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 1px 3px 3px 1px #00000033;
+    transition: color 0.15s ease-in-out, 
+                background-color 0.15s ease-in-out, 
+                border-color 0.15s ease-in-out, 
+                box-shadow 0.15s ease-in-out;
+}
+
+#result-btn {
+    color: #000000;
+    background-color: #85c2ff;
+}
+
+#result-btn:hover {
+    background-color: #4aa5ff;
+    border: 1px solid #3b8bda9e;
+}
+
+#result-btn:active {
+    background-color: #85c2ff;
+    box-shadow: 1px 3px 6px 1px #00000000; 
+}
+
+#show-btn {
+    color: #000000;
+    background-color: #e2e2e2;
+}
+
+#show-btn:hover {
+    background-color: #bfbfbf;
+    border: 1px solid #b0b0b0;
+}
+
+#show-btn:active {
+    background-color: #e2e2e2;
+    box-shadow: 1px 3px 6px 1px #00000000; 
+}
+
+#mod-btn {
+    color: #000000;
+    background-color: #ffcb3d;
+}
+
+#mod-btn:hover {
+    background-color: #ffdb78;
+    border: 1px solid #c9a541;
+}
+
+#mod-btn:active {
+    background-color: #ffcb3d;
+    box-shadow: 1px 3px 6px 1px #00000000; 
+}
+
+#delete-btn {
+    color: #ffffff;
+    background-color: #ff4d4d;
+}
+
+#delete-btn:hover {
+    background-color: #ff8080;
+    border: 1px solid #c34c4c;
+}
+
+#delete-btn:active {
+    background-color: #ff4d4d;
+    box-shadow: 1px 3px 6px 1px #00000000; 
+}
+
+/* CRUD -> Table */
+#table-crud > tbody > tr > td > div > button {
+    margin: 0px 20px 0px 0px;
+}
+
+#table-crud > thead {
+    background-color: #e0f1ff;
+}
+
+#table-crud {
+    display: none;
+}
+
+@media screen and (min-width: 769px) {
+    #table-crud {
+        display: table;
+    }
+}
+
+/* CRUD -> Mobile */
+.mobile-item-crud {
+    margin:15px ;
+    border-radius: 5px;
+    border-style: 1px solid;
+    border-color: #d0d0d0bf;
+    box-shadow: 1px 3px 6px 1px #00000033;
+    padding: 18px;
+}
+
+#mobile-crud > div > hr {
+    margin-top: 7px;
+}
+
+#mobile-crud > div > div > span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#mobile-crud > div > div > div > span {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#mobile-crud > div > div > div  > div > button {
+    margin:0px 0px 8px 8px;
+}
+
+#mobile-crud {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    #mobile-crud {
+        display: block;
+    }
+}
+
+/* .dropbtn {
+    background-color: rgb(60, 78, 97);
+    color: rgba(255, 255, 255, 0.55);
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 8px 12px 0px rgba(0,0,0,0.2);
+    z-index: auto;
+    border: 1px;
+    border-style: solid;
+    border-color: rgb(208, 208, 208, 0.5);
+    border-radius: 5px;
+    padding: 10px 0px 10px 0px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    color: rgba(255, 255, 255, 0.75);
+    transition: color 0.3s ease;
+} */
