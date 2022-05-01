@@ -63,7 +63,7 @@ export default function Crud({ items }) {
       {/* Para screens con widht < 480px */}
       <div id="mobile-crud">
         {items.map((item) => (
-          <div className="mobile-item-crud">
+          <div key={item.id} className="mobile-item-crud">
             <div className="text-center">
               <span>{item.nombre}</span>
             </div>

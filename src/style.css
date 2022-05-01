@@ -11,6 +11,10 @@
     font-size: 28px;
 }
 
+.nav-link {
+    text-decoration: none;
+}
+
 /* Web structure */
 .container-wrapper {
     padding: 80px 0px 20px 0px;
@@ -55,7 +59,7 @@
 
 #result-btn:active {
     background-color: #85c2ff;
-    box-shadow: 1px 3px 6px 1px #00000000; 
+    box-shadow: none; 
 }
 
 #show-btn {
@@ -70,7 +74,7 @@
 
 #show-btn:active {
     background-color: #e2e2e2;
-    box-shadow: 1px 3px 6px 1px #00000000; 
+    box-shadow: none; 
 }
 
 #mod-btn {
@@ -85,7 +89,7 @@
 
 #mod-btn:active {
     background-color: #ffcb3d;
-    box-shadow: 1px 3px 6px 1px #00000000; 
+    box-shadow: none; 
 }
 
 #delete-btn {
@@ -100,7 +104,64 @@
 
 #delete-btn:active {
     background-color: #ff4d4d;
-    box-shadow: 1px 3px 6px 1px #00000000; 
+    box-shadow: none; 
+}
+
+#new-stage {
+    color: black;
+    background-color: #cae7ff;
+    margin: 15px 0px 30px 30px;
+    padding: 5px 10px 5px 10px;
+    height: auto;
+    width: auto;
+    font-size: 18px;
+}
+
+#new-stage:hover {
+    background-color: #9bd2ff;
+    border: 1px solid #8cb9de;
+}
+
+#new-stage:active {
+    background-color: #cae7ff;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 768px) {
+    #new-stage {
+        margin: 15px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #new-stage {
+        display: block;
+    }
+}
+
+#search-box {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 2px;
+    margin: 15px 30px 0px 0px;
+    width: 100%;
+}
+
+#search-box > input {
+    margin-left: 12px;
+}
+
+@media screen and (max-width: 768px) {
+    #search-box {
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    #search-box {
+        margin: 0px 15px 5px 15px;
+    }
 }
 
 /* CRUD -> Table */
@@ -109,7 +170,7 @@
 }
 
 #table-crud > thead {
-    background-color: #e0f1ff;
+    background-color: #eaf5ff;
 }
 
 #table-crud {
@@ -124,9 +185,10 @@
 
 /* CRUD -> Mobile */
 .mobile-item-crud {
-    margin:15px ;
+    margin: 15px ;
+    border: 1px;;
     border-radius: 5px;
-    border-style: 1px solid;
+    border-style: solid;
     border-color: #d0d0d0bf;
     box-shadow: 1px 3px 6px 1px #00000033;
     padding: 18px;

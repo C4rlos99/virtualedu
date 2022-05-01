@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Nav, Image } from "react-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import { NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../style.css";
 import PropTypes from "prop-types";
 
@@ -31,12 +32,14 @@ export default function Header(props) {
           id="responsive-navbar-nav"
         >
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Link className="nav-link" to={"/home"}>
+              Home
+            </Link>
           </Nav>
           <Nav>
             <NavDropdown title={"Nombre Usuario"} id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#">Perfil </NavDropdown.Item>
-              <NavDropdown.Item href="#">Cerrar sesión</NavDropdown.Item>
+              <NavDropdown.Item>Perfil</NavDropdown.Item>
+              <NavDropdown.Item>Cerrar sesión</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
