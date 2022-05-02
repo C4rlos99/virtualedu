@@ -8,16 +8,9 @@ import PropTypes from "prop-types";
 
 export default function Header(props) {
   return (
-    <Navbar
-      fixed="top"
-      className="header-style"
-      collapseOnSelect
-      expand="md"
-      variant="dark"
-      bg="dark"
-    >
+    <Navbar fixed="top" collapseOnSelect expand="md" variant="dark" bg="dark">
       <Container>
-        <Navbar.Brand className="web-title" href="/home">
+        <Navbar.Brand id="web-title" href="/home">
           <Image
             alt="Logo de la web"
             src={process.env.PUBLIC_URL + "/icons/exampleIncon.png"}

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Dialog from "@mui/material/Dialog";
 import { Button, Table, Row, Col, Container } from "react-bootstrap";
 import {
   BsFillCheckSquareFill,
@@ -12,6 +13,15 @@ import "../style.css";
 import PropTypes from "prop-types";
 
 export default function Crud({ items }) {
+  const [open, setOpen] = useState(false);
+
+  const clickOpenHandler = () => {
+    setOpen(true);
+  };
+
+  const closeHandler = () => {
+    setOpen(false);
+  };
   return (
     <>
       {/* Para screens con widht >= 480px */}
@@ -50,7 +60,11 @@ export default function Crud({ items }) {
                     <BsPencil />
                   </button>
 
-                  <button className="crud-btn" id="delete-btn">
+                  <button
+                    className="crud-btn"
+                    id="delete-btn"
+                    onClick={clickOpenHandler}
+                  >
                     <BsTrash />
                   </button>
                 </div>
@@ -95,7 +109,11 @@ export default function Crud({ items }) {
                     <BsPencil />
                   </button>
 
-                  <button className="crud-btn" id="delete-btn">
+                  <button
+                    className="crud-btn"
+                    id="delete-btn"
+                    onClick={clickOpenHandler}
+                  >
                     <BsTrash />
                   </button>
                 </div>
@@ -104,6 +122,28 @@ export default function Crud({ items }) {
           </div>
         ))}
       </div>
+
+      {/* Dialog  */}
+      <Dialog open={open} onClose={closeHandler}>
+        <div className="dialog">
+          <div className="dialog-title">Eliminar</div>
+          <div className="dialog-content">
+            Si aceptas se eliminará el escenario de forma permanente.
+          </div>
+          <div className="dialog-box-btn">
+            <button className="dialog-btn accept-btn" onClick={closeHandler}>
+              Aceptar
+            </button>
+            <button
+              className="dialog-btn cancel-btn"
+              onClick={closeHandler}
+              autoFocus
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </Dialog>
     </>
   );
 }
