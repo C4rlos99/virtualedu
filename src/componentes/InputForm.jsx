@@ -1,18 +1,19 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
-import "../style.css"
+import "../style.css";
 
-export default function InputForm({
-  controlId,
-  label,
-  placeholder,
-  value,
-  errorMsg,
-  type,
-  name,
-  onChangeHandler,
-}) {
+export default function InputForm(props) {
+  const {
+    controlId,
+    label,
+    placeholder,
+    value,
+    feedBack,
+    type,
+    name,
+    handlerChange,
+  } = props;
   return (
     <Form.Group className="mb-3" controlId={controlId}>
       <Form.Label>{label}</Form.Label>
@@ -21,9 +22,9 @@ export default function InputForm({
         value={value}
         type={type}
         name={name}
-        onChange={(e) => onChangeHandler(e.target.value)}
+        onChange={(e) => handlerChange(e.target.value)}
       />
-      <p className="error-msg">{errorMsg}</p>
+      <p className="error-msg">{feedBack}</p>
     </Form.Group>
   );
 }
@@ -31,10 +32,10 @@ export default function InputForm({
 InputForm.propTypes = {
   controlId: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  onChangeHandler: PropTypes.func.isRequired,
+  handlerChange: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
-} 
+};

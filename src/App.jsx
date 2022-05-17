@@ -1,22 +1,28 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import NotFound from "./pages/NotFound";
-import Home from "./pages/Home";
+import InicioSesion from "./paginas/InicioSesion";
+import Registrarse from "./paginas/Registrarse";
+import NoEncontrado from "./paginas/NoEncontrado";
+import Escenarios from "./paginas/Escenarios";
+import ModificarEscenario from "./paginas/ModificarEscenario";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<InicioSesion />} />
 
-        <Route path="/login" element={<Login />} />
+        <Route path="/iniciar-sesion" element={<InicioSesion />} />
 
-        <Route path="/register" element={<Register />} />
+        <Route path="/registrarse" element={<Registrarse />} />
 
-        <Route path="/Home" element={<Home />} />
+        <Route path="/escenarios" element={<Escenarios />} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/escenarios/modificar/1"
+          element={<ModificarEscenario />}
+        />
+
+        <Route path="*" element={<NoEncontrado />} />
       </Routes>
     </BrowserRouter>
   );

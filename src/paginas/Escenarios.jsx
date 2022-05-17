@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Header from "../components/Header";
-import Crud from "../components/Crud";
+import Header from "../componentes/Header";
+import Crud from "../componentes/Crud";
 import { Link } from "react-router-dom";
 import { BsPlusLg, BsSearch } from "react-icons/bs";
 import { Container, Row, Col, Form, InputGroup } from "react-bootstrap";
+import Footer from "../componentes/Footer";
 import "../style.css";
-//Pruebas con array local
-import getItems from "../Items.js";
-import Footer from "../components/Footer";
 
-export default function Home() {
+export default function Escenarios() {
   const [search, setSearch] = useState("");
 
   const onChangeHandler = (value) => {
@@ -54,7 +52,7 @@ export default function Home() {
             </Col>
           </Row>
 
-          <Crud items={getItems()} />
+          <Crud />
         </Container>
 
         <Footer />
@@ -63,4 +61,4 @@ export default function Home() {
   );
 }
 
-Home.propTypes = {};
+Escenarios.propTypes = {};
