@@ -10,7 +10,10 @@ import {
 } from "react-icons/bs";
 import "../style.css";
 import PropTypes from "prop-types";
-import { obtenerEscenarios } from "../servicios/escenarioServicio";
+import {
+  eliminarEscenario,
+  obtenerEscenarios,
+} from "../servicios/escenarioServicio";
 import swal from "sweetalert";
 import { Navigate } from "react-router-dom";
 
@@ -18,6 +21,7 @@ export default function CrudEscenarios(props) {
   const { filtro } = props;
   const [escenarios, setEscenarios] = useState([]);
   const [redireccion, setRedireccion] = useState(false);
+  const [borrarActivo, setBorrarActivo] = useState(true);
 
   useEffect(() => {
     obtenerEscenarios().then((resultado) => {
@@ -26,18 +30,58 @@ export default function CrudEscenarios(props) {
           setEscenarios(resultado.escenarios);
           break;
         case 401:
-          mostrarAlerta(resultado.mensaje);
+          mostrarAlertaNoAutenticado(resultado.mensaje);
           setRedireccion(true);
+          break;
+        default:
+          break;
       }
     });
   }, []);
 
-  const mostrarAlerta = (texto) => {
+  const mostrarAlertaNoAutenticado = (texto) => {
     swal({
       title: "Usuario",
       text: texto,
       icon: "error",
       buttons: "aceptar",
+    });
+  };
+
+  const mostrarAlertaEliminar = (id) => {
+    setBorrarActivo(false);
+    swal({
+      title: "Eliminar escenario",
+      text: "Si aceptas no podrás acceder más al escenario eliminado",
+      icon: "warning",
+      buttons: ["Cancelar", "aceptar"],
+      dangerMode: true,
+    }).then((Eliminar) => {
+      if (Eliminar) {
+        eliminarEscenario(id).then((resultado) => {
+          switch (resultado.status) {
+            case 200:
+              swal(resultado.mensaje, {
+                icon: "success",
+              });
+              let escenariosNuevos = [...escenarios];
+              let i = escenariosNuevos.findIndex(
+                (escenario) => escenario.id === id
+              );
+              if (i > -1) escenariosNuevos.splice(i, 1);
+              setEscenarios(escenariosNuevos);
+              break;
+            case 403:
+              swal(resultado.mensaje, {
+                icon: "error",
+              });
+              break;
+            default:
+              break;
+          }
+        });
+      }
+      setBorrarActivo(true);
     });
   };
 
@@ -61,7 +105,7 @@ export default function CrudEscenarios(props) {
           .map((escenario) => (
             <tr key={escenario.id}>
               <td>{escenario.titulo}</td>
-              <td>{escenario.fecha_creacion}</td>
+              <td>{escenario.fecha_creacion.split("T")[0]}</td>
               <td>
                 {escenario.visible ? (
                   <BsFillCheckSquareFill className="visible-icon" />
@@ -83,7 +127,14 @@ export default function CrudEscenarios(props) {
                     <BsPencil />
                   </button>
 
-                  <button className="crud-btn" id="delete-btn">
+                  <button
+                    className="crud-btn"
+                    id="delete-btn"
+                    disabled={!borrarActivo}
+                    onClick={() => {
+                      mostrarAlertaEliminar(escenario.id);
+                    }}
+                  >
                     <BsTrash />
                   </button>
                 </div>
@@ -106,7 +157,7 @@ export default function CrudEscenarios(props) {
             <hr />
             <Row>
               <Col xs={6}>
-                <span>Fecha:</span> {escenario.fecha_creacion}
+                <span>Fecha:</span> {escenario.fecha_creacion.split("T")[0]}
                 <br />
                 <br />
                 <span>Visible:</span>
@@ -131,7 +182,14 @@ export default function CrudEscenarios(props) {
                     <BsPencil />
                   </button>
 
-                  <button className="crud-btn" id="delete-btn">
+                  <button
+                    className="crud-btn"
+                    id="delete-btn"
+                    disabled={!borrarActivo}
+                    onClick={() => {
+                      mostrarAlertaEliminar(escenario.id);
+                    }}
+                  >
                     <BsTrash />
                   </button>
                 </div>

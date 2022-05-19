@@ -25,3 +25,34 @@ export const obtenerEscenario = async (id) => {
       });
   } catch (error) {}
 };
+
+export const crearEscenario = async (props) => {
+  try {
+    return await fetch(apiURL + "escenario", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(props),
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};
+
+export const eliminarEscenario = async (id) => {
+  try {
+    return await fetch(apiURL + `eliminar-escenario/${id}`, {
+      method: "PATCH",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};

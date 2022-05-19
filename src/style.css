@@ -49,8 +49,9 @@ body {
 }
 
 /* Header */
-#web-title {
+#web-title > a {
     color: white;
+    text-decoration: none;
     font-size: 28px;
 }
 
@@ -171,6 +172,11 @@ body {
     height: auto;
     width: auto;
     font-size: 18px;
+}
+
+#new-stage > svg {
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 #new-stage:hover {

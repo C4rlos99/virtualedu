@@ -12,3 +12,7 @@ export const feedBackInicioSesion = {
   correo: "Introduce un correo electrónico",
   password: "Introduce una contraseña",
 };
+
+export const feedBackEscenario = {
+  titulo: "Introduce un título para el esecenario virtual",
+};

@@ -1,16 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Header from "../componentes/Header";
-import { Link } from "react-router-dom";
 import { BsPlusLg } from "react-icons/bs";
 import { Container, Row, Col } from "react-bootstrap";
 import CrudEscenarios from "../componentes/CrudEscenarios";
 import BarraBusqueda from "../componentes/BarraBusqueda";
+import FormularioEscenario from "../componentes/FormularioEscenario";
 import Footer from "../componentes/Footer";
 import "../style.css";
 
 export default function Escenarios() {
   const [filtro, setFiltro] = useState("");
+  const [mostrarFormEscenario, setMostrarFormEscenario] = useState(false);
 
   const handleChange = (valor) => {
     setFiltro(valor);
@@ -23,10 +24,14 @@ export default function Escenarios() {
       <Container className="content">
         <Row>
           <Col sm={6}>
-            <Link to={"/"} className="crud-btn" id="new-stage">
+            <div
+              className="crud-btn"
+              id="new-stage"
+              onClick={() => setMostrarFormEscenario(true)}
+            >
               <BsPlusLg />
               Nuevo escenario
-            </Link>
+            </div>
           </Col>
           <Col sm={6}>
             <BarraBusqueda
@@ -37,6 +42,12 @@ export default function Escenarios() {
         </Row>
 
         <CrudEscenarios filtro={filtro} />
+
+        <FormularioEscenario
+          show={mostrarFormEscenario}
+          onHide={() => setMostrarFormEscenario(false)}
+          setMostrarFormEscenario={setMostrarFormEscenario}
+        />
       </Container>
 
       <Footer />
