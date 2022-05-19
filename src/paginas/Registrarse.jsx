@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import InputForm from "../componentes/InputForm";
-import { feedBackRegistro } from "../feedBack.js";
-import { regex } from "../regex.js";
+import { feedBackRegistro } from "../constantes/feedBack.js";
+import { regex } from "../constantes/regex.js";
 import swal from "sweetalert";
-import { registarUsuario } from "../servicios/usuarioService";
+import { registarUsuario } from "../servicios/usuarioServicio";
 
 export default function Registrarse() {
   const [nombre, setNombre] = useState("");
@@ -13,19 +13,16 @@ export default function Registrarse() {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-
   const [nombreFeedBack, setNombreFeedBack] = useState("");
   const [apellidosFeedBack, setApellidosFeedBack] = useState("");
   const [correoFeedBack, setCorreoFeedBack] = useState("");
   const [passwordFeedBack, setPasswordFeedBack] = useState("");
   const [rePasswordFeedBack, setRePasswordFeedBack] = useState("");
-
   const [activo, setActivo] = useState(true);
   const [redireccion, setRedireccion] = useState(false);
-
   const regexRePassword = new RegExp(password);
 
-  const mostrarAlerta = (texto, icono, status) => {
+  const mostrarAlerta = (texto, icono) => {
     console.log(texto);
     swal({
       title: "Registro",
@@ -35,7 +32,7 @@ export default function Registrarse() {
     });
   };
 
-  const handlerSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -56,14 +53,14 @@ export default function Registrarse() {
       }).then((resultado) => {
         switch (resultado.status) {
           case 200:
-            mostrarAlerta(resultado.mensaje, "success", resultado.status);
+            mostrarAlerta(resultado.mensaje, "success");
             setRedireccion(true);
             break;
           case 422:
             if (resultado.errores.correo)
               setCorreoFeedBack(resultado.errores.correo[0]);
             else {
-              mostrarAlerta(resultado.mensaje, "error", resultado.status);
+              mostrarAlerta(resultado.mensaje, "error");
             }
             break;
           default:
@@ -93,7 +90,7 @@ export default function Registrarse() {
     return patron.test(valor.trim());
   };
 
-  const handlerChange = (
+  const handleChange = (
     valor,
     setEstadoCampo,
     setEstadoFeedBack,
@@ -123,7 +120,7 @@ export default function Registrarse() {
       <div className="border rounded-3 p-4">
         <h2>Crear cuenta</h2>
         <hr></hr>
-        <Form onSubmit={handlerSubmit}>
+        <Form onSubmit={handleSubmit}>
           <Row xs={1} md={2}>
             <Col md={5}>
               <InputForm
@@ -134,8 +131,8 @@ export default function Registrarse() {
                 feedBack={nombreFeedBack}
                 type={"text"}
                 name={"nombre"}
-                handlerChange={(nombre) =>
-                  handlerChange(
+                handleChange={(nombre) =>
+                  handleChange(
                     nombre,
                     setNombre,
                     setNombreFeedBack,
@@ -155,8 +152,8 @@ export default function Registrarse() {
                 feedBack={apellidosFeedBack}
                 type={"text"}
                 name={"apellido"}
-                handlerChange={(apellido) =>
-                  handlerChange(
+                handleChange={(apellido) =>
+                  handleChange(
                     apellido,
                     setApellidos,
                     setApellidosFeedBack,
@@ -176,8 +173,8 @@ export default function Registrarse() {
                 feedBack={correoFeedBack}
                 type={"email"}
                 name={"correo"}
-                handlerChange={(correo) =>
-                  handlerChange(
+                handleChange={(correo) =>
+                  handleChange(
                     correo,
                     setCorreo,
                     setCorreoFeedBack,
@@ -197,8 +194,8 @@ export default function Registrarse() {
                 feedBack={passwordFeedBack}
                 type={"password"}
                 name={"password"}
-                handlerChange={(password) =>
-                  handlerChange(
+                handleChange={(password) =>
+                  handleChange(
                     password,
                     setPassword,
                     setPasswordFeedBack,
@@ -218,8 +215,8 @@ export default function Registrarse() {
                 feedBack={rePasswordFeedBack}
                 type={"password"}
                 name={"rePassword"}
-                handlerChange={(rePassword) =>
-                  handlerChange(
+                handleChange={(rePassword) =>
+                  handleChange(
                     rePassword,
                     setRePassword,
                     setRePasswordFeedBack,

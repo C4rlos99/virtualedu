@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { BsInfoCircle } from "react-icons/bs";
-import { feedBackInicioSesion } from "../feedBack.js";
-import { iniciarSesion } from "../servicios/usuarioService";
+import { feedBackInicioSesion } from "../constantes/feedBack.js";
+import {
+  iniciarSesion,
+  obtenerUsuarioAutenticado,
+} from "../servicios/usuarioServicio";
 import { Link, Navigate } from "react-router-dom";
 import InputForm from "../componentes/InputForm";
+import { UsuarioContext } from "../context/UsuarioContext.js";
 import "../style.css";
+import swal from "sweetalert";
 
 export default function InicioSesion() {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
-
   const [correoFeedBack, setCorreoFeedBack] = useState("");
   const [passwordFeedBack, setPasswordFeedBack] = useState("");
-
   const [activo, setActivo] = useState(true);
   const [redireccion, setRedireccion] = useState(false);
   const [credencialesFeedback, setCredencialesFeedback] = useState("");
+  const { setUsuario } = useContext(UsuarioContext);
 
-  const handlerSubmit = (e) => {
+  const mostrarAlerta = (texto) => {
+    swal({
+      title: "Usuario",
+      text: texto,
+      icon: "error",
+      buttons: "aceptar",
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (correo && password) {
@@ -30,15 +43,32 @@ export default function InicioSesion() {
       }).then((resultado) => {
         switch (resultado.status) {
           case 200:
-            setRedireccion(true);
+            obtenerUsuarioAutenticado().then((resultado) => {
+              switch (resultado.status) {
+                case 200:
+                  setUsuario(resultado.usuario);
+                  localStorage.setItem(
+                    "usuario",
+                    JSON.stringify(resultado.usuario)
+                  );
+                  setRedireccion(true);
+                  break;
+                case 401:
+                  mostrarAlerta(resultado.mensaje);
+                  break;
+                default:
+                  break;
+              }
+              setActivo(true);
+            });
             break;
           case 401:
             setCredencialesFeedback(resultado.mensaje);
+            setActivo(true);
             break;
           default:
             break;
         }
-        setActivo(true);
       });
     } else {
       if (!correo) setCorreoFeedBack(feedBackInicioSesion.correo);
@@ -47,12 +77,7 @@ export default function InicioSesion() {
     }
   };
 
-  const handlerChange = (
-    valor,
-    setEstadoCampo,
-    setEstadoFeedBack,
-    feedBack
-  ) => {
+  const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
     if (valor) feedBack = "";
 
     setEstadoCampo(valor);
@@ -84,7 +109,7 @@ export default function InicioSesion() {
           </div>
         )}
 
-        <Form onSubmit={handlerSubmit}>
+        <Form onSubmit={handleSubmit}>
           <InputForm
             controlId={"correo"}
             label={"Correo electrónico"}
@@ -93,8 +118,8 @@ export default function InicioSesion() {
             feedBack={correoFeedBack}
             type={"email"}
             name={"correo"}
-            handlerChange={(correo) =>
-              handlerChange(
+            handleChange={(correo) =>
+              handleChange(
                 correo,
                 setCorreo,
                 setCorreoFeedBack,
@@ -111,8 +136,8 @@ export default function InicioSesion() {
             feedBack={passwordFeedBack}
             type={"password"}
             name={"password"}
-            handlerChange={(password) =>
-              handlerChange(
+            handleChange={(password) =>
+              handleChange(
                 password,
                 setPassword,
                 setPasswordFeedBack,

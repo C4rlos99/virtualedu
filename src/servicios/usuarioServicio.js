@@ -35,6 +35,28 @@ export const iniciarSesion = async (props) => {
   } catch (error) {}
 };
 
-export const cerrarSesion = async () => {};
+export const cerrarSesion = async () => {
+  try {
+    return await fetch(apiURL + "cerrar-sesion", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};
 
-export const obtenerUsuarioAutenticado = async () => {};
+export const obtenerUsuarioAutenticado = async () => {
+  try {
+    return await fetch(apiURL + "usuario", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};

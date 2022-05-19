@@ -12,7 +12,7 @@ export default function InputForm(props) {
     feedBack,
     type,
     name,
-    handlerChange,
+    handleChange,
   } = props;
   return (
     <Form.Group className="mb-3" controlId={controlId}>
@@ -22,7 +22,7 @@ export default function InputForm(props) {
         value={value}
         type={type}
         name={name}
-        onChange={(e) => handlerChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
       />
       <p className="error-msg">{feedBack}</p>
     </Form.Group>
@@ -36,6 +36,6 @@ InputForm.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  handlerChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   errorMsg: PropTypes.string,
 };
