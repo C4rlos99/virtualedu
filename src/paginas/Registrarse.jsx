@@ -124,13 +124,13 @@ export default function Registrarse() {
           <Row xs={1} md={2}>
             <Col md={5}>
               <InputForm
-                controlId={"nombre"}
-                label={"Nombre"}
-                placeholder={"Nombre"}
+                controlId="nombre"
+                label="Nombre"
+                placeholder="Nombre"
                 value={nombre}
                 feedBack={nombreFeedBack}
-                type={"text"}
-                name={"nombre"}
+                type="text"
+                name="nombre"
                 handleChange={(nombre) =>
                   handleChange(
                     nombre,
@@ -145,13 +145,13 @@ export default function Registrarse() {
 
             <Col md={7}>
               <InputForm
-                controlId={"apelliodos"}
-                label={"Apellidos"}
-                placeholder={"Apellidos"}
+                controlId="apelliodos"
+                label="Apellidos"
+                placeholder="Apellidos"
                 value={apellidos}
                 feedBack={apellidosFeedBack}
-                type={"text"}
-                name={"apellido"}
+                type="text"
+                name="apellido"
                 handleChange={(apellido) =>
                   handleChange(
                     apellido,
@@ -166,13 +166,13 @@ export default function Registrarse() {
 
             <Col md={12}>
               <InputForm
-                controlId={"correo"}
-                label={"Correo electrónico"}
-                placeholder={"correo@example.com"}
+                controlId="correo"
+                label="Correo electrónico"
+                placeholder="correo@example.com"
                 value={correo}
                 feedBack={correoFeedBack}
-                type={"email"}
-                name={"correo"}
+                type="email"
+                name="correo"
                 handleChange={(correo) =>
                   handleChange(
                     correo,
@@ -187,13 +187,13 @@ export default function Registrarse() {
 
             <Col>
               <InputForm
-                controlId={"password"}
-                label={"Contraseña"}
-                placeholder={"Contraseña"}
+                controlId="password"
+                label="Contraseña"
+                placeholder="Contraseña"
                 value={password}
                 feedBack={passwordFeedBack}
-                type={"password"}
-                name={"password"}
+                type="password"
+                name="password"
                 handleChange={(password) =>
                   handleChange(
                     password,
@@ -208,13 +208,13 @@ export default function Registrarse() {
 
             <Col>
               <InputForm
-                controlId={"rePassword"}
-                label={"Repita la contraseña"}
-                placeholder={"Repita la contraseña"}
+                controlId="rePassword"
+                label="Repita la contraseña"
+                placeholder="Repita la contraseña"
                 value={rePassword}
                 feedBack={rePasswordFeedBack}
-                type={"password"}
-                name={"rePassword"}
+                type="password"
+                name="rePassword"
                 handleChange={(rePassword) =>
                   handleChange(
                     rePassword,

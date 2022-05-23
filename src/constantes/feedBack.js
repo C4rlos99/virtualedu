@@ -16,3 +16,10 @@ export const feedBackInicioSesion = {
 export const feedBackEscenario = {
   titulo: "Introduce un título para el esecenario virtual",
 };
+
+export const feedBackEscena = {
+  urlVideo: "Introduce un enlace al vídeo 360º de la escena",
+  urlVideoApoyo: "Introduce un enlace al vídeo 360º de apoyo de la escena",
+  urlVideoRefuerzo:
+    "Introduce un enlace al vídeo 360º de refuerzo de la escena",
+};

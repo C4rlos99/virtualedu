@@ -15,7 +15,7 @@ export const obtenerEscenarios = async () => {
 
 export const obtenerEscenario = async (id) => {
   try {
-    return await fetch(apiURL + `escenarios/${id}`, {
+    return await fetch(apiURL + `escenario/${id}`, {
       method: "GET",
       credentials: "include",
     })
@@ -30,6 +30,24 @@ export const crearEscenario = async (props) => {
   try {
     return await fetch(apiURL + "escenario", {
       method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(props),
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};
+
+export const modificarEscenario = async (props) => {
+  try {
+    return await fetch(apiURL + `escenario/${props.id}`, {
+      method: "PATCH",
       credentials: "include",
       headers: {
         Accept: "application/json",

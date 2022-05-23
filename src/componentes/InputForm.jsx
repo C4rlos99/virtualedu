@@ -13,11 +13,13 @@ export default function InputForm(props) {
     type,
     name,
     handleChange,
+    activo = true,
   } = props;
   return (
     <Form.Group className="mb-3" controlId={controlId}>
       <Form.Label>{label}</Form.Label>
       <Form.Control
+        disabled={!activo}
         placeholder={placeholder}
         value={value}
         type={type}

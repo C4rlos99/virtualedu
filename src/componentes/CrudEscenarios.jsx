@@ -3,25 +3,22 @@ import { Table, Row, Col } from "react-bootstrap";
 import {
   BsFillCheckSquareFill,
   BsFillXSquareFill,
-  BsTrash,
   BsEye,
   BsPencil,
   BsListCheck,
 } from "react-icons/bs";
 import "../style.css";
 import PropTypes from "prop-types";
-import {
-  eliminarEscenario,
-  obtenerEscenarios,
-} from "../servicios/escenarioServicio";
+import { obtenerEscenarios } from "../servicios/escenarioServicio";
 import swal from "sweetalert";
 import { Navigate } from "react-router-dom";
+import BotonEliminarEscenario from "./BotonEliminarEscenario";
+import BotonModificarEscenario from "./BotonModificarEscenario";
 
 export default function CrudEscenarios(props) {
   const { filtro } = props;
-  const [escenarios, setEscenarios] = useState([]);
   const [redireccion, setRedireccion] = useState(false);
-  const [borrarActivo, setBorrarActivo] = useState(true);
+  const [escenarios, setEscenarios] = useState([]);
 
   useEffect(() => {
     obtenerEscenarios().then((resultado) => {
@@ -45,43 +42,6 @@ export default function CrudEscenarios(props) {
       text: texto,
       icon: "error",
       buttons: "aceptar",
-    });
-  };
-
-  const mostrarAlertaEliminar = (id) => {
-    setBorrarActivo(false);
-    swal({
-      title: "Eliminar escenario",
-      text: "Si aceptas no podrás acceder más al escenario eliminado",
-      icon: "warning",
-      buttons: ["Cancelar", "aceptar"],
-      dangerMode: true,
-    }).then((Eliminar) => {
-      if (Eliminar) {
-        eliminarEscenario(id).then((resultado) => {
-          switch (resultado.status) {
-            case 200:
-              swal(resultado.mensaje, {
-                icon: "success",
-              });
-              let escenariosNuevos = [...escenarios];
-              let i = escenariosNuevos.findIndex(
-                (escenario) => escenario.id === id
-              );
-              if (i > -1) escenariosNuevos.splice(i, 1);
-              setEscenarios(escenariosNuevos);
-              break;
-            case 403:
-              swal(resultado.mensaje, {
-                icon: "error",
-              });
-              break;
-            default:
-              break;
-          }
-        });
-      }
-      setBorrarActivo(true);
     });
   };
 
@@ -123,20 +83,13 @@ export default function CrudEscenarios(props) {
                     <BsEye />
                   </button>
 
-                  <button className="crud-btn" id="mod-btn">
-                    <BsPencil />
-                  </button>
+                  <BotonModificarEscenario escenarioId={escenario.id} />
 
-                  <button
-                    className="crud-btn"
-                    id="delete-btn"
-                    disabled={!borrarActivo}
-                    onClick={() => {
-                      mostrarAlertaEliminar(escenario.id);
-                    }}
-                  >
-                    <BsTrash />
-                  </button>
+                  <BotonEliminarEscenario
+                    escenario={escenario}
+                    escenarios={escenarios}
+                    setEscenarios={setEscenarios}
+                  />
                 </div>
               </td>
             </tr>
@@ -178,20 +131,13 @@ export default function CrudEscenarios(props) {
                   </button>
                 </div>
                 <div className="d-flex justify-content-end">
-                  <button className="crud-btn" id="mod-btn">
-                    <BsPencil />
-                  </button>
+                  <BotonModificarEscenario escenarioId={escenario.id} />
 
-                  <button
-                    className="crud-btn"
-                    id="delete-btn"
-                    disabled={!borrarActivo}
-                    onClick={() => {
-                      mostrarAlertaEliminar(escenario.id);
-                    }}
-                  >
-                    <BsTrash />
-                  </button>
+                  <BotonEliminarEscenario
+                    escenario={escenario}
+                    escenarios={escenarios}
+                    setEscenarios={setEscenarios}
+                  />
                 </div>
               </Col>
             </Row>

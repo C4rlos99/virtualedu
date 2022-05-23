@@ -11,6 +11,7 @@ import InputForm from "../componentes/InputForm";
 import { UsuarioContext } from "../context/UsuarioContext.js";
 import "../style.css";
 import swal from "sweetalert";
+import { obtenerEscenaTipos } from "../servicios/escenaTipoServicio.js";
 
 export default function InicioSesion() {
   const [correo, setCorreo] = useState("");
@@ -51,6 +52,14 @@ export default function InicioSesion() {
                     "usuario",
                     JSON.stringify(resultado.usuario)
                   );
+
+                  obtenerEscenaTipos().then((resultado) => {
+                    if (resultado.status === 200)
+                      localStorage.setItem(
+                        "escenaTipos",
+                        JSON.stringify(resultado.escena_tipos)
+                      );
+                  });
                   setRedireccion(true);
                   break;
                 case 401:
@@ -111,13 +120,13 @@ export default function InicioSesion() {
 
         <Form onSubmit={handleSubmit}>
           <InputForm
-            controlId={"correo"}
-            label={"Correo electrónico"}
-            placeholder={"correo@example.com"}
+            controlId="correo"
+            label="Correo electrónico"
+            placeholder="correo@example.com"
             value={correo}
             feedBack={correoFeedBack}
-            type={"email"}
-            name={"correo"}
+            type="email"
+            name="correo"
             handleChange={(correo) =>
               handleChange(
                 correo,
@@ -129,13 +138,13 @@ export default function InicioSesion() {
           />
 
           <InputForm
-            controlId={"password"}
-            label={"Contraseña"}
-            placeholder={"Contraseña"}
+            controlId="password"
+            label="Contraseña"
+            placeholder="Contraseña"
             value={password}
             feedBack={passwordFeedBack}
-            type={"password"}
-            name={"password"}
+            type="password"
+            name="password"
             handleChange={(password) =>
               handleChange(
                 password,
