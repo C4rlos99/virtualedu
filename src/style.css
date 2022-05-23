@@ -410,6 +410,7 @@ body {
 #anadir-escena-contenedor{
     display: flex;
     max-width: 450px;
+    margin-top: 10px;
 }
 
 #anadir-escena-btn{
@@ -428,30 +429,51 @@ body {
 #escena{
     width: 100%;
     border: 1px solid #212529;
-    border-radius: 4px;
     padding: 5px;
-    background-color: #cefaff;
+    background-color: #edfdff;
 }
 
-#escena-respuestas{
-    padding: 10px 0px 10px 20px;
+.escena-4{
+    border-radius: 6px 6px 6px 0px;
+}
+
+.escena-1-2-3{
+    border-radius: 6px;
+}
+
+.escena-respuestas-4{
+    padding-bottom: 15px;
+}
+
+#escena-respuestas-espacio{
+    width: 100%;
+    max-width: 10px;
+    margin-right: 10px;
+}
+
+.escena-respuestas-espacio-borde{
+    border-left: 1px solid #7c7c7c;
+    border-bottom: 1px solid #7c7c7c;
+    border-bottom-left-radius: 8px;
 }
 
 /* respuesta */
 #respuesta{
     width: 100%;
     border: 1px solid #212529;
-    border-radius: 4px;
+    border-radius: 6px;
     padding: 5px;
     background-color: #efefef;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 #respuesta-escena{
-    padding: 10px 0px 10px 20px;
+    padding: 0px;
 }
 
 #anadir-respuesta-contenedor{
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 /* .dropbtn {

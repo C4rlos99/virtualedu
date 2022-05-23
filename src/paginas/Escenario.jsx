@@ -174,7 +174,6 @@ export default function Escenario() {
           </Form>
         </div>
         <br />
-        <br />
         <h3>Escenas</h3>
         <br />
 
