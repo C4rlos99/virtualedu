@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import swal from "sweetalert";
 import InputForm from "../componentes/InputForm";
 import { feedBackEscena } from "../constantes/feedBack.js";
+import { crearEscena } from "../servicios/escenaServicio";
 
-export default function FormularioEscena3(props) {
+export default function FormularioEscena2(props) {
   const {
     show,
     onHide,
     setMostrarFormEscena,
     activo,
-    EscenaTipoId,
+    setEscena,
+    escenaTipoId,
     respuestaId,
-    EscenarioId,
+    escenarioId,
   } = props;
-  const [video, setVideo] = useState("");
-  const [videoApoyo, setVideoApoyo] = useState("");
-  const [videoRefuerzo, setVideoRefuerzo] = useState("");
-  const [videoFeedBack, setVideoFeedBack] = useState("");
-  const [videoApoyoFeedBack, setVideoApoyoFeedBack] = useState("");
-  const [videoRefuerzoFeedBack, setVideoRefuerzoFeedBack] = useState("");
+  const [urlVideo, setUrlVideo] = useState("");
+  const [urlVideoApoyo, setUrlVideoApoyo] = useState("");
+  const [urlVideoRefuerzo, setUrlVideoRefuerzo] = useState("");
+  const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
+  const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
+  const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
+  const [submitActivo, setSubmitActivo] = useState(true);
 
   const handleClose = () => setMostrarFormEscena(false);
 
@@ -27,6 +31,54 @@ export default function FormularioEscena3(props) {
 
     setEstadoCampo(valor);
     setEstadoFeedBack(feedBack);
+  };
+
+  const mostrarAlerta = (texto, icono) => {
+    swal({
+      title: "Escena",
+      text: texto,
+      icon: icono,
+      buttons: "aceptar",
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (urlVideo && urlVideoApoyo && urlVideoRefuerzo) {
+      setSubmitActivo(false);
+
+      crearEscena({
+        escenario_id: escenarioId,
+        escena_tipo_id: escenaTipoId,
+        respuesta_id: respuestaId,
+        url_video: urlVideo,
+        url_video_apoyo: urlVideoApoyo,
+        url_video_refuerzo: urlVideoRefuerzo,
+      }).then((resultado) => {
+        switch (resultado.status) {
+          case 200:
+            mostrarAlerta(resultado.mensaje, "success");
+            setEscena(resultado.escena);
+            break;
+          case 422:
+            mostrarAlerta(resultado.mensaje, "error");
+            break;
+          case 403:
+            mostrarAlerta(resultado.mensaje, "error");
+            break;
+          default:
+            break;
+        }
+      });
+      setSubmitActivo(true);
+    } else {
+      if (!urlVideo) setUrlVideoFeedBack(feedBackEscena.urlVideo);
+      if (!urlVideoApoyo)
+        setUrlVideoApoyoFeedBack(feedBackEscena.urlVideoApoyo);
+      if (!urlVideoRefuerzo)
+        setUrlVideoRefuerzoFeedBack(feedBackEscena.urlVideoRefuerzo);
+    }
   };
 
   return (
@@ -38,55 +90,57 @@ export default function FormularioEscena3(props) {
         <Form>
           <InputForm
             activo={activo}
-            controlId="video"
+            controlId="url-video"
             label="Vídeo de la escena"
-            placeholder="https://www.youtube.com/watch?v=..."
-            value={video}
-            feedBack={videoFeedBack}
+            placeHolder="https://www.youtube.com/watch?v=..."
+            value={urlVideo}
+            feedBack={urlVideoFeedBack}
             type="text"
-            name="video"
-            handleChange={(video) =>
+            name="url-video"
+            handleChange={(urlVideo) =>
               handleChange(
-                video,
-                setVideo,
-                setVideoFeedBack,
-                feedBackEscena.video
+                urlVideo,
+                setUrlVideo,
+                setUrlVideoFeedBack,
+                feedBackEscena.urlVideo
               )
             }
           />
+
           <InputForm
             activo={activo}
-            controlId="video-apoyo"
+            controlId="url-video-apoyo"
             label="Vídeo de apoyo de la escena"
-            placeholder="https://www.youtube.com/watch?v=..."
-            value={videoApoyo}
-            feedBack={videoApoyoFeedBack}
+            placeHolder="https://www.youtube.com/watch?v=..."
+            value={urlVideoApoyo}
+            feedBack={urlVideoApoyoFeedBack}
             type="text"
-            name="video-apoyo"
-            handleChange={(videoApoyo) =>
+            name="url-video-apoyo"
+            handleChange={(urlVideoApoyo) =>
               handleChange(
-                videoApoyo,
-                setVideoApoyo,
-                setVideoApoyoFeedBack,
-                feedBackEscena.videoApoyo
+                urlVideoApoyo,
+                setUrlVideoApoyo,
+                setUrlVideoApoyoFeedBack,
+                feedBackEscena.urlVideoApoyo
               )
             }
           />
+
           <InputForm
             activo={activo}
-            controlId="video-refuerzo"
+            controlId="url-video-refuerzo"
             label="Vídeo de refuerzo de la escena"
-            placeholder="https://www.youtube.com/watch?v=..."
-            value={videoRefuerzo}
-            feedBack={videoRefuerzoFeedBack}
+            placeHolder="https://www.youtube.com/watch?v=..."
+            value={urlVideoRefuerzo}
+            feedBack={urlVideoRefuerzoFeedBack}
             type="text"
-            name="video-refuerzo"
-            handleChange={(videoRefuerzo) =>
+            name="url-video-refuerzo"
+            handleChange={(urlVideoRefuerzo) =>
               handleChange(
-                videoRefuerzo,
-                setVideoRefuerzo,
-                setVideoRefuerzoFeedBack,
-                feedBackEscena.videoRefuerzo
+                urlVideoRefuerzo,
+                setUrlVideoRefuerzo,
+                setUrlVideoRefuerzoFeedBack,
+                feedBackEscena.urlVideoRefuerzo
               )
             }
           />
@@ -101,10 +155,11 @@ export default function FormularioEscena3(props) {
             </Button>
 
             <Button
-              id="modal-aceptar"
+              disabled={!submitActivo}
+              id="modal-guardar"
               variant="primary"
               type="submit"
-              onClick={handleClose}
+              onClick={(e) => handleSubmit(e)}
             >
               Guardar
             </Button>

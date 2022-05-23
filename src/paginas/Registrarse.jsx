@@ -126,7 +126,7 @@ export default function Registrarse() {
               <InputForm
                 controlId="nombre"
                 label="Nombre"
-                placeholder="Nombre"
+                placeHolder="Nombre"
                 value={nombre}
                 feedBack={nombreFeedBack}
                 type="text"
@@ -147,7 +147,7 @@ export default function Registrarse() {
               <InputForm
                 controlId="apelliodos"
                 label="Apellidos"
-                placeholder="Apellidos"
+                placeHolder="Apellidos"
                 value={apellidos}
                 feedBack={apellidosFeedBack}
                 type="text"
@@ -168,7 +168,7 @@ export default function Registrarse() {
               <InputForm
                 controlId="correo"
                 label="Correo electrónico"
-                placeholder="correo@example.com"
+                placeHolder="correo@example.com"
                 value={correo}
                 feedBack={correoFeedBack}
                 type="email"
@@ -189,7 +189,7 @@ export default function Registrarse() {
               <InputForm
                 controlId="password"
                 label="Contraseña"
-                placeholder="Contraseña"
+                placeHolder="Contraseña"
                 value={password}
                 feedBack={passwordFeedBack}
                 type="password"
@@ -210,7 +210,7 @@ export default function Registrarse() {
               <InputForm
                 controlId="rePassword"
                 label="Repita la contraseña"
-                placeholder="Repita la contraseña"
+                placeHolder="Repita la contraseña"
                 value={rePassword}
                 feedBack={rePasswordFeedBack}
                 type="password"

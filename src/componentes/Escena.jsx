@@ -1,25 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AnadirEscena from "./AnadirEscena";
 import Respuesta from "./Respuesta";
 
-// const escenaSwitch = ()
-
 export default function Escena(props) {
-  const { respuestaId = null, escenarioId } = props;
-  const [escenaDatos, setEscenaDatos] = useState(props.escena);
+  const { respuestaId = null, escenarioId, escena = null } = props;
+  const [escenaDatos, setEscenaDatos] = useState(null);
+
+  useEffect(() => {
+    setEscenaDatos(escena);
+  }, [escena]);
 
   return escenaDatos ? (
     <>
-      <div id="escena">{escenaDatos.id}</div>
-      <div id="respuestas">
-        {escenaDatos.respuestas ? (
-          escenaDatos.respuestas.map((respuesta) => {
-            <Respuesta respuesta={respuesta} />;
-          })
+      <div id="escena">
+        <b>Escena {escenaDatos.id}</b>
+      </div>
+      <div id="escena-respuestas">
+        {escenaDatos.respuestas.length !== 0 ? (
+          <>
+            {escenaDatos.respuestas.map((respuesta) => {
+              return (
+                <Respuesta
+                  key={respuesta.id}
+                  inicial={true}
+                  respuesta={respuesta}
+                  escenaId={escenaDatos.id}
+                  escenaTipoId={escenaDatos.escena_tipo_id}
+                  escenarioId={escenarioId}
+                />
+              );
+            })}
+            {escenaDatos.escena_tipo_id === 4 && (
+              <Respuesta
+                escenaId={escenaDatos.id}
+                escenaTipoId={escenaDatos.escena_tipo_id}
+                escenarioId={escenarioId}
+              />
+            )}
+          </>
         ) : (
-          <Respuesta escenaId={escenaDatos.id} />
+          <Respuesta
+            escenaId={escenaDatos.id}
+            escenaTipoId={escenaDatos.escena_tipo_id}
+            escenarioId={escenarioId}
+          />
         )}
-        {escenaDatos.tipo === 4 && <Respuesta escenaId={escenaDatos.id} />}
       </div>
     </>
   ) : (

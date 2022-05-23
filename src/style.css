@@ -409,18 +409,49 @@ body {
 
 #anadir-escena-contenedor{
     display: flex;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 #anadir-escena-btn{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     margin-right: -1px;
+    width: 170px;
 }
 
 #anadir-escena-selector{
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+}
+
+/* Escena */
+#escena{
+    width: 100%;
+    border: 1px solid #212529;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #cefaff;
+}
+
+#escena-respuestas{
+    padding: 10px 0px 10px 20px;
+}
+
+/* respuesta */
+#respuesta{
+    width: 100%;
+    border: 1px solid #212529;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #efefef;
+}
+
+#respuesta-escena{
+    padding: 10px 0px 10px 20px;
+}
+
+#anadir-respuesta-contenedor{
+    margin-bottom: 10px;
 }
 
 /* .dropbtn {

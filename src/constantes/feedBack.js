@@ -23,3 +23,8 @@ export const feedBackEscena = {
   urlVideoRefuerzo:
     "Introduce un enlace al vídeo 360º de refuerzo de la escena",
 };
+
+export const feedBackRespuesta = {
+  valores:
+    "Escriba las palabras claves o frases que tendrá que contener la interacción oral (separar mediante coma)",
+};

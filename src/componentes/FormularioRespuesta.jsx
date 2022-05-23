@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import swal from "sweetalert";
-import InputForm from "../componentes/InputForm";
-import { feedBackEscena } from "../constantes/feedBack.js";
-import { crearEscena } from "../servicios/escenaServicio.js";
+import TextAreaForm from "./TextAreaForm.jsx";
+import { feedBackRespuesta } from "../constantes/feedBack.js";
+import { crearRespuesta } from "../servicios/respuestaServicio.js";
 
-export default function FormularioEscenaBasico(props) {
+export default function FormularioRespuesta(props) {
   const {
     show,
     onHide,
-    setMostrarFormEscena,
+    setMostrarFormRespuesta,
     activo,
-    setEscena,
-    escenaTipoId,
-    respuestaId,
-    escenarioId,
+    setRespuesta,
+    escenaId,
   } = props;
-  const [urlVideo, setUrlVideo] = useState("");
-  const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
+  const [valores, setValores] = useState("");
+  const [valoresFeedBack, setValoresFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
 
-  const handleClose = () => setMostrarFormEscena(false);
+  const handleClose = () => setMostrarFormRespuesta(false);
 
   const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
     if (valor) feedBack = "";
@@ -31,7 +29,7 @@ export default function FormularioEscenaBasico(props) {
 
   const mostrarAlerta = (texto, icono) => {
     swal({
-      title: "Escena",
+      title: "Respuesta",
       text: texto,
       icon: icono,
       buttons: "aceptar",
@@ -41,19 +39,17 @@ export default function FormularioEscenaBasico(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (urlVideo) {
+    if (valores) {
       setSubmitActivo(false);
 
-      crearEscena({
-        escenario_id: escenarioId,
-        escena_tipo_id: escenaTipoId,
-        respuesta_id: respuestaId,
-        url_video: urlVideo,
+      crearRespuesta({
+        escena_id: escenaId,
+        valores: valores,
       }).then((resultado) => {
         switch (resultado.status) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
-            setEscena(resultado.escena);
+            setRespuesta(resultado.respuesta);
             break;
           case 422:
             mostrarAlerta(resultado.mensaje, "error");
@@ -66,7 +62,7 @@ export default function FormularioEscenaBasico(props) {
         }
       });
       setSubmitActivo(true);
-    } else setUrlVideoFeedBack(feedBackEscena.urlVideo);
+    } else setValoresFeedBack(feedBackRespuesta.valores);
   };
 
   return (
@@ -76,21 +72,20 @@ export default function FormularioEscenaBasico(props) {
           Escena
         </h4>
         <Form>
-          <InputForm
+          <TextAreaForm
             activo={activo}
-            controlId="url-video"
-            label="Vídeo de la escena"
-            placeHolder="https://www.youtube.com/watch?v=..."
-            value={urlVideo}
-            feedBack={urlVideoFeedBack}
-            type="text"
-            name="url-video"
-            handleChange={(urlVideo) =>
+            controlId="valores"
+            label="Palabras claves o frases que tendrá que contener la interacción oral (separar mediante coma)"
+            placeHolder="Palabra1, Palabra2, frase1, frase2..."
+            value={valores}
+            feedBack={valoresFeedBack}
+            name="valores"
+            handleChange={(valores) =>
               handleChange(
-                urlVideo,
-                setUrlVideo,
-                setUrlVideoFeedBack,
-                feedBackEscena.urlVideo
+                valores,
+                setValores,
+                setValoresFeedBack,
+                feedBackRespuesta.valores
               )
             }
           />

@@ -134,7 +134,7 @@ export default function Escenario() {
                 <InputForm
                   controlId="titulo-escenario"
                   label="Titulo del escenario virtual"
-                  placeholder="Título del escenario virtual"
+                  placeHolder="Título del escenario virtual"
                   value={titulo}
                   feedBack={tituloFeedBack}
                   type="text"

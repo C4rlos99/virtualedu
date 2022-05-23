@@ -63,7 +63,7 @@ export default function AnadirEscena(props) {
         disabled={selectorValor === "0"}
         onClick={() => setMostrarFormEscena(true)}
       >
-        Añadir
+        Añadir escena
       </Button>
       <FormSelect
         id="anadir-escena-selector"
@@ -79,6 +79,7 @@ export default function AnadirEscena(props) {
           </option>
         ))}
       </FormSelect>
+
       {escenaSwitch(parseInt(selectorValor))}
     </div>
   );

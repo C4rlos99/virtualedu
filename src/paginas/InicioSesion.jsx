@@ -122,7 +122,7 @@ export default function InicioSesion() {
           <InputForm
             controlId="correo"
             label="Correo electrónico"
-            placeholder="correo@example.com"
+            placeHolder="correo@example.com"
             value={correo}
             feedBack={correoFeedBack}
             type="email"
@@ -140,7 +140,7 @@ export default function InicioSesion() {
           <InputForm
             controlId="password"
             label="Contraseña"
-            placeholder="Contraseña"
+            placeHolder="Contraseña"
             value={password}
             feedBack={passwordFeedBack}
             type="password"

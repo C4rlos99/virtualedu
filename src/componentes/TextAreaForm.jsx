@@ -3,41 +3,32 @@ import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import "../style.css";
 
-export default function InputForm(props) {
+export default function TextAreaForm(props) {
   const {
     controlId,
     label,
     placeHolder,
     value,
     feedBack,
-    type,
     name,
     handleChange,
     activo = true,
   } = props;
   return (
-    <Form.Group className="mb-3" controlId={controlId}>
+    <Form.Group controlId={controlId}>
       <Form.Label>{label}</Form.Label>
       <Form.Control
         disabled={!activo}
         placeholder={placeHolder}
+        as="textarea"
+        rows={3}
         value={value}
-        type={type}
         name={name}
         onChange={(e) => handleChange(e.target.value)}
       />
-      <p className="error-msg">{feedBack}</p>
+      {<p className="error-msg">{feedBack}</p>}
     </Form.Group>
   );
 }
 
-InputForm.propTypes = {
-  controlId: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  placeHolder: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
-  errorMsg: PropTypes.string,
-};
+TextAreaForm.propTypes = {};
