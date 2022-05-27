@@ -30,3 +30,16 @@ export const crearEscena = async (props) => {
       });
   } catch (error) {}
 };
+
+export const eliminarEscena = async (id) => {
+  try {
+    return await fetch(apiURL + `escena/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};

@@ -11,7 +11,7 @@ export default function FormularioRespuesta(props) {
     onHide,
     setMostrarFormRespuesta,
     activo,
-    setRespuesta,
+    handleAnadirRespuesta,
     escenaId,
   } = props;
   const [valores, setValores] = useState("");
@@ -49,7 +49,7 @@ export default function FormularioRespuesta(props) {
         switch (resultado.status) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
-            setRespuesta(resultado.respuesta);
+            handleAnadirRespuesta(resultado.respuesta);
             break;
           case 422:
             mostrarAlerta(resultado.mensaje, "error");
@@ -60,6 +60,9 @@ export default function FormularioRespuesta(props) {
           default:
             break;
         }
+        handleClose();
+        setValores("");
+        setValoresFeedBack("");
       });
       setSubmitActivo(true);
     } else setValoresFeedBack(feedBackRespuesta.valores);

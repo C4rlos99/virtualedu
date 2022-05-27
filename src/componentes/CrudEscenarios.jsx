@@ -45,6 +45,14 @@ export default function CrudEscenarios(props) {
     });
   };
 
+  const handleEliminarEscenario = (id) => {
+    let escenariosNuevos = [...escenarios];
+    let i = escenariosNuevos.findIndex((escenario) => escenario.id === id);
+
+    if (i > -1) escenariosNuevos.splice(i, 1);
+    setEscenarios(escenariosNuevos);
+  };
+
   return redireccion ? (
     <Navigate to="/iniciar-sesion" replace />
   ) : window.innerWidth >= 768 ? (
@@ -86,9 +94,8 @@ export default function CrudEscenarios(props) {
                   <BotonModificarEscenario escenarioId={escenario.id} />
 
                   <BotonEliminarEscenario
-                    escenario={escenario}
-                    escenarios={escenarios}
-                    setEscenarios={setEscenarios}
+                    handleEliminarEscenario={handleEliminarEscenario}
+                    escenarioId={escenario.id}
                   />
                 </div>
               </td>

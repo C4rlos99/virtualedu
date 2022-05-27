@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import swal from "sweetalert";
-import { eliminarEscenario } from "../servicios/escenarioServicio";
+import { eliminarRespuesta } from "../servicios/respuestaServicio";
 import "../style.css";
 
-export default function BotonEliminarEscenario(props) {
-  const { handleEliminarEscenario, escenarioId } = props;
+export default function BotonEliminarRespuesta(props) {
+  const { respuestaId, handleEliminarRespuesta } = props;
   const [activo, setActivo] = useState(true);
 
   const mostrarAlertaEliminar = () => {
     setActivo(false);
     swal({
-      title: "Eliminar escenario",
-      text: "Si aceptas no podrás acceder más al escenario eliminado",
+      title: "Eliminar respuesta",
+      text: "Si aceptas se eliminará la respuesta y todas sus respuestas y escenas descendientes.",
       icon: "warning",
       buttons: ["Cancelar", "aceptar"],
       dangerMode: true,
     }).then((Eliminar) => {
       if (Eliminar) {
-        eliminarEscenario(escenarioId).then((resultado) => {
+        eliminarRespuesta(respuestaId).then((resultado) => {
           switch (resultado.status) {
             case 200:
               swal(resultado.mensaje, {
                 icon: "success",
               });
-              handleEliminarEscenario(escenarioId);
+              handleEliminarRespuesta(respuestaId);
               break;
             case 403:
               swal(resultado.mensaje, {

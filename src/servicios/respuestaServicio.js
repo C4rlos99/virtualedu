@@ -17,3 +17,16 @@ export const crearRespuesta = async (props) => {
       });
   } catch (error) {}
 };
+
+export const eliminarRespuesta = async (id) => {
+  try {
+    return await fetch(apiURL + `respuesta/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};

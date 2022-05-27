@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import FormularioRespuesta from "./FormularioRespuesta";
 
 export default function AnadirRespuesta(props) {
-  const { escenaId, setRespuesta } = props;
+  const { escenaId, setRespuesta, handleAnadirRespuesta } = props;
   const [mostrarFormRespuesta, setMostrarFormRespuesta] = useState(false);
 
   return (
@@ -19,6 +19,7 @@ export default function AnadirRespuesta(props) {
         show={mostrarFormRespuesta}
         onHide={() => setMostrarFormRespuesta(false)}
         setMostrarFormRespuesta={setMostrarFormRespuesta}
+        handleAnadirRespuesta={handleAnadirRespuesta}
         setRespuesta={setRespuesta}
         escenaId={escenaId}
       />
