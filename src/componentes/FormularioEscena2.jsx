@@ -22,7 +22,13 @@ export default function FormularioEscena2(props) {
   const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
 
-  const handleClose = () => setMostrarFormEscena(false);
+  const handleClose = () => {
+    setMostrarFormEscena(false);
+    setUrlVideo("");
+    setUrlVideoFeedBack("");
+    setUrlVideoApoyo("");
+    setUrlVideoApoyoFeedBack("");
+  };
 
   const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
     if (valor) feedBack = "";

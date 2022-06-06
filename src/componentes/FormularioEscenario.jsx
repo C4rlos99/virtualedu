@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Row, Col, Form } from "react-bootstrap";
+import { Modal, Button, Row, Col, Form, FormSelect } from "react-bootstrap";
 import InputForm from "../componentes/InputForm";
 import { feedBackEscenario } from "../constantes/feedBack.js";
 import { crearEscenario } from "../servicios/escenarioServicio.js";
@@ -10,24 +10,35 @@ import { Navigate } from "react-router-dom";
 export default function FormularioEscenario(props) {
   const { show, onHide, setMostrarFormEscenario } = props;
   const [titulo, setTitulo] = useState("");
-  const [tituloFeedBack, setTituloFeedBack] = useState("");
   const [visible, setVisible] = useState(false);
+  const [lenguaje, setLenguaje] = useState("0");
+  const [tituloFeedBack, setTituloFeedBack] = useState("");
+  const [lenguajeFeedBack, setLenguajeFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
   const [redireccion, setRedireccion] = useState(false);
   const [escenarioId, setEscenarioId] = useState(null);
 
-  const handleClose = () => setMostrarFormEscenario(false);
+  const handleClose = () => {
+    setMostrarFormEscenario(false);
+    setLenguaje("0");
+    setLenguajeFeedBack("");
+    setTitulo("");
+    setTituloFeedBack("");
+    setVisible(false);
+  };
 
-  const handleChangeTitulo = (
-    valor,
-    setEstadoCampo,
-    setEstadoFeedBack,
-    feedBack
-  ) => {
-    if (valor) feedBack = "";
+  const handleChangeTitulo = (titulo) => {
+    setTitulo(titulo);
+    titulo
+      ? setTituloFeedBack("")
+      : setTituloFeedBack(feedBackEscenario.titulo);
+  };
 
-    setEstadoCampo(valor);
-    setEstadoFeedBack(feedBack);
+  const handleChangeLenguaje = (e) => {
+    setLenguaje(e.target.value);
+    e.target.value !== "0"
+      ? setLenguajeFeedBack("")
+      : setLenguajeFeedBack(feedBackEscenario.lenguaje);
   };
 
   const handleChangeVisible = (visible) => {
@@ -46,11 +57,12 @@ export default function FormularioEscenario(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (titulo) {
+    if (titulo && lenguaje) {
       setSubmitActivo(false);
 
       crearEscenario({
         titulo: titulo,
+        lenguaje_id: lenguaje,
         visible: visible,
       }).then((resultado) => {
         switch (resultado.status) {
@@ -66,9 +78,13 @@ export default function FormularioEscenario(props) {
             break;
         }
         handleClose();
-        setSubmitActivo(true);
       });
-    } else setTituloFeedBack(feedBackEscenario.titulo);
+      setSubmitActivo(true);
+    } else {
+      if (!titulo) setTituloFeedBack(feedBackEscenario.titulo);
+
+      if (lenguaje === "0") setLenguajeFeedBack(feedBackEscenario.lenguaje);
+    }
   };
 
   return redireccion ? (
@@ -81,7 +97,7 @@ export default function FormularioEscenario(props) {
         </h4>
         <Form>
           <Row>
-            <Col xs={10}>
+            <Col sm={12}>
               <InputForm
                 controlId="modal-titulo-escenario"
                 label="Titulo del escenario virtual"
@@ -100,7 +116,36 @@ export default function FormularioEscenario(props) {
                 }
               />
             </Col>
-            <Col xs={2}>
+            <Col sm={7}>
+              <Form.Group>
+                <Form.Label>Selecciona el lenguaje</Form.Label>
+                <FormSelect
+                  id="lenguaje-selector"
+                  value={lenguaje}
+                  onChange={(lenguaje) =>
+                    handleChangeLenguaje(
+                      lenguaje,
+                      setLenguaje,
+                      setLenguajeFeedBack,
+                      feedBackEscenario.lenguaje
+                    )
+                  }
+                >
+                  <option className="text-center" value="0">
+                    -- Seleccione el lenguaje --
+                  </option>
+                  {JSON.parse(localStorage.getItem("lenguajes")).map(
+                    (lenguaje) => (
+                      <option key={lenguaje.id} value={lenguaje.id}>
+                        {lenguaje.nombre}
+                      </option>
+                    )
+                  )}
+                </FormSelect>
+              </Form.Group>
+              <p className="error-msg">{lenguajeFeedBack}</p>
+            </Col>
+            <Col sm={3}>
               <CheckForm
                 controlId="visible"
                 label="Visible"

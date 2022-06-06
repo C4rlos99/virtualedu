@@ -20,7 +20,11 @@ export default function FormularioEscenaBasico(props) {
   const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
 
-  const handleClose = () => setMostrarFormEscena(false);
+  const handleClose = () => {
+    setMostrarFormEscena(false);
+    setUrlVideo("");
+    setUrlVideoFeedBack("");
+  };
 
   const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
     if (valor) feedBack = "";

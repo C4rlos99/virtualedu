@@ -24,7 +24,15 @@ export default function FormularioEscena2(props) {
   const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
 
-  const handleClose = () => setMostrarFormEscena(false);
+  const handleClose = () => {
+    setMostrarFormEscena(false);
+    setUrlVideo("");
+    setUrlVideoFeedBack("");
+    setUrlVideoApoyo("");
+    setUrlVideoApoyoFeedBack("");
+    setUrlVideoRefuerzo("");
+    setUrlVideoRefuerzoFeedBack("");
+  };
 
   const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
     if (valor) feedBack = "";

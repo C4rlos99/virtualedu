@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Header from "../componentes/Header";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, FormSelect } from "react-bootstrap";
 import Footer from "../componentes/Footer";
 import { Navigate, useParams } from "react-router-dom";
 import swal from "sweetalert";
@@ -17,8 +17,10 @@ import Escena from "../componentes/Escena";
 
 export default function Escenario() {
   const [titulo, setTitulo] = useState("");
-  const [tituloFeedBack, setTituloFeedBack] = useState("");
   const [visible, setVisible] = useState(false);
+  const [lenguaje, setLenguaje] = useState("0");
+  const [tituloFeedBack, setTituloFeedBack] = useState("");
+  const [lenguajeFeedBack, setLenguajeFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
   const [redireccion, setRedireccion] = useState(false);
   const [path, setPath] = useState("");
@@ -30,6 +32,7 @@ export default function Escenario() {
       switch (resultado.status) {
         case 200:
           setTitulo(resultado.escenario.titulo);
+          setLenguaje(resultado.escenario.lenguaje_id);
           setVisible(resultado.escenario.visible);
           obtenerEscenas(id).then((resultado) => {
             switch (resultado.status) {
@@ -67,16 +70,18 @@ export default function Escenario() {
     });
   }, [id]);
 
-  const handleChangeTitulo = (
-    valor,
-    setEstadoCampo,
-    setEstadoFeedBack,
-    feedBack
-  ) => {
-    if (valor) feedBack = "";
+  const handleChangeTitulo = (titulo) => {
+    setTitulo(titulo);
+    titulo
+      ? setTituloFeedBack("")
+      : setTituloFeedBack(feedBackEscenario.titulo);
+  };
 
-    setEstadoCampo(valor);
-    setEstadoFeedBack(feedBack);
+  const handleChangeLenguaje = (e) => {
+    setLenguaje(e.target.value);
+    e.target.value !== "0"
+      ? setLenguajeFeedBack("")
+      : setLenguajeFeedBack(feedBackEscenario.lenguaje);
   };
 
   const handleChangeVisible = (visible) => {
@@ -101,6 +106,7 @@ export default function Escenario() {
       modificarEscenario({
         id: id,
         titulo: titulo,
+        lenguaje_id: lenguaje,
         visible: visible,
       }).then((resultado) => {
         switch (resultado.status) {
@@ -130,7 +136,7 @@ export default function Escenario() {
         <div id="datos-escenario">
           <Form>
             <Row>
-              <Col xs={11}>
+              <Col sm={12} md={7}>
                 <InputForm
                   controlId="titulo-escenario"
                   label="Titulo del escenario virtual"
@@ -149,7 +155,38 @@ export default function Escenario() {
                   }
                 />
               </Col>
-              <Col xs={1}>
+
+              <Col sm={10} md={4}>
+                <Form.Group>
+                  <Form.Label>Selecciona el lenguaje</Form.Label>
+                  <FormSelect
+                    id="lenguaje-selector"
+                    value={lenguaje}
+                    onChange={(lenguaje) =>
+                      handleChangeLenguaje(
+                        lenguaje,
+                        setLenguaje,
+                        setLenguajeFeedBack,
+                        feedBackEscenario.lenguaje
+                      )
+                    }
+                  >
+                    <option className="text-center" value="0">
+                      -- Seleccione el lenguaje --
+                    </option>
+                    {JSON.parse(localStorage.getItem("lenguajes")).map(
+                      (lenguaje) => (
+                        <option key={lenguaje.id} value={lenguaje.id}>
+                          {lenguaje.nombre}
+                        </option>
+                      )
+                    )}
+                  </FormSelect>
+                </Form.Group>
+                <p className="error-msg">{lenguajeFeedBack}</p>
+              </Col>
+
+              <Col sm={2} md={1}>
                 <CheckForm
                   controlId="visible"
                   label="Visible"

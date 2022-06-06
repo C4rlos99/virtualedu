@@ -12,6 +12,7 @@ import { UsuarioContext } from "../context/UsuarioContext.js";
 import "../style.css";
 import swal from "sweetalert";
 import { obtenerEscenaTipos } from "../servicios/escenaTipoServicio.js";
+import { obtenerLenguajes } from "../servicios/lenguajeServicio.js";
 
 export default function InicioSesion() {
   const [correo, setCorreo] = useState("");
@@ -44,6 +45,21 @@ export default function InicioSesion() {
       }).then((resultado) => {
         switch (resultado.status) {
           case 200:
+            obtenerEscenaTipos().then((resultado) => {
+              if (resultado.status === 200)
+                localStorage.setItem(
+                  "escenaTipos",
+                  JSON.stringify(resultado.escena_tipos)
+                );
+            });
+
+            obtenerLenguajes().then((resultado) => {
+              localStorage.setItem(
+                "lenguajes",
+                JSON.stringify(resultado.lenguajes)
+              );
+            });
+
             obtenerUsuarioAutenticado().then((resultado) => {
               switch (resultado.status) {
                 case 200:
@@ -52,14 +68,6 @@ export default function InicioSesion() {
                     "usuario",
                     JSON.stringify(resultado.usuario)
                   );
-
-                  obtenerEscenaTipos().then((resultado) => {
-                    if (resultado.status === 200)
-                      localStorage.setItem(
-                        "escenaTipos",
-                        JSON.stringify(resultado.escena_tipos)
-                      );
-                  });
                   setRedireccion(true);
                   break;
                 case 401:

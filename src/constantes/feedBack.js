@@ -15,6 +15,7 @@ export const feedBackInicioSesion = {
 
 export const feedBackEscenario = {
   titulo: "Introduce un título para el esecenario virtual",
+  lenguaje: "Elija el lenguaje con el que se evaluará la interacción oral",
 };
 
 export const feedBackEscena = {
@@ -25,6 +26,8 @@ export const feedBackEscena = {
 };
 
 export const feedBackRespuesta = {
-  valores:
-    "Escriba las palabras claves o frases que tendrá que contener la interacción oral (separar mediante coma)",
+  palabrasCorrectas:
+    "Escriba las palabras claves que tendrá que tener la interacción oral (separar mediante coma)",
+  numeroCorrectas:
+    "Escriba el número de palabras correctas que tendrá que tener la interaccion oral ",
 };
