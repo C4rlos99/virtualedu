@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import FormularioRespuesta from "./FormularioRespuesta";
+import FormularioRespuesta from "./CrearRespuesta";
 
 export default function AnadirRespuesta(props) {
   const { escenaId, setRespuesta, handleAnadirRespuesta } = props;

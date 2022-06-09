@@ -5,7 +5,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { Container, Row, Col } from "react-bootstrap";
 import CrudEscenarios from "../componentes/CrudEscenarios";
 import BarraBusqueda from "../componentes/BarraBusqueda";
-import FormularioEscenario from "../componentes/FormularioEscenario";
+import CrearEscenario from "../componentes/CrearEscenario";
 import Footer from "../componentes/Footer";
 import "../style.css";
 
@@ -43,7 +43,7 @@ export default function Escenarios() {
 
         <CrudEscenarios filtro={filtro} />
 
-        <FormularioEscenario
+        <CrearEscenario
           show={mostrarFormEscenario}
           onHide={() => setMostrarFormEscenario(false)}
           setMostrarFormEscenario={setMostrarFormEscenario}

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Button, FormSelect } from "react-bootstrap";
-import FormularioEscena2 from "./FormularioEscena2";
-import FormularioEscena3 from "./FormularioEscena3";
-import FormularioEscenaBasico from "./FormularioEscenaBasico";
+import CrearEscena from "./CrearEscena";
 
 export default function AnadirEscena(props) {
   const { escenarioId, respuestaId, setEscena } = props;
@@ -11,49 +9,6 @@ export default function AnadirEscena(props) {
 
   const handleChange = (e) => {
     setSelectorValor(e.target.value);
-  };
-
-  const escenaSwitch = (escenaTipoId) => {
-    switch (escenaTipoId) {
-      default:
-      case 1:
-      case 4:
-        return (
-          <FormularioEscenaBasico
-            show={mostrarFormEscena}
-            onHide={() => setMostrarFormEscena(false)}
-            setMostrarFormEscena={setMostrarFormEscena}
-            setEscena={setEscena}
-            escenarioId={escenarioId}
-            respuestaId={respuestaId}
-            escenaTipoId={escenaTipoId}
-          />
-        );
-      case 2:
-        return (
-          <FormularioEscena2
-            show={mostrarFormEscena}
-            onHide={() => setMostrarFormEscena(false)}
-            setMostrarFormEscena={setMostrarFormEscena}
-            setEscena={setEscena}
-            escenarioId={escenarioId}
-            respuestaId={respuestaId}
-            escenaTipoId={escenaTipoId}
-          />
-        );
-      case 3:
-        return (
-          <FormularioEscena3
-            show={mostrarFormEscena}
-            onHide={() => setMostrarFormEscena(false)}
-            setMostrarFormEscena={setMostrarFormEscena}
-            setEscena={setEscena}
-            escenarioId={escenarioId}
-            respuestaId={respuestaId}
-            escenaTipoId={escenaTipoId}
-          />
-        );
-    }
   };
 
   return (
@@ -80,7 +35,15 @@ export default function AnadirEscena(props) {
         ))}
       </FormSelect>
 
-      {escenaSwitch(parseInt(selectorValor))}
+      <CrearEscena
+        show={mostrarFormEscena}
+        onHide={() => setMostrarFormEscena(false)}
+        setMostrarFormEscena={setMostrarFormEscena}
+        setEscena={setEscena}
+        escenarioId={escenarioId}
+        respuestaId={respuestaId}
+        escenaTipoId={parseInt(selectorValor)}
+      />
     </div>
   );
 }

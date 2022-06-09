@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import swal from "sweetalert";
-import InputForm from "../componentes/InputForm";
+import InputForm from "./InputForm";
 import { feedBackEscena } from "../constantes/feedBack.js";
 import { crearEscena } from "../servicios/escenaServicio";
 
-export default function FormularioEscena2(props) {
+export default function CrearEscena(props) {
   const {
     show,
     onHide,
@@ -53,17 +53,31 @@ export default function FormularioEscena2(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (urlVideo && urlVideoApoyo && urlVideoRefuerzo) {
+    if (
+      urlVideo &&
+      ((escenaTipoId !== 2 && escenaTipoId !== 3) || urlVideoApoyo) &&
+      (escenaTipoId !== 3 || urlVideoRefuerzo)
+    ) {
       setSubmitActivo(false);
 
-      crearEscena({
+      let nuevaEscena = {
         escenario_id: escenarioId,
         escena_tipo_id: escenaTipoId,
         respuesta_id: respuestaId,
         url_video: urlVideo,
-        url_video_apoyo: urlVideoApoyo,
-        url_video_refuerzo: urlVideoRefuerzo,
-      }).then((resultado) => {
+      };
+
+      switch (escenaTipoId) {
+        case 3:
+          nuevaEscena.url_video_refuerzo = urlVideoRefuerzo;
+        case 2:
+          nuevaEscena.url_video_apoyo = urlVideoApoyo;
+          break;
+        default:
+          break;
+      }
+
+      crearEscena(nuevaEscena).then((resultado) => {
         switch (resultado.status) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
@@ -115,43 +129,47 @@ export default function FormularioEscena2(props) {
             }
           />
 
-          <InputForm
-            activo={activo}
-            controlId="url-video-apoyo"
-            label="Vídeo de apoyo de la escena"
-            placeHolder="https://www.youtube.com/watch?v=..."
-            value={urlVideoApoyo}
-            feedBack={urlVideoApoyoFeedBack}
-            type="text"
-            name="url-video-apoyo"
-            handleChange={(urlVideoApoyo) =>
-              handleChange(
-                urlVideoApoyo,
-                setUrlVideoApoyo,
-                setUrlVideoApoyoFeedBack,
-                feedBackEscena.urlVideoApoyo
-              )
-            }
-          />
+          {(escenaTipoId === 2 || escenaTipoId === 3) && (
+            <InputForm
+              activo={activo}
+              controlId="url-video-apoyo"
+              label="Vídeo de apoyo de la escena"
+              placeHolder="https://www.youtube.com/watch?v=..."
+              value={urlVideoApoyo}
+              feedBack={urlVideoApoyoFeedBack}
+              type="text"
+              name="url-video-apoyo"
+              handleChange={(urlVideoApoyo) =>
+                handleChange(
+                  urlVideoApoyo,
+                  setUrlVideoApoyo,
+                  setUrlVideoApoyoFeedBack,
+                  feedBackEscena.urlVideoApoyo
+                )
+              }
+            />
+          )}
 
-          <InputForm
-            activo={activo}
-            controlId="url-video-refuerzo"
-            label="Vídeo de refuerzo de la escena"
-            placeHolder="https://www.youtube.com/watch?v=..."
-            value={urlVideoRefuerzo}
-            feedBack={urlVideoRefuerzoFeedBack}
-            type="text"
-            name="url-video-refuerzo"
-            handleChange={(urlVideoRefuerzo) =>
-              handleChange(
-                urlVideoRefuerzo,
-                setUrlVideoRefuerzo,
-                setUrlVideoRefuerzoFeedBack,
-                feedBackEscena.urlVideoRefuerzo
-              )
-            }
-          />
+          {escenaTipoId === 3 && (
+            <InputForm
+              activo={activo}
+              controlId="url-video-refuerzo"
+              label="Vídeo de refuerzo de la escena"
+              placeHolder="https://www.youtube.com/watch?v=..."
+              value={urlVideoRefuerzo}
+              feedBack={urlVideoRefuerzoFeedBack}
+              type="text"
+              name="url-video-refuerzo"
+              handleChange={(urlVideoRefuerzo) =>
+                handleChange(
+                  urlVideoRefuerzo,
+                  setUrlVideoRefuerzo,
+                  setUrlVideoRefuerzoFeedBack,
+                  feedBackEscena.urlVideoRefuerzo
+                )
+              }
+            />
+          )}
 
           <div id="modal-footer">
             <Button

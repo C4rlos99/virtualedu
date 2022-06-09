@@ -214,7 +214,12 @@ export default function Escenario() {
         <h3>Escenas</h3>
         <br />
 
-        <Escena escena={escenaRaiz} escenarioId={id} />
+        <div className="d-flex">
+          <div>
+            <Escena escena={escenaRaiz} escenarioId={id} />
+          </div>
+          <div></div>
+        </div>
       </Container>
 
       <Footer />

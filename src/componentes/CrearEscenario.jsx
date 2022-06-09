@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Button, Row, Col, Form, FormSelect } from "react-bootstrap";
-import InputForm from "../componentes/InputForm";
+import InputForm from "./InputForm";
 import { feedBackEscenario } from "../constantes/feedBack.js";
 import { crearEscenario } from "../servicios/escenarioServicio.js";
-import CheckForm from "../componentes/CheckForm";
+import CheckForm from "./CheckForm";
 import swal from "sweetalert";
 import { Navigate } from "react-router-dom";
 
