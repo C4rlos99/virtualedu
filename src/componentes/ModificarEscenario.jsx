@@ -5,10 +5,15 @@ import swal from "sweetalert";
 import { feedBackEscenario } from "../constantes/feedBack";
 import InputForm from "../componentes/InputForm";
 import CheckForm from "../componentes/CheckForm";
-import { modificarEscenario } from "../servicios/escenarioServicio";
+import {
+  modificarEscenario,
+  obtenerEscenario,
+} from "../servicios/escenarioServicio";
 
 export default function ModificarEscenario(props) {
-  const { escenario } = props;
+  const { id } = props;
+  const [redireccion, setRedireccion] = useState(false);
+  const [path, setPath] = useState("");
   const [titulo, setTitulo] = useState("");
   const [visible, setVisible] = useState(false);
   const [lenguaje, setLenguaje] = useState("0");
@@ -17,10 +22,28 @@ export default function ModificarEscenario(props) {
   const [submitActivo, setSubmitActivo] = useState(true);
 
   useEffect(() => {
-    setTitulo(escenario.titulo);
-    setVisible(escenario.visible);
-    setLenguaje(escenario.lenguaje_id);
-  }, [escenario]);
+    obtenerEscenario(id).then((resultado) => {
+      switch (resultado.status) {
+        case 200:
+          setTitulo(resultado.escenario.titulo);
+          setVisible(resultado.escenario.visible);
+          setLenguaje(resultado.escenario.lenguaje_id);
+          break;
+        case 403:
+          mostrarAlerta(resultado.mensaje, "error", "Escenario");
+          setPath("/escenarios");
+          setRedireccion(true);
+          break;
+        case 401:
+          mostrarAlerta(resultado.mensaje, "error", "Usuario");
+          setPath("/iniciar-sesion");
+          setRedireccion(true);
+          break;
+        default:
+          break;
+      }
+    });
+  }, [id]);
 
   const handleChangeTitulo = (titulo) => {
     setTitulo(titulo);
@@ -56,7 +79,7 @@ export default function ModificarEscenario(props) {
       setSubmitActivo(false);
 
       modificarEscenario({
-        id: escenario.id,
+        id: id,
         titulo: titulo,
         lenguaje_id: lenguaje,
         visible: visible,

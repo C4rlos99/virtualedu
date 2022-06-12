@@ -441,12 +441,25 @@ body {
     border-bottom-left-radius: 0px;
 }
 
+#nodos{
+    width: 100%;
+}
+
+#datos-nodo{
+    width: 100%;
+    max-width: 500px;
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+}
+
 /* Escena */
 #escena{
     width: 100%;
     border: 1px solid #212529;
     padding: 5px;
     background-color: #edfdff;
+    cursor: pointer;
 }
 
 .escena-4{
@@ -482,6 +495,7 @@ body {
     background-color: #efefef;
     margin-bottom: 10px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 #respuesta-escena{
@@ -491,8 +505,6 @@ body {
 #anadir-respuesta-contenedor{
     margin-top: 10px;
 }
-
-
 
 /* .dropbtn {
     background-color: rgb(60, 78, 97);

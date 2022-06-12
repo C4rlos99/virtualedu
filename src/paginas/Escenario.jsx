@@ -4,14 +4,14 @@ import Header from "../componentes/Header";
 import { Container } from "react-bootstrap";
 import Footer from "../componentes/Footer";
 import { Navigate, useParams } from "react-router-dom";
-import { obtenerEscenario } from "../servicios/escenarioServicio";
 import { obtenerEscenas } from "../servicios/escenaServicio";
 import Escena from "../componentes/Escena";
 import ModificarEscenario from "../componentes/ModificarEscenario";
+import { NodoEscenarioContextProvider } from "../context/NodoEscenarioContext.js";
 import swal from "sweetalert";
+import DatosNodo from "../componentes/DatosNodo";
 
 export default function Escenario() {
-  const [escenarioDatos, setEscenarioDatos] = useState(null);
   const [redireccion, setRedireccion] = useState(false);
   const [path, setPath] = useState("");
   const [escenaRaiz, setEscenaRaiz] = useState(null);
@@ -27,32 +27,13 @@ export default function Escenario() {
   };
 
   useEffect(() => {
-    obtenerEscenario(id).then((resultado) => {
+    obtenerEscenas(id).then((resultado) => {
       switch (resultado.status) {
         case 200:
-          setEscenarioDatos(resultado.escenario);
-          obtenerEscenas(id).then((resultado) => {
-            switch (resultado.status) {
-              case 200:
-                setEscenaRaiz(resultado.escenas);
-                break;
-              case 403:
-                mostrarAlerta(resultado.mensaje, "error", "escenario");
-                setPath("/escenarios");
-                setRedireccion(true);
-                break;
-              case 401:
-                mostrarAlerta(resultado.mensaje, "error", "Usuario");
-                setPath("/iniciar-sesion");
-                setRedireccion(true);
-                break;
-              default:
-                break;
-            }
-          });
+          setEscenaRaiz(resultado.escenas);
           break;
         case 403:
-          mostrarAlerta(resultado.mensaje, "error", "Escenario");
+          mostrarAlerta(resultado.mensaje, "error", "escenario");
           setPath("/escenarios");
           setRedireccion(true);
           break;
@@ -73,21 +54,21 @@ export default function Escenario() {
     <div className="wrapper">
       <Header />
       <Container className="content">
-        {escenarioDatos && (
-          <ModificarEscenario
-            setEscenario={setEscenarioDatos}
-            escenario={escenarioDatos}
-          />
-        )}
+        <ModificarEscenario id={id} />
         <br />
         <h3>Escenas</h3>
         <br />
-        <div className="d-flex">
-          <div>
-            <Escena escena={escenaRaiz} escenarioId={id} />
+        <NodoEscenarioContextProvider>
+          <div className="d-flex">
+            <div id="nodos">
+              <Escena escena={escenaRaiz} escenarioId={id} />
+            </div>
+
+            <div id="datos-nodo">
+              <DatosNodo />
+            </div>
           </div>
-          <div></div>
-        </div>
+        </NodoEscenarioContextProvider>
       </Container>
       <Footer />
     </div>

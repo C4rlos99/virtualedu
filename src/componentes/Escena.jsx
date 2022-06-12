@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AnadirEscena from "./AnadirEscena";
 import BotonEliminarEscena from "./BotonEliminarEscena";
 import Respuesta from "./Respuesta";
+import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import AnadirRespuesta from "./AnadirRespuesta";
 
 export default function Escena(props) {
   const { respuestaId = null, escenarioId, escena = null } = props;
   const [escenaDatos, setEscenaDatos] = useState(null);
+  const { nodo, setNodo } = useContext(NodoEscenarioContext);
 
   useEffect(() => {
     setEscenaDatos(escena);
@@ -27,10 +29,25 @@ export default function Escena(props) {
     setEscenaDatos({ ...escenaDatos, respuestas });
   };
 
+  const handleClick = () => {
+    setNodo({
+      tipo: "escena",
+      ...escenaDatos,
+      setEscena: (nuevaEscenaDatos) => setEscenaDatos(nuevaEscenaDatos),
+    });
+  };
+
   return escenaDatos ? (
     <>
+      {" "}
       <div
         id="escena"
+        onClick={() => handleClick()}
+        style={
+          nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
+            ? { backgroundColor: "#00e676" }
+            : {}
+        }
         className={
           escenaDatos.escena_tipo_id === 4 ? "escena-4" : "escena-1-2-3"
         }
@@ -42,7 +59,6 @@ export default function Escena(props) {
           escenaId={escenaDatos.id}
         />
       </div>
-
       <div id="escena-respuestas" className="d-flex">
         <div
           id="escena-respuestas-espacio"

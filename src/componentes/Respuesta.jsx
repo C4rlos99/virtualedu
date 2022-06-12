@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BotonEliminarRespuesta from "./BotonEliminarRespuesta";
+import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import Escena from "./Escena";
 
 export default function Respuesta(props) {
   const { escenarioId, respuesta = null, handleEliminarRespuesta } = props;
   const [respuestaDatos, setRespuestaDatos] = useState(null);
+  const { nodo, setNodo } = useContext(NodoEscenarioContext);
 
   useEffect(() => {
     setRespuestaDatos(respuesta);

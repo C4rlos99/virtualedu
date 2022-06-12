@@ -1,0 +1,204 @@
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
+import { modificarEscena } from "../servicios/escenaServicio";
+import { feedBackEscena } from "../constantes/feedBack";
+import InputForm from "./InputForm";
+import { Button, Form } from "react-bootstrap";
+import swal from "sweetalert";
+
+export default function ModificarEscena(props) {
+  const { escena, activo = true } = props;
+  const [id, setId] = useState("");
+  const [escenaTipoId, setEscenaTipoId] = useState("");
+  const [urlVideo, setUrlVideo] = useState("");
+  const [urlVideoApoyo, setUrlVideoApoyo] = useState("");
+  const [urlVideoRefuerzo, setUrlVideoRefuerzo] = useState("");
+  const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
+  const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
+  const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
+  const [submitActivo, setSubmitActivo] = useState(true);
+  const { nodo, setNodo, handleSetNodo } = useContext(NodoEscenarioContext);
+
+  useEffect(() => {
+    setId(escena.id);
+    setUrlVideo(escena.url_video);
+    setEscenaTipoId(escena.escena_tipo_id);
+
+    switch (escena.escena_tipo_id) {
+      case 3:
+        setUrlVideoRefuerzo(escena.url_video_refuerzo);
+      case 2:
+        setUrlVideoApoyo(escena.url_video_apoyo);
+        break;
+      default:
+        break;
+    }
+  }, [escena]);
+
+  const handleClose = () => {};
+
+  const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
+    if (valor) feedBack = "";
+
+    setEstadoCampo(valor);
+    setEstadoFeedBack(feedBack);
+  };
+
+  const mostrarAlerta = (texto, icono) => {
+    swal({
+      title: "Escena",
+      text: texto,
+      icon: icono,
+      buttons: "aceptar",
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      urlVideo &&
+      ((escenaTipoId !== 2 && escenaTipoId !== 3) || urlVideoApoyo) &&
+      (escenaTipoId !== 3 || urlVideoRefuerzo)
+    ) {
+      setSubmitActivo(false);
+
+      let nuevosDatosEscena = {
+        id: id,
+        escena_tipo_id: escenaTipoId,
+        url_video: urlVideo,
+      };
+
+      switch (escenaTipoId) {
+        case 3:
+          nuevosDatosEscena.url_video_refuerzo = urlVideoRefuerzo;
+        case 2:
+          nuevosDatosEscena.url_video_apoyo = urlVideoApoyo;
+          break;
+        default:
+          break;
+      }
+
+      modificarEscena(nuevosDatosEscena).then((resultado) => {
+        switch (resultado.status) {
+          case 200:
+            mostrarAlerta(resultado.mensaje, "success");
+            nodo.setEscena(resultado.escena);
+            break;
+          case 422:
+            mostrarAlerta(resultado.mensaje, "error");
+            break;
+          case 403:
+            mostrarAlerta(resultado.mensaje, "error");
+            break;
+          default:
+            break;
+        }
+      });
+      setSubmitActivo(true);
+    } else {
+      if (!urlVideo) setUrlVideoFeedBack(feedBackEscena.urlVideo);
+      if (!urlVideoApoyo)
+        setUrlVideoApoyoFeedBack(feedBackEscena.urlVideoApoyo);
+      if (!urlVideoRefuerzo)
+        setUrlVideoRefuerzoFeedBack(feedBackEscena.urlVideoRefuerzo);
+    }
+  };
+
+  return (
+    <>
+      <div id="modal-form">
+        <h4 id="modal-titulo" className="text-center">
+          Escena
+        </h4>
+        <Form>
+          <InputForm
+            activo={activo}
+            controlId="url-video"
+            label="Vídeo de la escena"
+            placeHolder="https://www.youtube.com/watch?v=..."
+            value={urlVideo}
+            feedBack={urlVideoFeedBack}
+            type="text"
+            name="url-video"
+            handleChange={(urlVideo) =>
+              handleChange(
+                urlVideo,
+                setUrlVideo,
+                setUrlVideoFeedBack,
+                feedBackEscena.urlVideo
+              )
+            }
+          />
+
+          {(escenaTipoId === 2 || escenaTipoId === 3) && (
+            <InputForm
+              activo={activo}
+              controlId="url-video-apoyo"
+              label="Vídeo de apoyo de la escena"
+              placeHolder="https://www.youtube.com/watch?v=..."
+              value={urlVideoApoyo}
+              feedBack={urlVideoApoyoFeedBack}
+              type="text"
+              name="url-video-apoyo"
+              handleChange={(urlVideoApoyo) =>
+                handleChange(
+                  urlVideoApoyo,
+                  setUrlVideoApoyo,
+                  setUrlVideoApoyoFeedBack,
+                  feedBackEscena.urlVideoApoyo
+                )
+              }
+            />
+          )}
+
+          {escenaTipoId === 3 && (
+            <InputForm
+              activo={activo}
+              controlId="url-video-refuerzo"
+              label="Vídeo de refuerzo de la escena"
+              placeHolder="https://www.youtube.com/watch?v=..."
+              value={urlVideoRefuerzo}
+              feedBack={urlVideoRefuerzoFeedBack}
+              type="text"
+              name="url-video-refuerzo"
+              handleChange={(urlVideoRefuerzo) =>
+                handleChange(
+                  urlVideoRefuerzo,
+                  setUrlVideoRefuerzo,
+                  setUrlVideoRefuerzoFeedBack,
+                  feedBackEscena.urlVideoRefuerzo
+                )
+              }
+            />
+          )}
+
+          <div id="modal-footer">
+            <Button
+              id="modal-cancelar"
+              variant="secondary"
+              onClick={handleClose}
+            >
+              Cerrar
+            </Button>
+
+            {activo && (
+              <Button
+                disabled={!submitActivo}
+                id="modal-guardar"
+                variant="primary"
+                type="submit"
+                onClick={(e) => handleSubmit(e)}
+              >
+                Guardar
+              </Button>
+            )}
+          </div>
+        </Form>
+      </div>
+    </>
+  );
+}
