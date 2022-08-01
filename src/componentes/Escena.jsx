@@ -39,7 +39,6 @@ export default function Escena(props) {
 
   return escenaDatos ? (
     <>
-      {" "}
       <div
         id="escena"
         onClick={() => handleClick()}

@@ -486,7 +486,7 @@ body {
     border-bottom-left-radius: 8px;
 }
 
-/* respuesta */
+/* Respuesta */
 #respuesta{
     width: 100%;
     border: 1px solid #212529;
@@ -504,6 +504,11 @@ body {
 
 #anadir-respuesta-contenedor{
     margin-top: 10px;
+}
+
+/* Datos Nodos */
+#datos-nodo-form{
+    padding: 0px 30px 0px 30px;
 }
 
 /* .dropbtn {

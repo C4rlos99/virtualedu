@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Header from "../componentes/Header";
 import { Container } from "react-bootstrap";
@@ -64,9 +64,7 @@ export default function Escenario() {
               <Escena escena={escenaRaiz} escenarioId={id} />
             </div>
 
-            <div id="datos-nodo">
-              <DatosNodo />
-            </div>
+            <DatosNodo />
           </div>
         </NodoEscenarioContextProvider>
       </Container>

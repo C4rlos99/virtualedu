@@ -12,10 +12,27 @@ export default function Respuesta(props) {
     setRespuestaDatos(respuesta);
   }, [respuesta]);
 
+  const handleClick = () => {
+    setNodo({
+      tipo: "respuesta",
+      ...respuestaDatos,
+      setRespuesta: (nuevaRespuestaDatos) =>
+        setRespuestaDatos(nuevaRespuestaDatos),
+    });
+  };
+
   return (
     respuestaDatos && (
       <>
-        <div id="respuesta">
+        <div
+          id="respuesta"
+          onClick={() => handleClick()}
+          style={
+            nodo && nodo.tipo === "respuesta" && nodo.id === respuestaDatos.id
+              ? { backgroundColor: "#00e676" }
+              : {}
+          }
+        >
           <b>Respuesta </b>
           {respuestaDatos.valores}
 

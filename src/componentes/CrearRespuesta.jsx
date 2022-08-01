@@ -171,7 +171,7 @@ export default function FormularioRespuesta(props) {
               handleChange(
                 palabrasIncorrectas,
                 setPalabrasIncorrectas,
-                setNumeroIncorrectasFeedBack,
+                setPalabrasIncorrectasFeedBack,
                 ""
               )
             }

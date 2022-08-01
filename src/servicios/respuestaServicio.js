@@ -18,6 +18,24 @@ export const crearRespuesta = async (props) => {
   } catch (error) {}
 };
 
+export const modificarRespuesta = async (props) => {
+  try {
+    return await fetch(apiURL + `respuesta/${props.id}`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(props),
+    })
+      .then((response) => response.json())
+      .then((resultado) => {
+        return resultado;
+      });
+  } catch (error) {}
+};
+
 export const eliminarRespuesta = async (id) => {
   try {
     return await fetch(apiURL + `respuesta/${id}`, {

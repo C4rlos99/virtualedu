@@ -20,25 +20,30 @@ export default function ModificarEscena(props) {
   const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
   const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
-  const { nodo, setNodo, handleSetNodo } = useContext(NodoEscenarioContext);
+  const { nodo, setNodo } = useContext(NodoEscenarioContext);
 
   useEffect(() => {
     setId(escena.id);
     setUrlVideo(escena.url_video);
     setEscenaTipoId(escena.escena_tipo_id);
+    setUrlVideoFeedBack("");
 
     switch (escena.escena_tipo_id) {
       case 3:
         setUrlVideoRefuerzo(escena.url_video_refuerzo);
+        setUrlVideoRefuerzoFeedBack("");
       case 2:
         setUrlVideoApoyo(escena.url_video_apoyo);
+        setUrlVideoApoyoFeedBack("");
         break;
       default:
         break;
     }
   }, [escena]);
 
-  const handleClose = () => {};
+  const handleClose = () => {
+    setNodo(null);
+  };
 
   const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
     if (valor) feedBack = "";
@@ -110,7 +115,7 @@ export default function ModificarEscena(props) {
 
   return (
     <>
-      <div id="modal-form">
+      <div id="datos-nodo-form">
         <h4 id="modal-titulo" className="text-center">
           Escena
         </h4>
