@@ -22,6 +22,8 @@ export default function Escenarios() {
       <Header />
 
       <Container className="content">
+        <h2>Escenarios</h2>
+
         <Row>
           <Col sm={6}>
             <div

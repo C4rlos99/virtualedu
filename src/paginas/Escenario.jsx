@@ -53,11 +53,13 @@ export default function Escenario() {
   ) : (
     <div className="wrapper">
       <Header />
+
       <Container className="content">
+        <h2>Modificar escenario</h2>
+        <br />
         <ModificarEscenario id={id} />
         <br />
-        <h3>Escenas</h3>
-        <br />
+        <h4>Escenas</h4>
         <NodoEscenarioContextProvider>
           <div className="d-flex">
             <div id="nodos">
