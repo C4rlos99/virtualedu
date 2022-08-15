@@ -44,7 +44,7 @@ export default function Escena(props) {
         onClick={() => handleClick()}
         style={
           nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
-            ? { backgroundColor: "#00e676" }
+            ? { backgroundColor: "#00e6778e" }
             : {}
         }
         className={
@@ -65,6 +65,11 @@ export default function Escena(props) {
             escenaDatos.escena_tipo_id === 4
               ? "escena-respuestas-espacio-borde"
               : ""
+          }
+          style={
+            nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
+              ? { borderColor: "#00e6778e" }
+              : {}
           }
         ></div>
 
