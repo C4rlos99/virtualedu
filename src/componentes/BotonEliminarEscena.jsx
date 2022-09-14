@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import swal from "sweetalert";
 import { eliminarEscena } from "../servicios/escenaServicio";
+import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import "../style.css";
 
 export default function BotonEliminarEscena(props) {
   const { escenaId, setEscena } = props;
   const [activo, setActivo] = useState(true);
+  const { setNodo } = useContext(NodoEscenarioContext);
 
   const mostrarAlertaEliminar = (id) => {
     setActivo(false);
@@ -24,6 +26,7 @@ export default function BotonEliminarEscena(props) {
               swal(resultado.mensaje, {
                 icon: "success",
               });
+              setNodo(null);
               setEscena(null);
               break;
             case 403:
