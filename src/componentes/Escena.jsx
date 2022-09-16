@@ -52,11 +52,6 @@ export default function Escena(props) {
         }
       >
         <b>Escena {escenaDatos.id}</b>
-
-        <BotonEliminarEscena
-          setEscena={setEscenaDatos}
-          escenaId={escenaDatos.id}
-        />
       </div>
       <div id="escena-respuestas" className="d-flex">
         <div

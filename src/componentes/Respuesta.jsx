@@ -16,6 +16,7 @@ export default function Respuesta(props) {
     setNodo({
       tipo: "respuesta",
       ...respuestaDatos,
+      handleEliminarRespuesta: () => handleEliminarRespuesta(respuestaDatos.id),
       setRespuesta: (nuevaRespuestaDatos) =>
         setRespuestaDatos(nuevaRespuestaDatos),
     });
@@ -35,11 +36,6 @@ export default function Respuesta(props) {
         >
           <b>Respuesta </b>
           {respuestaDatos.valores}
-
-          <BotonEliminarRespuesta
-            respuestaId={respuestaDatos.id}
-            handleEliminarRespuesta={handleEliminarRespuesta}
-          />
         </div>
         <div id="respuesta-escena">
           {respuestaDatos.escena ? (

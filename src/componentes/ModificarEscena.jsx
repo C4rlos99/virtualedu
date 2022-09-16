@@ -8,6 +8,7 @@ import { feedBackEscena } from "../constantes/feedBack";
 import InputForm from "./InputForm";
 import { Button, Form } from "react-bootstrap";
 import swal from "sweetalert";
+import BotonEliminarEscena from "./BotonEliminarEscena";
 
 export default function ModificarEscena(props) {
   const { escena, activo = true } = props;
@@ -116,9 +117,18 @@ export default function ModificarEscena(props) {
   return (
     <>
       <div id="datos-nodo-form">
-        <h4 id="modal-titulo" className="text-center">
-          Escena
-        </h4>
+        <div className="d-flex position-relative">
+          <h4 id="modal-titulo" className="text-center">
+            Escena
+          </h4>
+          <div className="position-absolute end-0">
+            <BotonEliminarEscena
+              setEscena={nodo.setEscena}
+              escenaId={nodo.id}
+            />
+          </div>
+        </div>
+
         <Form>
           <InputForm
             activo={activo}

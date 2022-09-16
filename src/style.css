@@ -448,11 +448,6 @@ body {
     margin-left: 10px;
 }
 
-#escena > button {
-    right: 20px;
-    position: absolute;
-}
-
 .escena-4{
     border-radius: 6px 6px 6px 0px;
 }
@@ -495,11 +490,6 @@ body {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;
-}
-
-#respuesta > button {
-    right: 20px;
-    position: absolute;
 }
 
 #respuesta-escena{

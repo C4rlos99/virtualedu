@@ -9,6 +9,7 @@ import InputForm from "./InputForm";
 import { Button, Form } from "react-bootstrap";
 import swal from "sweetalert";
 import TextAreaForm from "./TextAreaForm";
+import BotonEliminarRespuesta from "./BotonEliminarRespuesta";
 
 export default function ModificarRespuesta(props) {
   const { respuesta, activo = true } = props;
@@ -99,9 +100,17 @@ export default function ModificarRespuesta(props) {
   return (
     <>
       <div id="datos-nodo-form">
-        <h4 id="modal-titulo" className="text-center">
-          Respuesta
-        </h4>
+        <div className="d-flex position-relative">
+          <h4 id="modal-titulo" className="text-center">
+            Respuesta
+          </h4>
+          <div className="position-absolute end-0">
+            <BotonEliminarRespuesta
+              respuestaId={nodo.id}
+              handleEliminarRespuesta={nodo.handleEliminarRespuesta}
+            />
+          </div>
+        </div>
         <Form>
           <InputForm
             activo={activo}
