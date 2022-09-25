@@ -6,7 +6,12 @@ import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import AnadirRespuesta from "./AnadirRespuesta";
 
 export default function Escena(props) {
-  const { respuestaId = null, escenarioId, escena = null } = props;
+  const {
+    respuestaId = null,
+    escenarioId,
+    escena = null,
+    modificable = true,
+  } = props;
   const [escenaDatos, setEscenaDatos] = useState(null);
   const { nodo, setNodo } = useContext(NodoEscenarioContext);
 
@@ -43,12 +48,20 @@ export default function Escena(props) {
         id="escena"
         onClick={() => handleClick()}
         style={
-          nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
+          !modificable && !escenaDatos.respuestas.length
+            ? nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
+              ? { backgroundColor: "#00e6778e", marginBottom: 10 }
+              : { marginBottom: 10 }
+            : nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
             ? { backgroundColor: "#00e6778e" }
             : {}
         }
         className={
-          escenaDatos.escena_tipo_id === 4 ? "escena-4" : "escena-1-2-3"
+          escenaDatos.escena_tipo_id === 4
+            ? !modificable && !escenaDatos.respuestas.length
+              ? "escena-1-2-3"
+              : "escena-4"
+            : "escena-1-2-3"
         }
       >
         <b>Escena {escenaDatos.id}</b>
@@ -58,7 +71,9 @@ export default function Escena(props) {
           id="escena-respuestas-espacio"
           className={
             escenaDatos.escena_tipo_id === 4
-              ? "escena-respuestas-espacio-borde"
+              ? !modificable && !escenaDatos.respuestas.length
+                ? ""
+                : "escena-respuestas-espacio-borde"
               : ""
           }
           style={
@@ -74,6 +89,11 @@ export default function Escena(props) {
               ? "w-100 escena-respuestas-4"
               : "w-100"
           }
+          style={
+            !modificable && escenaDatos.escena_tipo_id === 4
+              ? { paddingBottom: 5 }
+              : {}
+          }
         >
           {escenaDatos.respuestas.length !== 0 ? (
             <>
@@ -84,10 +104,11 @@ export default function Escena(props) {
                     respuesta={respuesta}
                     handleEliminarRespuesta={handleEliminarRespuesta}
                     escenarioId={escenarioId}
+                    modificable={modificable}
                   />
                 );
               })}
-              {escenaDatos.escena_tipo_id === 4 && (
+              {modificable && escenaDatos.escena_tipo_id === 4 && (
                 <AnadirRespuesta
                   escenaId={escenaDatos.id}
                   handleAnadirRespuesta={handleAnadirRespuesta}
@@ -95,19 +116,23 @@ export default function Escena(props) {
               )}
             </>
           ) : (
-            <AnadirRespuesta
-              escenaId={escenaDatos.id}
-              handleAnadirRespuesta={handleAnadirRespuesta}
-            />
+            modificable && (
+              <AnadirRespuesta
+                escenaId={escenaDatos.id}
+                handleAnadirRespuesta={handleAnadirRespuesta}
+              />
+            )
           )}
         </div>
       </div>
     </>
   ) : (
-    <AnadirEscena
-      escenarioId={escenarioId}
-      respuestaId={respuestaId}
-      setEscena={setEscenaDatos}
-    />
+    modificable && (
+      <AnadirEscena
+        escenarioId={escenarioId}
+        respuestaId={respuestaId}
+        setEscena={setEscenaDatos}
+      />
+    )
   );
 }

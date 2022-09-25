@@ -11,7 +11,7 @@ import {
 } from "../servicios/escenarioServicio";
 
 export default function ModificarEscenario(props) {
-  const { id } = props;
+  const { id, modificable = true } = props;
   const [redireccion, setRedireccion] = useState(false);
   const [path, setPath] = useState("");
   const [titulo, setTitulo] = useState("");
@@ -115,6 +115,7 @@ export default function ModificarEscenario(props) {
               feedBack={tituloFeedBack}
               type="text"
               name="titulo-escenario"
+              activo={modificable}
               handleChange={(titulo) =>
                 handleChangeTitulo(
                   titulo,
@@ -132,6 +133,7 @@ export default function ModificarEscenario(props) {
               <FormSelect
                 id="lenguaje-selector"
                 value={lenguaje}
+                disabled={!modificable}
                 onChange={(lenguaje) =>
                   handleChangeLenguaje(
                     lenguaje,
@@ -158,6 +160,7 @@ export default function ModificarEscenario(props) {
 
           <Col sm={2} md={1}>
             <CheckForm
+              activo={modificable}
               controlId="visible"
               label="Visible"
               checked={visible}
@@ -166,18 +169,19 @@ export default function ModificarEscenario(props) {
             />
           </Col>
         </Row>
-
-        <div className="d-flex justify-content-center">
-          <Button
-            disabled={!submitActivo}
-            id="guardar-escenario"
-            variant="primary"
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-          >
-            Guardar
-          </Button>
-        </div>
+        {modificable && (
+          <div className="d-flex justify-content-center">
+            <Button
+              disabled={!submitActivo}
+              id="guardar-escenario"
+              variant="primary"
+              type="submit"
+              onClick={(e) => handleSubmit(e)}
+            >
+              Guardar
+            </Button>
+          </div>
+        )}
       </Form>
     </div>
   );

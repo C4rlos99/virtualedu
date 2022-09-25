@@ -21,6 +21,11 @@ export default function App() {
 
           <Route path="/escenarios/modificar/:id" element={<Escenario />} />
 
+          <Route
+            path="/escenarios/mostrar/:id"
+            element={<Escenario modificable={false} />}
+          />
+
           <Route path="*" element={<NoEncontrado />} />
         </Routes>
       </UsuarioContextProvider>

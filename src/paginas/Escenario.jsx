@@ -11,7 +11,8 @@ import { NodoEscenarioContextProvider } from "../context/NodoEscenarioContext.js
 import swal from "sweetalert";
 import DatosNodo from "../componentes/DatosNodo";
 
-export default function Escenario() {
+export default function Escenario(props) {
+  const { modificable = true } = props;
   const [redireccion, setRedireccion] = useState(false);
   const [path, setPath] = useState("");
   const [escenaRaiz, setEscenaRaiz] = useState(null);
@@ -55,18 +56,26 @@ export default function Escenario() {
       <Header />
 
       <Container className="content">
-        <h2>Modificar escenario</h2>
+        {modificable ? (
+          <h2>Modificar escenario</h2>
+        ) : (
+          <h2>Datos del escenario</h2>
+        )}
         <br />
-        <ModificarEscenario id={id} />
+        <ModificarEscenario id={id} modificable={modificable} />
         <br />
         <h4>Escenas</h4>
         <NodoEscenarioContextProvider>
           <div className="d-flex">
             <div id="nodos">
-              <Escena escena={escenaRaiz} escenarioId={id} />
+              <Escena
+                escena={escenaRaiz}
+                escenarioId={id}
+                modificable={modificable}
+              />
             </div>
 
-            <DatosNodo />
+            <DatosNodo modificable={modificable} />
           </div>
         </NodoEscenarioContextProvider>
       </Container>

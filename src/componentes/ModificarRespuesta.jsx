@@ -12,7 +12,7 @@ import TextAreaForm from "./TextAreaForm";
 import BotonEliminarRespuesta from "./BotonEliminarRespuesta";
 
 export default function ModificarRespuesta(props) {
-  const { respuesta, activo = true } = props;
+  const { respuesta, modificable = true } = props;
   const [id, setId] = useState("");
   const [palabrasCorrectas, setPalabrasCorrectas] = useState("");
   const [numeroCorrectas, setNumeroCorrectas] = useState("");
@@ -104,16 +104,18 @@ export default function ModificarRespuesta(props) {
           <h4 id="modal-titulo" className="text-center">
             Respuesta
           </h4>
-          <div className="position-absolute end-0">
-            <BotonEliminarRespuesta
-              respuestaId={nodo.id}
-              handleEliminarRespuesta={nodo.handleEliminarRespuesta}
-            />
-          </div>
+          {modificable && (
+            <div className="position-absolute end-0">
+              <BotonEliminarRespuesta
+                respuestaId={nodo.id}
+                handleEliminarRespuesta={nodo.handleEliminarRespuesta}
+              />
+            </div>
+          )}
         </div>
         <Form>
           <InputForm
-            activo={activo}
+            activo={modificable}
             controlId="numero-correctas"
             label="Número mínimo de palabras claves que tendrá que tener la interacció oral"
             placeHolder=""
@@ -132,7 +134,7 @@ export default function ModificarRespuesta(props) {
           />
 
           <TextAreaForm
-            activo={activo}
+            activo={modificable}
             controlId="palabras-correctas"
             label="Palabras clave que tendrá que tener la interacción oral (separar mediante coma)"
             placeHolder="Palabra1, Palabra2, Palabra3..."
@@ -150,7 +152,7 @@ export default function ModificarRespuesta(props) {
           />
 
           <InputForm
-            activo={activo}
+            activo={modificable}
             controlId="numero-incorrectas"
             label="Número máximo de palabras incorrectas que podrá tener la interacció oral"
             placeHolder=""
@@ -169,7 +171,7 @@ export default function ModificarRespuesta(props) {
           />
 
           <TextAreaForm
-            activo={activo}
+            activo={modificable}
             controlId="palabras-incorrectas"
             label="Palabras incorrectas que podrá tener la interacción oral (separar mediante coma)"
             placeHolder="Palabra1, Palabra2, Palabra3..."
@@ -194,16 +196,17 @@ export default function ModificarRespuesta(props) {
             >
               Cancelar
             </Button>
-
-            <Button
-              disabled={!submitActivo}
-              id="modal-guardar"
-              variant="primary"
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-            >
-              Guardar
-            </Button>
+            {modificable && (
+              <Button
+                disabled={!submitActivo}
+                id="modal-guardar"
+                variant="primary"
+                type="submit"
+                onClick={(e) => handleSubmit(e)}
+              >
+                Guardar
+              </Button>
+            )}
           </div>
         </Form>
       </div>

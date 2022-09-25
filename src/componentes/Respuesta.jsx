@@ -4,7 +4,12 @@ import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import Escena from "./Escena";
 
 export default function Respuesta(props) {
-  const { escenarioId, respuesta = null, handleEliminarRespuesta } = props;
+  const {
+    escenarioId,
+    respuesta = null,
+    handleEliminarRespuesta,
+    modificable = true,
+  } = props;
   const [respuestaDatos, setRespuestaDatos] = useState(null);
   const { nodo, setNodo } = useContext(NodoEscenarioContext);
 
@@ -43,9 +48,14 @@ export default function Respuesta(props) {
               escena={respuestaDatos.escena}
               escenarioId={escenarioId}
               respuestaId={respuestaDatos.id}
+              modificable={modificable}
             />
           ) : (
-            <Escena escenarioId={escenarioId} respuestaId={respuestaDatos.id} />
+            <Escena
+              escenarioId={escenarioId}
+              respuestaId={respuestaDatos.id}
+              modificable={modificable}
+            />
           )}
         </div>
       </>

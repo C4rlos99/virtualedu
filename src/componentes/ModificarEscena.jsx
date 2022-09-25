@@ -11,7 +11,7 @@ import swal from "sweetalert";
 import BotonEliminarEscena from "./BotonEliminarEscena";
 
 export default function ModificarEscena(props) {
-  const { escena, activo = true } = props;
+  const { escena, modificable = true } = props;
   const [id, setId] = useState("");
   const [escenaTipoId, setEscenaTipoId] = useState("");
   const [urlVideo, setUrlVideo] = useState("");
@@ -121,17 +121,19 @@ export default function ModificarEscena(props) {
           <h4 id="modal-titulo" className="text-center">
             Escena
           </h4>
-          <div className="position-absolute end-0">
-            <BotonEliminarEscena
-              setEscena={nodo.setEscena}
-              escenaId={nodo.id}
-            />
-          </div>
+          {modificable && (
+            <div className="position-absolute end-0">
+              <BotonEliminarEscena
+                setEscena={nodo.setEscena}
+                escenaId={nodo.id}
+              />
+            </div>
+          )}
         </div>
 
         <Form>
           <InputForm
-            activo={activo}
+            activo={modificable}
             controlId="url-video"
             label="Vídeo de la escena"
             placeHolder="https://www.youtube.com/watch?v=..."
@@ -151,7 +153,7 @@ export default function ModificarEscena(props) {
 
           {(escenaTipoId === 2 || escenaTipoId === 3) && (
             <InputForm
-              activo={activo}
+              activo={modificable}
               controlId="url-video-apoyo"
               label="Vídeo de apoyo de la escena"
               placeHolder="https://www.youtube.com/watch?v=..."
@@ -172,7 +174,7 @@ export default function ModificarEscena(props) {
 
           {escenaTipoId === 3 && (
             <InputForm
-              activo={activo}
+              activo={modificable}
               controlId="url-video-refuerzo"
               label="Vídeo de refuerzo de la escena"
               placeHolder="https://www.youtube.com/watch?v=..."
@@ -200,7 +202,7 @@ export default function ModificarEscena(props) {
               Cerrar
             </Button>
 
-            {activo && (
+            {modificable && (
               <Button
                 disabled={!submitActivo}
                 id="modal-guardar"

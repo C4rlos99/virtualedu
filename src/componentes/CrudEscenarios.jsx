@@ -14,6 +14,7 @@ import swal from "sweetalert";
 import { Navigate } from "react-router-dom";
 import BotonEliminarEscenario from "./BotonEliminarEscenario";
 import BotonModificarEscenario from "./BotonModificarEscenario";
+import BotonMostrarEscenario from "./BotonMostrarEscenario";
 
 export default function CrudEscenarios(props) {
   const { filtro } = props;
@@ -87,9 +88,7 @@ export default function CrudEscenarios(props) {
                     <BsListCheck />
                   </button>
 
-                  <button className="crud-btn" id="show-btn">
-                    <BsEye />
-                  </button>
+                  <BotonMostrarEscenario escenarioId={escenario.id} />
 
                   <BotonModificarEscenario escenarioId={escenario.id} />
 
@@ -133,9 +132,7 @@ export default function CrudEscenarios(props) {
                     <BsListCheck />
                   </button>
 
-                  <button className="crud-btn" id="show-btn">
-                    <BsEye />
-                  </button>
+                  <BotonMostrarEscenario escenarioId={escenario.id} />
                 </div>
                 <div className="d-flex justify-content-end">
                   <BotonModificarEscenario escenarioId={escenario.id} />
