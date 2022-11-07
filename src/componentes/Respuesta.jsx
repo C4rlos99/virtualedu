@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import BotonEliminarRespuesta from "./BotonEliminarRespuesta";
 import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import Escena from "./Escena";
 

@@ -16,9 +16,11 @@ export default function CrearEscena(props) {
     respuestaId,
     escenarioId,
   } = props;
+  const [titulo, setTitulo] = useState("");
   const [urlVideo, setUrlVideo] = useState("");
   const [urlVideoApoyo, setUrlVideoApoyo] = useState("");
   const [urlVideoRefuerzo, setUrlVideoRefuerzo] = useState("");
+  const [tituloFeedBack, setTituloFeedBack] = useState("");
   const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
   const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
   const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
@@ -26,6 +28,7 @@ export default function CrearEscena(props) {
 
   const handleClose = () => {
     setMostrarFormEscena(false);
+    setTitulo("");
     setUrlVideo("");
     setUrlVideoFeedBack("");
     setUrlVideoApoyo("");
@@ -54,6 +57,7 @@ export default function CrearEscena(props) {
     e.preventDefault();
 
     if (
+      titulo &&
       urlVideo &&
       ((escenaTipoId !== 2 && escenaTipoId !== 3) || urlVideoApoyo) &&
       (escenaTipoId !== 3 || urlVideoRefuerzo)
@@ -64,6 +68,7 @@ export default function CrearEscena(props) {
         escenario_id: escenarioId,
         escena_tipo_id: escenaTipoId,
         respuesta_id: respuestaId,
+        titulo: titulo,
         url_video: urlVideo,
       };
 
@@ -95,6 +100,7 @@ export default function CrearEscena(props) {
       });
       setSubmitActivo(true);
     } else {
+      if (!titulo) setTituloFeedBack(feedBackEscena.titulo);
       if (!urlVideo) setUrlVideoFeedBack(feedBackEscena.urlVideo);
       if (!urlVideoApoyo)
         setUrlVideoApoyoFeedBack(feedBackEscena.urlVideoApoyo);
@@ -110,6 +116,25 @@ export default function CrearEscena(props) {
           Escena
         </h4>
         <Form>
+          <InputForm
+            activo={activo}
+            controlId="titulo"
+            label="Título de la escena"
+            placeHolder="Título de la escena"
+            value={titulo}
+            feedBack={tituloFeedBack}
+            type="text"
+            name="titulo"
+            handleChange={(titulo) =>
+              handleChange(
+                titulo,
+                setTitulo,
+                setTituloFeedBack,
+                feedBackEscena.titulo
+              )
+            }
+          />
+
           <InputForm
             activo={activo}
             controlId="url-video"

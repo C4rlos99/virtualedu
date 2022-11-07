@@ -117,7 +117,7 @@ export default function ModificarRespuesta(props) {
           <InputForm
             activo={modificable}
             controlId="numero-correctas"
-            label="Número mínimo de palabras claves que tendrá que tener la interacció oral"
+            label="Número mínimo de palabras claves que tendrá que tener la interacción oral"
             placeHolder=""
             value={numeroCorrectas.toString()}
             feedBack={numeroCorrectasFeedBack}
@@ -154,7 +154,7 @@ export default function ModificarRespuesta(props) {
           <InputForm
             activo={modificable}
             controlId="numero-incorrectas"
-            label="Número máximo de palabras incorrectas que podrá tener la interacció oral"
+            label="Número máximo de palabras incorrectas que podrá tener la interacción oral"
             placeHolder=""
             value={numeroIncorrectas ? numeroIncorrectas.toString() : ""}
             feedBack={numeroIncorrectasFeedBack}

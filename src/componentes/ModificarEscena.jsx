@@ -14,9 +14,11 @@ export default function ModificarEscena(props) {
   const { escena, modificable = true } = props;
   const [id, setId] = useState("");
   const [escenaTipoId, setEscenaTipoId] = useState("");
+  const [titulo, setTitulo] = useState("");
   const [urlVideo, setUrlVideo] = useState("");
   const [urlVideoApoyo, setUrlVideoApoyo] = useState("");
   const [urlVideoRefuerzo, setUrlVideoRefuerzo] = useState("");
+  const [tituloFeedBack, setTituloFeedBack] = useState("");
   const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
   const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
   const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
@@ -25,6 +27,7 @@ export default function ModificarEscena(props) {
 
   useEffect(() => {
     setId(escena.id);
+    setTitulo(escena.titulo);
     setUrlVideo(escena.url_video);
     setEscenaTipoId(escena.escena_tipo_id);
     setUrlVideoFeedBack("");
@@ -66,6 +69,7 @@ export default function ModificarEscena(props) {
     e.preventDefault();
 
     if (
+      titulo &&
       urlVideo &&
       ((escenaTipoId !== 2 && escenaTipoId !== 3) || urlVideoApoyo) &&
       (escenaTipoId !== 3 || urlVideoRefuerzo)
@@ -74,6 +78,7 @@ export default function ModificarEscena(props) {
 
       let nuevosDatosEscena = {
         id: id,
+        titulo: titulo,
         escena_tipo_id: escenaTipoId,
         url_video: urlVideo,
       };
@@ -106,6 +111,7 @@ export default function ModificarEscena(props) {
       });
       setSubmitActivo(true);
     } else {
+      if (!titulo) setTituloFeedBack(feedBackEscena.titulo);
       if (!urlVideo) setUrlVideoFeedBack(feedBackEscena.urlVideo);
       if (!urlVideoApoyo)
         setUrlVideoApoyoFeedBack(feedBackEscena.urlVideoApoyo);
@@ -132,6 +138,25 @@ export default function ModificarEscena(props) {
         </div>
 
         <Form>
+          <InputForm
+            activo={modificable}
+            controlId="titulo"
+            label="Título de la escena"
+            placeHolder="Título de la escena"
+            value={titulo}
+            feedBack={tituloFeedBack}
+            type="text"
+            name="titulo"
+            handleChange={(titulo) =>
+              handleChange(
+                titulo,
+                setTitulo,
+                setTituloFeedBack,
+                feedBackEscena.titulo
+              )
+            }
+          />
+
           <InputForm
             activo={modificable}
             controlId="url-video"

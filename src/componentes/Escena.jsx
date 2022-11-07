@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import AnadirEscena from "./AnadirEscena";
-import BotonEliminarEscena from "./BotonEliminarEscena";
 import Respuesta from "./Respuesta";
 import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import AnadirRespuesta from "./AnadirRespuesta";
@@ -64,7 +63,7 @@ export default function Escena(props) {
             : "escena-1-2-3"
         }
       >
-        <b>Escena {escenaDatos.id}</b>
+        <b>{escenaDatos.titulo}</b>
       </div>
       <div id="escena-respuestas" className="d-flex">
         <div
