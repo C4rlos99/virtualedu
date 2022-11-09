@@ -406,6 +406,10 @@ body {
 }
 
 /* Escenario */
+#titulo-config-datos-escenario{
+    margin-top: 23px;
+}
+
 #datos-escenario{
     border-radius: 8px;
     background-color: #f2eef5;

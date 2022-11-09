@@ -6,7 +6,7 @@ import Footer from "../componentes/Footer";
 import Header from "../componentes/Header";
 import TablaResultados from "../componentes/TablaResultados";
 
-export default function Resultados() {
+export default function Resultados(props) {
   const [filtro, setFiltro] = useState("");
 
   const handleChange = (valor) => {
@@ -19,6 +19,7 @@ export default function Resultados() {
 
       <Container className="content">
         <h2>Resultados</h2>
+        <h4>Escenario: "tituloEscenario"</h4>
 
         <div id="barra-busqueda">
           <BarraBusqueda

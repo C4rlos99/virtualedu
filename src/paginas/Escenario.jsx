@@ -61,7 +61,7 @@ export default function Escenario(props) {
         ) : (
           <h2>Datos del escenario</h2>
         )}
-        <br />
+        <h4 id="titulo-config-datos-escenario">Configuración del escenario</h4>
         <ModificarEscenario id={id} modificable={modificable} />
         <br />
         <h4>Escenas</h4>
