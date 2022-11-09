@@ -5,6 +5,7 @@ import NoEncontrado from "./paginas/NoEncontrado";
 import Escenarios from "./paginas/Escenarios";
 import Escenario from "./paginas/Escenario";
 import { UsuarioContextProvider } from "./context/UsuarioContext";
+import Resultados from "./paginas/Resultados";
 
 export default function App() {
   return (
@@ -20,6 +21,8 @@ export default function App() {
           <Route path="/escenarios" element={<Escenarios />} />
 
           <Route path="/escenarios/modificar/:id" element={<Escenario />} />
+
+          <Route path="/resultados/:escenarioId" element={<Resultados />} />
 
           <Route
             path="/escenarios/mostrar/:id"

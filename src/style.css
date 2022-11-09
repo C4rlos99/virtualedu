@@ -87,8 +87,16 @@ body {
     color: #ff4d4d;
 }
 
+#visible-td{
+    text-align: center;
+}
+
+#visible-th{
+    text-align: center;
+}
+
 .crud-btn {
-    height: 42px;
+    min-height: 42px;
     width: 42px;
     display: inline-block;
     text-align: center;
@@ -105,16 +113,20 @@ body {
 }
 
 #result-btn {
-    color: #000000;
-    background-color: #85c2ff;
+    color: rgb(255, 255, 255);
+    background-color: #198754;
+    padding: 5px 10px 5px 10px;
+    width: 142px;
+    height: auto;
+    font-size: 18px;
 }
 
 #result-btn:hover {
-    background-color: #4aa5ff;
+    background-color: #157347;
 }
 
 #result-btn:active {
-    background-color: #85c2ff;
+    background-color: #198754;
 }
 
 #show-btn {
@@ -158,8 +170,8 @@ body {
 
 #new-stage {
     color: rgb(0, 0, 0);
-    background-color: #00e6778e;
-    margin: 15px 0px 30px 30px;
+    background-color: #85c2ff;
+    margin: 15px 0px 30px 0px;
     padding: 5px 10px 5px 10px;
     height: auto;
     width: auto;
@@ -172,12 +184,11 @@ body {
 }
 
 #new-stage:hover {
-    background-color: #a8fdbcad;
+    background-color: #4aa5ff;
 }
 
 #new-stage:active {
-    background-color: #00e6778e;
-    box-shadow: none;
+    background-color: #85c2ff;
 }
 
 @media screen and (max-width: 768px) {
@@ -226,20 +237,25 @@ body {
 }
 
 /* CRUD -> Table */
-#table-crud > tbody > tr > td > div > button {
+.table-crud > tbody > tr > td > div > button {
     margin: 0px 20px 0px 0px;
 }
 
-#table-crud > thead {
+.table-crud > thead {
     background-color: #dceeff;
 }
 
-#table-crud {
+.table-crud > tbody > tr > td {
+    vertical-align:middle
+}
+
+/* Escenarios */
+#table-crud-escenarios {
     display: none;
 }
 
 @media screen and (min-width: 769px) {
-    #table-crud {
+    #table-crud-escenarios {
         display: table;
     }
 }
@@ -505,50 +521,8 @@ body {
     padding: 0px 30px 0px 30px;
 }
 
-/* .dropbtn {
-    background-color: rgb(60, 78, 97);
-    color: rgba(255, 255, 255, 0.55);
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+/* Resultados */
+#barra-busqueda{
+    padding: 0px 0px 30px 0px;
+    max-width: 700px;
 }
-
-.dropdown {
-    text-align: center;
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 150px;
-    box-shadow: 0px 8px 12px 0px rgba(0,0,0,0.2);
-    z-index: auto;
-    border: 1px;
-    border-style: solid;
-    border-color: rgb(208, 208, 208, 0.5);
-    border-radius: 5px;
-    padding: 10px 0px 10px 0px;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 6px 8px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: rgb(236, 236, 236);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    color: rgba(255, 255, 255, 0.75);
-    transition: color 0.3s ease;
-} */

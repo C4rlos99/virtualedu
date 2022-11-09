@@ -34,7 +34,7 @@ export default function Escenario(props) {
           setEscenaRaiz(resultado.escenas);
           break;
         case 403:
-          mostrarAlerta(resultado.mensaje, "error", "escenario");
+          mostrarAlerta(resultado.mensaje, "error", "Escenario");
           setPath("/escenarios");
           setRedireccion(true);
           break;

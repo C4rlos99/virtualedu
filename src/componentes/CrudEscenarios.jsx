@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col } from "react-bootstrap";
-import {
-  BsFillCheckSquareFill,
-  BsFillXSquareFill,
-  BsEye,
-  BsPencil,
-  BsListCheck,
-} from "react-icons/bs";
+import { Table, Row, Col, Button } from "react-bootstrap";
+import { BsFillCheckSquareFill, BsFillXSquareFill } from "react-icons/bs";
 import "../style.css";
 import PropTypes from "prop-types";
 import { obtenerEscenarios } from "../servicios/escenarioServicio";
@@ -15,6 +9,7 @@ import { Navigate } from "react-router-dom";
 import BotonEliminarEscenario from "./BotonEliminarEscenario";
 import BotonModificarEscenario from "./BotonModificarEscenario";
 import BotonMostrarEscenario from "./BotonMostrarEscenario";
+import BotonMostrarResultados from "./BotonMostrarResultados";
 
 export default function CrudEscenarios(props) {
   const { filtro } = props;
@@ -57,37 +52,37 @@ export default function CrudEscenarios(props) {
   return redireccion ? (
     <Navigate to="/iniciar-sesion" replace />
   ) : window.innerWidth >= 768 ? (
-    <Table hover id="table-crud">
+    <Table hover id="table-crud-escenarios" className="table-crud">
       <thead>
         <tr>
           <th>Nombre del escenario</th>
           <th>Fecha</th>
-          <th>Visible</th>
+          <th id="visible-th">Visible</th>
+          <th> </th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         {escenarios
           .filter((escenario) => {
-            return escenario.titulo.includes(filtro);
+            return escenario.titulo
+              .toLowerCase()
+              .includes(filtro.toLowerCase());
           })
           .map((escenario) => (
             <tr key={escenario.id}>
               <td>{escenario.titulo}</td>
               <td>{escenario.fecha_creacion.split("T")[0]}</td>
-              <td>
+              <td id="visible-td">
                 {escenario.visible ? (
                   <BsFillCheckSquareFill className="visible-icon" />
                 ) : (
                   <BsFillXSquareFill className="invisible-icon" />
                 )}
               </td>
+              <td></td>
               <td>
                 <div className="d-flex">
-                  <button className="crud-btn" id="result-btn">
-                    <BsListCheck />
-                  </button>
-
                   <BotonMostrarEscenario escenarioId={escenario.id} />
 
                   <BotonModificarEscenario escenarioId={escenario.id} />
@@ -96,6 +91,8 @@ export default function CrudEscenarios(props) {
                     handleEliminarEscenario={handleEliminarEscenario}
                     escenarioId={escenario.id}
                   />
+
+                  <BotonMostrarResultados escenarioId={escenario.id} />
                 </div>
               </td>
             </tr>
@@ -128,20 +125,16 @@ export default function CrudEscenarios(props) {
               </Col>
               <Col xs={6}>
                 <div className="d-flex justify-content-end">
-                  <button className="crud-btn" id="result-btn">
-                    <BsListCheck />
-                  </button>
-
-                  <BotonMostrarEscenario escenarioId={escenario.id} />
-                </div>
-                <div className="d-flex justify-content-end">
+                  <BotonMostrarEscenario escenarioId={escenario.id} />{" "}
                   <BotonModificarEscenario escenarioId={escenario.id} />
-
                   <BotonEliminarEscenario
                     escenario={escenario}
                     escenarios={escenarios}
                     setEscenarios={setEscenarios}
                   />
+                </div>
+                <div className="d-flex justify-content-end">
+                  <BotonMostrarResultados escenarioId={escenario.id} />
                 </div>
               </Col>
             </Row>
