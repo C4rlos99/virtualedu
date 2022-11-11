@@ -8,6 +8,7 @@ import TablaResultados from "../componentes/TablaResultados";
 
 export default function Resultados(props) {
   const [filtro, setFiltro] = useState("");
+  const [tituloEscenario, setTituloEscenario] = useState("");
 
   const handleChange = (valor) => {
     setFiltro(valor);
@@ -19,7 +20,7 @@ export default function Resultados(props) {
 
       <Container className="content">
         <h2>Resultados</h2>
-        <h4>Escenario: "tituloEscenario"</h4>
+        <h4>Escenario: {tituloEscenario}</h4>
 
         <div id="barra-busqueda">
           <BarraBusqueda
@@ -28,7 +29,10 @@ export default function Resultados(props) {
           />
         </div>
 
-        <TablaResultados filtro={filtro} />
+        <TablaResultados
+          filtro={filtro}
+          setTituloEscenario={setTituloEscenario}
+        />
       </Container>
 
       <Footer />

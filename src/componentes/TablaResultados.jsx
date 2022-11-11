@@ -7,10 +7,10 @@ import swal from "sweetalert";
 import { obtenerResultados } from "../servicios/resultadoServicio";
 
 export default function TablaResultados(props) {
-  const { filtro } = props;
+  const { filtro, setTituloEscenario } = props;
   const [redireccion, setRedireccion] = useState(false);
   const [path, setPath] = useState("");
-  const [resultado, setResultados] = useState([]);
+  const [resultados, setResultados] = useState([]);
   const { escenarioId } = useParams();
 
   const mostrarAlerta = (texto, icono, titulo) => {
@@ -27,6 +27,7 @@ export default function TablaResultados(props) {
       switch (resultado.status) {
         case 200:
           setResultados(resultado.resultados);
+          setTituloEscenario(resultado.titulo_escenario);
           break;
         case 403:
           mostrarAlerta(resultado.mensaje, "error", "Resultados");
@@ -57,21 +58,15 @@ export default function TablaResultados(props) {
           </tr>
         </thead>
         <tbody>
-          {resultado
+          {resultados
             .filter((resultado) => {
-              return (
-                resultado.usuario.nombre +
-                " " +
-                resultado.usuario.apellidos
-              )
+              return resultado.nombre_usuario
                 .toLowerCase()
                 .includes(filtro.toLowerCase());
             })
             .map((resultado) => (
               <tr key={resultado.id}>
-                <td>
-                  {resultado.usuario.nombre + " " + resultado.usuario.apellidos}
-                </td>
+                <td>{resultado.nombre_usuario}</td>
                 <td>{resultado.fecha_evaluacion.split("T")[0]}</td>
                 <td>descargar resultado</td>
               </tr>
