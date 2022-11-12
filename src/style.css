@@ -26,6 +26,13 @@ body {
     padding-bottom: 140px;
 }
 
+/* General */
+.form-control:disabled, .form-control[readonly], .form-select:disabled {
+    background-color: #fbfbfb;
+    color: #ababab;
+    opacity: 1;
+}
+
 /* Login */
 #credenciales-invalidas{
     text-align: center;
@@ -87,11 +94,7 @@ body {
     color: #ff4d4d;
 }
 
-#visible-td{
-    text-align: center;
-}
-
-#visible-th{
+#visible-td, #visible-th{
     text-align: center;
 }
 
@@ -388,7 +391,7 @@ body {
     margin-right: 5px;
 }
 
-@media screen and (max-width: 289px){  
+@media screen and (max-width: 370px){  
     #modal-footer{
         flex-direction: column;
         display: flex;
@@ -407,7 +410,11 @@ body {
 
 /* Escenario */
 #titulo-config-datos-escenario{
-    margin-top: 23px;
+    margin: 23px 0px 14px 0px;
+}
+
+#titulo-seccion-escenas{
+    margin-bottom: 14px;
 }
 
 #datos-escenario{
@@ -527,7 +534,7 @@ body {
 
 /* Resultados */
 #barra-busqueda{
-    margin: 0px 0px 30px 0px;
+    margin: -11px 0px 30px 0px;
     max-width: 700px;
 }
 
@@ -535,4 +542,8 @@ body {
     #barra-busqueda{
         margin: 0px 0px 15px 0px;
     }
+}
+
+#titulo-escenario{
+    margin-top: 23px;
 }

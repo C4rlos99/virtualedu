@@ -20,7 +20,7 @@ export default function Resultados(props) {
 
       <Container className="content">
         <h2>Resultados</h2>
-        <h4>Escenario: {tituloEscenario}</h4>
+        <h4 id="titulo-escenario">Escenario: {tituloEscenario}</h4>
 
         <div id="barra-busqueda">
           <BarraBusqueda

@@ -64,7 +64,7 @@ export default function Escenario(props) {
         <h4 id="titulo-config-datos-escenario">Configuración del escenario</h4>
         <ModificarEscenario id={id} modificable={modificable} />
         <br />
-        <h4>Escenas</h4>
+        <h4 id="titulo-seccion-escenas">Escenas</h4>
         <NodoEscenarioContextProvider>
           <div className="d-flex">
             <div id="nodos">
