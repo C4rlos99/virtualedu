@@ -34,7 +34,7 @@ export default function Respuesta(props) {
           onClick={() => handleClick()}
           style={
             nodo && nodo.tipo === "respuesta" && nodo.id === respuestaDatos.id
-              ? { backgroundColor: "#00e6778e" }
+              ? { backgroundColor: "#60e78f6e" }
               : {}
           }
         >

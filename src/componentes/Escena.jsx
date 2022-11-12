@@ -49,10 +49,10 @@ export default function Escena(props) {
         style={
           !modificable && !escenaDatos.respuestas.length
             ? nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
-              ? { backgroundColor: "#00e6778e", marginBottom: 10 }
+              ? { backgroundColor: "#60e78f6e", marginBottom: 10 }
               : { marginBottom: 10 }
             : nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
-            ? { backgroundColor: "#00e6778e" }
+            ? { backgroundColor: "#60e78f6e" }
             : {}
         }
         className={
@@ -77,7 +77,7 @@ export default function Escena(props) {
           }
           style={
             nodo && nodo.tipo === "escena" && nodo.id === escenaDatos.id
-              ? { borderColor: "#00e6778e" }
+              ? { borderColor: "#60e78f6e" }
               : {}
           }
         ></div>
