@@ -15,7 +15,6 @@ export default function Header(props) {
   const { usuario, setUsuario } = useContext(UsuarioContext);
 
   const mostrarAlerta = (titulo, texto, icono = null) => {
-    console.log(texto);
     swal({
       title: titulo,
       text: texto,
