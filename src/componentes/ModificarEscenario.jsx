@@ -108,7 +108,7 @@ export default function ModificarEscenario(props) {
         <Row>
           <Col sm={12} md={7}>
             <InputForm
-              controlId="titulo-escenario"
+              controlId="titulo-escenario-configuracion"
               label="Titulo del escenario virtual"
               placeHolder="Título del escenario virtual"
               value={titulo}
