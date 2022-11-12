@@ -57,7 +57,7 @@ export default function FormularioEscenario(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (titulo && lenguaje) {
+    if (titulo && lenguaje != 0) {
       setSubmitActivo(false);
 
       crearEscenario({
