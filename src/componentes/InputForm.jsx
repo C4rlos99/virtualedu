@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-import PropTypes from "prop-types";
 import "../style.css";
 
 export default function InputForm(props) {
@@ -30,14 +29,3 @@ export default function InputForm(props) {
     </Form.Group>
   );
 }
-
-InputForm.propTypes = {
-  controlId: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  placeHolder: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
-  errorMsg: PropTypes.string,
-};

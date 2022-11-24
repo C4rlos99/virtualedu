@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
+import React, { useContext } from "react";
 import { Modal } from "react-bootstrap";
 import { NodoEscenarioContext } from "../context/NodoEscenarioContext";
 import ModificarEscena from "./ModificarEscena";

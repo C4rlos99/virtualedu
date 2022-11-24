@@ -6,7 +6,6 @@ import { Link, Navigate } from "react-router-dom";
 import { UsuarioContext } from "../context/UsuarioContext.js";
 import { cerrarSesion } from "../servicios/usuarioServicio.js";
 import "../style.css";
-import PropTypes from "prop-types";
 import swal from "sweetalert";
 
 export default function Header(props) {
@@ -107,5 +106,3 @@ export default function Header(props) {
     </Navbar>
   );
 }
-
-Header.propTypes = {};

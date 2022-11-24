@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Row, Col, Form, Button, FormSelect } from "react-bootstrap";
 import swal from "sweetalert";
 import { feedBackEscenario } from "../constantes/feedBack";

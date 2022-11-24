@@ -1,6 +1,5 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-import PropTypes from "prop-types";
 import "../style.css";
 
 export default function TextAreaForm(props) {
@@ -30,5 +29,3 @@ export default function TextAreaForm(props) {
     </Form.Group>
   );
 }
-
-TextAreaForm.propTypes = {};

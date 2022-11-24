@@ -98,7 +98,7 @@ body {
     color: #ff4d4d;
 }
 
-#visible-td, #visible-th{
+#visible-td, #visible-th, #descargar-td, #descargar-th{
     text-align: center;
 }
 
@@ -195,6 +195,19 @@ body {
 }
 
 #new-stage:active {
+    background-color: #85c2ff;
+}
+
+#descarga-btn {
+    color: #000000;
+    background-color: #85c2ff;
+}
+
+#descarga-btn:hover {
+    background-color: #4aa5ff;
+}
+
+#descarga-btn:active {
     background-color: #85c2ff;
 }
 

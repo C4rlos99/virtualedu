@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Button } from "react-bootstrap";
+import { Table, Row, Col } from "react-bootstrap";
 import { BsFillCheckSquareFill, BsFillXSquareFill } from "react-icons/bs";
 import "../style.css";
-import PropTypes from "prop-types";
 import { obtenerEscenarios } from "../servicios/escenarioServicio";
 import swal from "sweetalert";
 import { Navigate } from "react-router-dom";
@@ -143,5 +142,3 @@ export default function CrudEscenarios(props) {
     </div>
   );
 }
-
-CrudEscenarios.propTypes = {};

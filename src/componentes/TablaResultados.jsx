@@ -1,12 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { Navigate, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import { obtenerResultados } from "../servicios/resultadoServicio";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import ResultadoPDF from "./ResultadoPDF";
+import BotonDescargarPDF from "./BotonDescargarPDF";
 
 export default function TablaResultados(props) {
   const { filtro, setTituloEscenario } = props;
@@ -58,7 +57,7 @@ export default function TablaResultados(props) {
           <tr>
             <th>Nombre y apellidos</th>
             <th>Fecha</th>
-            <th>Descarga</th>
+            <th id="descargar-th">Descarga</th>
           </tr>
         </thead>
         <tbody>
@@ -72,22 +71,11 @@ export default function TablaResultados(props) {
               <tr key={resultado.id}>
                 <td>{resultado.nombre_usuario}</td>
                 <td>{resultado.fecha_evaluacion.split("T")[0]}</td>
-                <td>
-                  <PDFDownloadLink
-                    document={
-                      <ResultadoPDF
-                        tituloEscenario={tituloEscenarioPDF}
-                        resultado={resultado}
-                      />
-                    }
-                    fileName={
-                      resultado.nombre_usuario.replaceAll(" ", "-") +
-                      "_" +
-                      resultado.fecha_evaluacion.split("T")[0]
-                    }
-                  >
-                    <Button>Descargar pdf</Button>
-                  </PDFDownloadLink>
+                <td id="descargar-td">
+                  <BotonDescargarPDF
+                    tituloEscenarioPDF={tituloEscenarioPDF}
+                    resultado={resultado}
+                  />
                 </td>
               </tr>
             ))}
