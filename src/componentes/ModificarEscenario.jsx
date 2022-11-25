@@ -8,8 +8,10 @@ import {
   modificarEscenario,
   obtenerEscenario,
 } from "../servicios/escenarioServicio";
+import { Navigate } from "react-router-dom";
 
 export default function ModificarEscenario(props) {
+  const [estadoInicial, setEstadoIncicial] = useState({});
   const { id, modificable = true } = props;
   const [redireccion, setRedireccion] = useState(false);
   const [path, setPath] = useState("");
@@ -27,6 +29,12 @@ export default function ModificarEscenario(props) {
           setTitulo(resultado.escenario.titulo);
           setVisible(resultado.escenario.visible);
           setLenguaje(resultado.escenario.lenguaje_id);
+
+          setEstadoIncicial({
+            titulo: resultado.escenario.titulo,
+            visible: resultado.escenario.visible,
+            lenguaje: resultado.escenario.lenguaje_id,
+          });
           break;
         case 403:
           mostrarAlerta(resultado.mensaje, "error", "Escenario");
@@ -86,6 +94,11 @@ export default function ModificarEscenario(props) {
         switch (resultado.status) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
+            setEstadoIncicial({
+              titulo: titulo,
+              visible: visible,
+              lenguaje: lenguaje,
+            });
             break;
           case 422:
             mostrarAlerta(resultado.mensaje, "error");
@@ -101,7 +114,9 @@ export default function ModificarEscenario(props) {
     } else setTituloFeedBack(feedBackEscenario.titulo);
   };
 
-  return (
+  return redireccion ? (
+    <Navigate to={path} replace />
+  ) : (
     <div id="datos-escenario">
       <Form>
         <Row>
@@ -145,13 +160,14 @@ export default function ModificarEscenario(props) {
                 <option className="text-center" value="0">
                   -- Seleccione el lenguaje --
                 </option>
-                {JSON.parse(localStorage.getItem("lenguajes")).map(
-                  (lenguaje) => (
-                    <option key={lenguaje.id} value={lenguaje.id}>
-                      {lenguaje.nombre}
-                    </option>
-                  )
-                )}
+                {localStorage.getItem("lenguajes") &&
+                  JSON.parse(localStorage.getItem("lenguajes")).map(
+                    (lenguaje) => (
+                      <option key={lenguaje.id} value={lenguaje.id}>
+                        {lenguaje.nombre}
+                      </option>
+                    )
+                  )}
               </FormSelect>
             </Form.Group>
             <p className="error-msg">{lenguajeFeedBack}</p>
@@ -171,7 +187,14 @@ export default function ModificarEscenario(props) {
         {modificable && (
           <div className="d-flex justify-content-center">
             <Button
-              disabled={!submitActivo}
+              disabled={
+                !submitActivo ||
+                JSON.stringify({
+                  titulo,
+                  visible,
+                  lenguaje,
+                }) === JSON.stringify(estadoInicial)
+              }
               id="guardar-escenario"
               variant="primary"
               type="submit"

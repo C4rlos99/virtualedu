@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import Header from "../componentes/Header";
 import { Container } from "react-bootstrap";
 import Footer from "../componentes/Footer";

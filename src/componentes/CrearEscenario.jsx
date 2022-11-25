@@ -7,7 +7,7 @@ import CheckForm from "./CheckForm";
 import swal from "sweetalert";
 import { Navigate } from "react-router-dom";
 
-export default function FormularioEscenario(props) {
+export default function CrearEscenario(props) {
   const { show, onHide, setMostrarFormEscenario } = props;
   const [titulo, setTitulo] = useState("");
   const [visible, setVisible] = useState(false);
@@ -134,13 +134,14 @@ export default function FormularioEscenario(props) {
                   <option className="text-center" value="0">
                     -- Seleccione el lenguaje --
                   </option>
-                  {JSON.parse(localStorage.getItem("lenguajes")).map(
-                    (lenguaje) => (
-                      <option key={lenguaje.id} value={lenguaje.id}>
-                        {lenguaje.nombre}
-                      </option>
-                    )
-                  )}
+                  {localStorage.getItem("lenguajes") &&
+                    JSON.parse(localStorage.getItem("lenguajes")).map(
+                      (lenguaje) => (
+                        <option key={lenguaje.id} value={lenguaje.id}>
+                          {lenguaje.nombre}
+                        </option>
+                      )
+                    )}
                 </FormSelect>
               </Form.Group>
               <p className="error-msg">{lenguajeFeedBack}</p>

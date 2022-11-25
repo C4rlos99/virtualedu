@@ -28,11 +28,12 @@ export default function AnadirEscena(props) {
         <option className="text-center" value="0">
           -- Seleccione el tipo de la escena --
         </option>
-        {JSON.parse(localStorage.getItem("escenaTipos")).map((escenaTipo) => (
-          <option key={escenaTipo.id} value={escenaTipo.id}>
-            {escenaTipo.nombre}
-          </option>
-        ))}
+        {localStorage.getItem("escenaTipos") &&
+          JSON.parse(localStorage.getItem("escenaTipos")).map((escenaTipo) => (
+            <option key={escenaTipo.id} value={escenaTipo.id}>
+              {escenaTipo.nombre}
+            </option>
+          ))}
       </FormSelect>
 
       <CrearEscena

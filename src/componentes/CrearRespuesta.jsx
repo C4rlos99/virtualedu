@@ -6,7 +6,7 @@ import InputForm from "./InputForm.jsx";
 import { feedBackRespuesta } from "../constantes/feedBack.js";
 import { crearRespuesta } from "../servicios/respuestaServicio.js";
 
-export default function FormularioRespuesta(props) {
+export default function CrearRespuesta(props) {
   const {
     show,
     onHide,

@@ -13,7 +13,9 @@ export default function ResultadoPDF(props) {
     titulo: {
       fontWeight: "bold",
       fontSize: 20,
-      marginBottom: 10,
+      marginBottom: 18,
+      textAlign: "center",
+      textDecoration: "underline",
     },
 
     tabla: {
@@ -32,6 +34,7 @@ export default function ResultadoPDF(props) {
       borderColor: "black",
       borderStyle: "solid",
       padding: 6,
+      backgroundColor: "#EDF7FF",
     },
 
     tituloEscena: {
@@ -71,7 +74,7 @@ export default function ResultadoPDF(props) {
         {JSON.parse(resultado.respuestas).map((respuesta, index) => (
           <View key={index} style={{ marginBottom: 15 }}>
             <Text style={estilos.tituloEscena}>
-              Escena: {respuesta.titulo_escena}
+              Escena {index + 1}: {respuesta.titulo_escena}
             </Text>
             <View style={estilos.interaccion}>
               <Text>{respuesta.interaccion}</Text>

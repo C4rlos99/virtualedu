@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Header from "../componentes/Header";
 import { BsPlusLg } from "react-icons/bs";
 import { Container, Row, Col } from "react-bootstrap";

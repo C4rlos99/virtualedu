@@ -13,6 +13,7 @@ import BotonEliminarRespuesta from "./BotonEliminarRespuesta";
 
 export default function ModificarRespuesta(props) {
   const { respuesta, modificable = true } = props;
+  const [estadoInicial, setEstadoIncicial] = useState({});
   const [id, setId] = useState("");
   const [palabrasCorrectas, setPalabrasCorrectas] = useState("");
   const [numeroCorrectas, setNumeroCorrectas] = useState("");
@@ -36,6 +37,13 @@ export default function ModificarRespuesta(props) {
     setPalabrasIncorrectas(respuesta.palabras_incorrectas);
     setNumeroCorrectasFeedBack("");
     setPalabrasCorrectasFeedBack("");
+
+    setEstadoIncicial({
+      palabrasCorrectas: respuesta.palabras_correctas,
+      numeroCorrectas: respuesta.min_correctas,
+      palabrasIncorrectas: respuesta.palabras_incorrectas,
+      numeroIncorrectas: respuesta.max_incorrectas,
+    });
   }, [respuesta]);
 
   const handleClose = () => {
@@ -77,6 +85,12 @@ export default function ModificarRespuesta(props) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
             nodo.setRespuesta(resultado.respuesta);
+            setEstadoIncicial({
+              palabrasCorrectas: palabrasCorrectas,
+              numeroCorrectas: numeroCorrectas,
+              palabrasIncorrectas: palabrasIncorrectas,
+              numeroIncorrectas: numeroIncorrectas,
+            });
             break;
           case 422:
             mostrarAlerta(resultado.mensaje, "error");
@@ -198,7 +212,28 @@ export default function ModificarRespuesta(props) {
             </Button>
             {modificable && (
               <Button
-                disabled={!submitActivo}
+                disabled={
+                  !submitActivo ||
+                  JSON.stringify({
+                    palabrasCorrectas,
+                    numeroCorrectas,
+                    palabrasIncorrectas: palabrasIncorrectas
+                      ? palabrasIncorrectas
+                      : null,
+                    numeroIncorrectas: numeroIncorrectas
+                      ? numeroIncorrectas
+                      : null,
+                  }) ===
+                    JSON.stringify({
+                      ...estadoInicial,
+                      palabrasIncorrectas: estadoInicial.palabrasIncorrectas
+                        ? estadoInicial.palabrasIncorrectas
+                        : null,
+                      numeroIncorrectas: estadoInicial.numeroIncorrectas
+                        ? estadoInicial.numeroIncorrectas
+                        : null,
+                    })
+                }
                 id="modal-guardar"
                 variant="primary"
                 type="submit"

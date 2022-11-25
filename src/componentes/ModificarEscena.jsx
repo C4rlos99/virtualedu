@@ -12,6 +12,7 @@ import BotonEliminarEscena from "./BotonEliminarEscena";
 
 export default function ModificarEscena(props) {
   const { escena, modificable = true } = props;
+  const [estadoInicial, setEstadoIncicial] = useState({});
   const [id, setId] = useState("");
   const [escenaTipoId, setEscenaTipoId] = useState("");
   const [titulo, setTitulo] = useState("");
@@ -43,6 +44,13 @@ export default function ModificarEscena(props) {
       default:
         break;
     }
+
+    setEstadoIncicial({
+      titulo: escena.titulo,
+      urlVideo: escena.url_video,
+      urlVideoApoyo: escena.url_video_apoyo,
+      urlVideoRefuerzo: escena.url_video_refuerzo,
+    });
   }, [escena]);
 
   const handleClose = () => {
@@ -98,6 +106,12 @@ export default function ModificarEscena(props) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
             nodo.setEscena(resultado.escena);
+            setEstadoIncicial({
+              titulo: titulo,
+              urlVideo: urlVideo,
+              urlVideoApoyo: urlVideoApoyo,
+              urlVideoRefuerzo: urlVideoRefuerzo,
+            });
             break;
           case 422:
             mostrarAlerta(resultado.mensaje, "error");
@@ -229,7 +243,26 @@ export default function ModificarEscena(props) {
 
             {modificable && (
               <Button
-                disabled={!submitActivo}
+                disabled={
+                  !submitActivo ||
+                  JSON.stringify({
+                    titulo,
+                    urlVideo,
+                    urlVideoApoyo: urlVideoApoyo ? urlVideoApoyo : null,
+                    urlVideoRefuerzo: urlVideoRefuerzo
+                      ? urlVideoRefuerzo
+                      : null,
+                  }) ===
+                    JSON.stringify({
+                      ...estadoInicial,
+                      urlVideoApoyo: estadoInicial.urlVideoApoyo
+                        ? estadoInicial.urlVideoApoyo
+                        : null,
+                      urlVideoRefuerzo: estadoInicial.urlVideoRefuerzo
+                        ? estadoInicial.urlVideoRefuerzo
+                        : null,
+                    })
+                }
                 id="modal-guardar"
                 variant="primary"
                 type="submit"
