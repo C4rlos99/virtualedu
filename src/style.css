@@ -448,7 +448,6 @@ body {
 #anadir-escena-contenedor{
     display: flex;
     max-width: 450px;
-    margin-top: 10px;
 }
 
 #anadir-escena-btn{
@@ -493,11 +492,13 @@ body {
 }
 
 .escena-4{
-    border-radius: 6px 6px 6px 0px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 0px;
 }
 
 .escena-1-2-3{
-    border-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
 }
 
 .escena-respuestas-4{
@@ -516,11 +517,27 @@ body {
     border-bottom-left-radius: 8px;
 }
 
+#escena-collapse-btn{
+    background-color: #f2eef5;
+}
+
+.collapse-btn{
+    height: 54px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-size: 0.7cm;
+    padding-right: 12px;
+}
+
 /* Respuesta */
 #respuesta{
     width: 100%;
     height: 54px;
-    border-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     padding: 5px;
     background-color: #85c2ff5f;
     margin-bottom: 10px;
@@ -541,6 +558,12 @@ body {
 }
 
 #anadir-respuesta-contenedor{
+    margin-top: 10px;
+}
+
+#respuesta-collapse-btn{
+    background-color: #85c2ff5f;
+    margin-bottom: 10px;
     margin-top: 10px;
 }
 
