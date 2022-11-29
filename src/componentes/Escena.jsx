@@ -87,7 +87,7 @@ export default function Escena(props) {
           <BsChevronRight
             style={
               colapsado
-                ? { transform: "rotate(0deg)", transition: "0.35s" }
+                ? { transform: "rotate(180deg)", transition: "0.35s" }
                 : { transform: "rotate(90deg)", transition: "0.35s" }
             }
           />
