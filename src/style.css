@@ -435,7 +435,7 @@ body {
 }
 
 #datos-escenario{
-    border-radius: 8px;
+    border-radius: 6px;
     background-color: #f2eef5;
     width: 100%;
     padding: 25px;
@@ -460,18 +460,6 @@ body {
 #anadir-escena-selector{
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-}
-
-#nodos{
-    width: 100%;
-}
-
-#datos-nodo{
-    width: 100%;
-    max-width: 500px;
-    height: fit-content;
-    position: sticky;
-    top: 90px;
 }
 
 /* Escena */
@@ -568,8 +556,20 @@ body {
 }
 
 /* Datos Nodos */
-#datos-nodo-form{
-    padding: 0px 30px 0px 30px;
+#nodos{
+    width: 100%;
+}
+
+#datos-nodo{
+    border-radius: 6px;
+    background-color: #f2eef5;
+    padding: 30px 30px 0px 30px;
+    margin-left: 20px;
+    width: 100%;
+    max-width: 500px;
+    height: fit-content;
+    position: sticky;
+    top: 90px;
 }
 
 /* Resultados */
