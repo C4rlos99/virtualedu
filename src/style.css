@@ -462,6 +462,10 @@ body {
     border-bottom-left-radius: 0px;
 }
 
+#visible{
+    vertical-align: middle;
+}
+
 /* Escena */
 #escena{
     width: 100%;
@@ -586,4 +590,117 @@ body {
 
 #titulo-escenario-resultados{
     margin-top: 23px;
+}
+
+/* Drag and Drop */
+.drop-file-input {
+    position: relative;
+    height: 100px;
+    border: 2px dashed #c5c4c5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    margin-top: 21px;
+}
+
+.drop-file-input > input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.drop-file-input:hover,
+.drop-file-input.dragover {
+    opacity: 0.6;
+}
+
+.drop-file-input-label {
+    text-align: center;
+    color: #8a8a8a;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.drop-file-input-label > p {
+    margin: 0px;
+}
+
+.drop-file-preview-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.drop-file-preview-grid > p {
+    font-weight: 500;
+}
+
+.drop-file-preview-titulo {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.drop-file-preview-item {
+    background-color: #85c2ff5f;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+}
+
+@media screen and (max-width: 991px) {
+    .drop-file-preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .drop-file-preview-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.drop-file-preview-item > img {
+    height: 50px;
+    margin-right: 5px;
+}
+
+.drop-file-preview-item > svg {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+    width: 12px;
+    height: auto;
+}
+
+.drop-file-preview-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-wrap: break-word;
+    max-width: 190px;
+}
+
+.drop-file-preview-item-info > p {
+    margin: 0px;
+}
+
+#subir-videos-div{
+    margin-top: 21px;
+}
+
+#file-uploaded-label{
+    text-align: center;
+    color: #212529;
+    font-weight: 500;
 }

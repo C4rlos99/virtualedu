@@ -9,6 +9,7 @@ import ModificarEscenario from "../componentes/ModificarEscenario";
 import { NodoEscenarioContextProvider } from "../context/NodoEscenarioContext.js";
 import swal from "sweetalert";
 import DatosNodo from "../componentes/DatosNodo";
+import { VideosEscenarioContextProvider } from "../context/VideosEscenarioContext";
 
 export default function Escenario(props) {
   const { modificable = true } = props;
@@ -61,22 +62,24 @@ export default function Escenario(props) {
           <h2>Datos del escenario</h2>
         )}
         <h4 id="titulo-config-datos-escenario">Configuración del escenario</h4>
-        <ModificarEscenario id={id} modificable={modificable} />
-        <br />
-        <h4 id="titulo-seccion-escenas">Escenas</h4>
-        <NodoEscenarioContextProvider>
-          <div className="d-flex">
-            <div id="nodos">
-              <Escena
-                escena={escenaRaiz}
-                escenarioId={id}
-                modificable={modificable}
-              />
-            </div>
+        <VideosEscenarioContextProvider>
+          <ModificarEscenario id={id} modificable={modificable} />
+          <br />
+          <h4 id="titulo-seccion-escenas">Escenas</h4>
+          <NodoEscenarioContextProvider>
+            <div className="d-flex">
+              <div id="nodos">
+                <Escena
+                  escena={escenaRaiz}
+                  escenarioId={id}
+                  modificable={modificable}
+                />
+              </div>
 
-            <DatosNodo modificable={modificable} />
-          </div>
-        </NodoEscenarioContextProvider>
+              <DatosNodo modificable={modificable} />
+            </div>
+          </NodoEscenarioContextProvider>
+        </VideosEscenarioContextProvider>
       </Container>
       <Footer />
     </div>
