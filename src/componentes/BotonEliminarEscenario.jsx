@@ -34,9 +34,9 @@ export default function BotonEliminarEscenario(props) {
             default:
               break;
           }
+          setActivo(true);
         });
-      }
-      setActivo(true);
+      } else setActivo(true);
     });
   };
 

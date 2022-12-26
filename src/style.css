@@ -576,6 +576,23 @@ body {
     top: 90px;
 }
 
+.datos-nodo-form > div > svg{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 22px;
+    width: 22px;
+    color: red;
+}
+
+.datos-nodo-form > div > svg:hover {
+    color: #f55050;
+}
+
+.datos-nodo-form > div > svg:active {
+    color: red;
+}
+
 /* Resultados */
 #barra-busqueda{
     margin: -11px 0px 30px 0px;
@@ -681,6 +698,10 @@ body {
     cursor: pointer;
     width: 12px;
     height: auto;
+}
+
+.drop-file-preview-item > svg:hover {
+    color: grey;
 }
 
 .drop-file-preview-item-info {

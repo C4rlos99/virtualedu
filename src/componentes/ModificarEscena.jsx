@@ -148,18 +148,16 @@ export default function ModificarEscena(props) {
 
   return (
     <>
-      <div id="datos-nodo-form">
+      <div className="datos-nodo-form">
         <div className="d-flex position-relative">
           <h4 id="modal-titulo" className="text-center">
             Escena
           </h4>
           {modificable && (
-            <div className="position-absolute end-0">
-              <BotonEliminarEscena
-                setEscena={nodo.setEscena}
-                escenaId={nodo.id}
-              />
-            </div>
+            <BotonEliminarEscena
+              setEscena={nodo.setEscena}
+              escenaId={nodo.id}
+            />
           )}
         </div>
 
@@ -184,7 +182,7 @@ export default function ModificarEscena(props) {
           />
 
           <Form.Group>
-            <Form.Label>Selecciona el video 360</Form.Label>
+            <Form.Label>Video 360 principal de la escena</Form.Label>
             <FormSelect
               id="video"
               value={video}
@@ -199,7 +197,7 @@ export default function ModificarEscena(props) {
               }
             >
               <option className="text-center" value="0">
-                -- Seleccione el video 360 --
+                -- Seleccione el video principal --
               </option>
               {videosEscenario.map((video) => (
                 <option key={video.id} value={video.id}>
@@ -212,7 +210,7 @@ export default function ModificarEscena(props) {
 
           {(escenaTipoId === 2 || escenaTipoId === 3) && (
             <Form.Group>
-              <Form.Label>Selecciona el video 360 de apoyo</Form.Label>
+              <Form.Label>Video 360 de apoyo de la escena</Form.Label>
               <FormSelect
                 id="video-apoyo"
                 value={videoApoyo}
@@ -241,7 +239,7 @@ export default function ModificarEscena(props) {
 
           {escenaTipoId === 3 && (
             <Form.Group>
-              <Form.Label>Selecciona el video 360 de refuerzo</Form.Label>
+              <Form.Label>Video 360 de refuerzo de la escena</Form.Label>
               <FormSelect
                 id="video-refuerzo"
                 value={videoRefuerzo}

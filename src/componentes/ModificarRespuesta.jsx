@@ -112,18 +112,16 @@ export default function ModificarRespuesta(props) {
 
   return (
     <>
-      <div id="datos-nodo-form">
+      <div className="datos-nodo-form">
         <div className="d-flex position-relative">
           <h4 id="modal-titulo" className="text-center">
             Respuesta
           </h4>
           {modificable && (
-            <div className="position-absolute end-0">
-              <BotonEliminarRespuesta
-                respuestaId={nodo.id}
-                handleEliminarRespuesta={nodo.handleEliminarRespuesta}
-              />
-            </div>
+            <BotonEliminarRespuesta
+              respuestaId={nodo.id}
+              handleEliminarRespuesta={nodo.handleEliminarRespuesta}
+            />
           )}
         </div>
         <Form>

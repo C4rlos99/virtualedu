@@ -37,22 +37,20 @@ export default function BotonEliminarRespuesta(props) {
             default:
               break;
           }
+          setActivo(true);
         });
-      }
-      setActivo(true);
+      } else setActivo(true);
     });
   };
 
   return (
-    <button
-      className="crud-btn"
-      id="delete-btn"
-      disabled={!activo}
+    <BsTrash
+      style={
+        activo ? { cursor: "pointer" } : { color: "#f55050", cursor: "default" }
+      }
       onClick={() => {
-        mostrarAlertaEliminar();
+        activo && mostrarAlertaEliminar(respuestaId);
       }}
-    >
-      <BsTrash />
-    </button>
+    />
   );
 }
