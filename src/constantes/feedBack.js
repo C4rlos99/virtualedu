@@ -20,10 +20,9 @@ export const feedBackEscenario = {
 
 export const feedBackEscena = {
   titulo: "Introduce un título para la escena",
-  urlVideo: "Introduce un enlace al vídeo 360º de la escena",
-  urlVideoApoyo: "Introduce un enlace al vídeo 360º de apoyo de la escena",
-  urlVideoRefuerzo:
-    "Introduce un enlace al vídeo 360º de refuerzo de la escena",
+  video: "Seleccione el video 360 de la escena",
+  videoApoyo: "Seleccione el video 360 de apoyo de la escena",
+  videoRefuerzo: "Seleccione el video 360 de refuerzo de la escena",
 };
 
 export const feedBackRespuesta = {

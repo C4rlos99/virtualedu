@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Form, Button, FormSelect, Image } from "react-bootstrap";
 import swal from "sweetalert";
-import { BsXLg } from "react-icons/bs";
 import { feedBackEscenario } from "../constantes/feedBack";
 import InputForm from "../componentes/InputForm";
 import CheckForm from "../componentes/CheckForm";
-import InputDropVideos from "./InputDropVideos";
+import InputDropVideos from "../componentes/InputDropVideos";
+import BotonEliminarVideoSubido from "../componentes/BotonEliminarVideoSubido";
 import { VideosEscenarioContext } from "../context/VideosEscenarioContext";
+import Spinner from "react-bootstrap/Spinner";
 import {
   modificarEscenario,
   obtenerEscenario,
@@ -22,10 +23,10 @@ export default function ModificarEscenario(props) {
   const [titulo, setTitulo] = useState("");
   const [visible, setVisible] = useState(false);
   const [lenguaje, setLenguaje] = useState("0");
-  const [videos, setVideos] = useState([]);
   const [tituloFeedBack, setTituloFeedBack] = useState("");
   const [lenguajeFeedBack, setLenguajeFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
+  const [cargandoVideos, setCargandoVideos] = useState(false);
   const { videosEscenario, setVideosEscenario } = useContext(
     VideosEscenarioContext
   );
@@ -46,7 +47,6 @@ export default function ModificarEscenario(props) {
           });
 
           setVideosEscenario(resultado.escenario.videos);
-          setVideos(resultado.escenario.videos);
           break;
         case 403:
           mostrarAlerta(resultado.mensaje, "error", "Escenario");
@@ -83,15 +83,21 @@ export default function ModificarEscenario(props) {
   };
 
   const handleAnadirVideos = (nuevosVideos) => {
-    const nVideos = [...videos, ...nuevosVideos];
+    const nVideos = [...videosEscenario, ...nuevosVideos];
 
-    setVideos(nVideos);
+    setVideosEscenario(nVideos);
+  };
+
+  const handleEliminarVideo = (id) => {
+    let nVideos = [...videosEscenario];
+    let i = nVideos.findIndex((video) => video.id === id);
+
+    if (i > -1) nVideos.splice(i, 1);
     setVideosEscenario(nVideos);
   };
 
   const mostrarAlerta = (texto, icono) => {
     swal({
-      title: "Escenario",
       text: texto,
       icon: icono,
       buttons: "aceptar",
@@ -162,19 +168,12 @@ export default function ModificarEscenario(props) {
 
           <Col sm={10} md={4}>
             <Form.Group>
-              <Form.Label>Selecciona el lenguaje</Form.Label>
+              <Form.Label>Lenguaje del escenario virtual</Form.Label>
               <FormSelect
                 id="lenguaje-selector"
                 value={lenguaje}
                 disabled={!modificable}
-                onChange={(lenguaje) =>
-                  handleChangeLenguaje(
-                    lenguaje,
-                    setLenguaje,
-                    setLenguajeFeedBack,
-                    feedBackEscenario.lenguaje
-                  )
-                }
+                onChange={(lenguaje) => handleChangeLenguaje(lenguaje)}
               >
                 <option className="text-center" value="0">
                   -- Seleccione el lenguaje --
@@ -188,8 +187,8 @@ export default function ModificarEscenario(props) {
                     )
                   )}
               </FormSelect>
+              <p className="error-msg">{lenguajeFeedBack}</p>
             </Form.Group>
-            <p className="error-msg">{lenguajeFeedBack}</p>
           </Col>
 
           <Col sm={2} md={1}>
@@ -231,39 +230,54 @@ export default function ModificarEscenario(props) {
 
         <p className="drop-file-preview-titulo">Videos subidos</p>
 
-        <div id="file-upload-div">
-          {videos.length > 0 ? (
-            <div className="drop-file-preview-grid">
-              {videos.map((video) => (
-                <div key={video.id} className="drop-file-preview-item">
-                  <Image
-                    alt="mp4 icono"
-                    src={process.env.PUBLIC_URL + "/icons/mp4FileIcon.png"}
-                  />
+        <div id="videos-escenario-div">
+          <div id="file-uploaded-div">
+            {cargandoVideos && (
+              <div className="spinner-div">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
 
-                  <div className="drop-file-preview-item-info">
-                    <p>{video.nombre}</p>
+            {videosEscenario.length > 0 ? (
+              <div className="drop-file-preview-grid">
+                {videosEscenario.map((video) => (
+                  <div key={video.id} className="drop-file-preview-item">
+                    <Image
+                      alt="mp4 icono"
+                      src={process.env.PUBLIC_URL + "/icons/mp4FileIcon.png"}
+                    />
+
+                    <div className="drop-file-preview-item-info">
+                      <p>{video.nombre}</p>
+                    </div>
+
+                    <BotonEliminarVideoSubido
+                      handleEliminarVideo={handleEliminarVideo}
+                      id={video.id}
+                    />
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div
+                className="d-flex justify-content-center"
+                id="file-uploaded-label"
+              >
+                <p>Aún no se han subido videos para este escenario</p>
+              </div>
+            )}
+          </div>
 
-                  <BsXLg onClick={() => {}} />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div
-              className="d-flex justify-content-center"
-              id="file-uploaded-label"
-            >
-              <p>Aún no se han subido videos para este escenario</p>
-            </div>
+          {modificable && (
+            <InputDropVideos
+              handleAnadirVideos={handleAnadirVideos}
+              setCargandoVideos={setCargandoVideos}
+              escenarioId={id}
+            />
           )}
         </div>
-        {modificable && (
-          <InputDropVideos
-            handleAnadirVideos={handleAnadirVideos}
-            escenarioId={id}
-          />
-        )}
       </Form>
     </div>
   );

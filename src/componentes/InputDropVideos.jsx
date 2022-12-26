@@ -6,7 +6,7 @@ import { BsXLg } from "react-icons/bs";
 import "../style.css";
 
 export default function DropFileVideos(props) {
-  const { handleAnadirVideos, escenarioId } = props;
+  const { handleAnadirVideos, setCargandoVideos, escenarioId } = props;
   const wrapperRef = useRef(null);
   const [nuevosVideos, setNuevosVideos] = useState([]);
   const [submitActivo, setSubmitActivo] = useState(true);
@@ -16,9 +16,16 @@ export default function DropFileVideos(props) {
   const onDrop = () => wrapperRef.current.classList.remove("dragover");
 
   const handleDropVideo = (e) => {
-    const nVideos = [...nuevosVideos, ...e.target.files];
+    let nVideos = [];
 
-    if (nVideos.length > 0) setNuevosVideos(nVideos);
+    [...e.target.files].map((file) => {
+      if (file["name"].split(".").pop() === "mp4") nVideos.push(file);
+    });
+
+    if (nVideos.length > 0) {
+      nVideos = [...nuevosVideos, ...nVideos];
+      setNuevosVideos(nVideos);
+    }
   };
 
   const eliminarVideo = (video) => {
@@ -43,6 +50,7 @@ export default function DropFileVideos(props) {
 
     if (nuevosVideos.length > 0) {
       setSubmitActivo(false);
+      setCargandoVideos(true);
 
       subirVideos({
         escenario_id: escenarioId,
@@ -52,6 +60,8 @@ export default function DropFileVideos(props) {
           case 200:
             mostrarAlerta(resultado.mensaje, "success");
             handleAnadirVideos(resultado.videos);
+            setCargandoVideos(false);
+
             setNuevosVideos([]);
             break;
           case 422:

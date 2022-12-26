@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, FormSelect } from "react-bootstrap";
 import swal from "sweetalert";
 import InputForm from "./InputForm";
 import { feedBackEscena } from "../constantes/feedBack.js";
 import { crearEscena } from "../servicios/escenaServicio";
+import { VideosEscenarioContext } from "../context/VideosEscenarioContext";
+import { useContext } from "react";
 
 export default function CrearEscena(props) {
   const {
@@ -17,24 +19,26 @@ export default function CrearEscena(props) {
     escenarioId,
   } = props;
   const [titulo, setTitulo] = useState("");
-  const [urlVideo, setUrlVideo] = useState("");
-  const [urlVideoApoyo, setUrlVideoApoyo] = useState("");
-  const [urlVideoRefuerzo, setUrlVideoRefuerzo] = useState("");
+  const [video, setVideo] = useState("0");
+  const [videoApoyo, setVideoApoyo] = useState("0");
+  const [videoRefuerzo, setVideoRefuerzo] = useState("0");
   const [tituloFeedBack, setTituloFeedBack] = useState("");
-  const [urlVideoFeedBack, setUrlVideoFeedBack] = useState("");
-  const [urlVideoApoyoFeedBack, setUrlVideoApoyoFeedBack] = useState("");
-  const [urlVideoRefuerzoFeedBack, setUrlVideoRefuerzoFeedBack] = useState("");
+  const [videoFeedBack, setVideoFeedBack] = useState("");
+  const [videoApoyoFeedBack, setVideoApoyoFeedBack] = useState("");
+  const [videoRefuerzoFeedBack, setVideoRefuerzoFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
+  const { videosEscenario } = useContext(VideosEscenarioContext);
 
   const handleClose = () => {
     setMostrarFormEscena(false);
     setTitulo("");
-    setUrlVideo("");
-    setUrlVideoFeedBack("");
-    setUrlVideoApoyo("");
-    setUrlVideoApoyoFeedBack("");
-    setUrlVideoRefuerzo("");
-    setUrlVideoRefuerzoFeedBack("");
+    setTituloFeedBack("");
+    setVideo("0");
+    setVideoFeedBack("");
+    setVideoApoyo("0");
+    setVideoApoyoFeedBack("");
+    setVideoRefuerzo("0");
+    setVideoRefuerzoFeedBack("");
   };
 
   const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, feedBack) => {
@@ -44,9 +48,20 @@ export default function CrearEscena(props) {
     setEstadoFeedBack(feedBack);
   };
 
+  const handleChangeVideo = (
+    e,
+    setEstadoCampo,
+    setEstadoFeedBack,
+    feedBack
+  ) => {
+    setEstadoCampo(e.target.value);
+    e.target.value !== "0"
+      ? setEstadoFeedBack("")
+      : setEstadoFeedBack(feedBack);
+  };
+
   const mostrarAlerta = (texto, icono) => {
     swal({
-      title: "Escena",
       text: texto,
       icon: icono,
       buttons: "aceptar",
@@ -58,9 +73,9 @@ export default function CrearEscena(props) {
 
     if (
       titulo &&
-      urlVideo &&
-      ((escenaTipoId !== 2 && escenaTipoId !== 3) || urlVideoApoyo) &&
-      (escenaTipoId !== 3 || urlVideoRefuerzo)
+      video != 0 &&
+      ((escenaTipoId !== 2 && escenaTipoId !== 3) || videoApoyo != 0) &&
+      (escenaTipoId !== 3 || videoRefuerzo != 0)
     ) {
       setSubmitActivo(false);
 
@@ -69,14 +84,14 @@ export default function CrearEscena(props) {
         escena_tipo_id: escenaTipoId,
         respuesta_id: respuestaId,
         titulo: titulo,
-        url_video: urlVideo,
+        video_id: video,
       };
 
       switch (escenaTipoId) {
         case 3:
-          nuevaEscena.url_video_refuerzo = urlVideoRefuerzo;
+          nuevaEscena.video_refuerzo_id = videoRefuerzo;
         case 2:
-          nuevaEscena.url_video_apoyo = urlVideoApoyo;
+          nuevaEscena.video_apoyo_id = videoApoyo;
           break;
         default:
           break;
@@ -97,15 +112,14 @@ export default function CrearEscena(props) {
           default:
             break;
         }
+        setSubmitActivo(true);
       });
-      setSubmitActivo(true);
     } else {
       if (!titulo) setTituloFeedBack(feedBackEscena.titulo);
-      if (!urlVideo) setUrlVideoFeedBack(feedBackEscena.urlVideo);
-      if (!urlVideoApoyo)
-        setUrlVideoApoyoFeedBack(feedBackEscena.urlVideoApoyo);
-      if (!urlVideoRefuerzo)
-        setUrlVideoRefuerzoFeedBack(feedBackEscena.urlVideoRefuerzo);
+      if (video == 0) setVideoFeedBack(feedBackEscena.video);
+      if (videoApoyo == 0) setVideoApoyoFeedBack(feedBackEscena.videoApoyo);
+      if (videoRefuerzo == 0)
+        setVideoRefuerzoFeedBack(feedBackEscena.videoRefuerzo);
     }
   };
 
@@ -135,65 +149,89 @@ export default function CrearEscena(props) {
             }
           />
 
-          <InputForm
-            activo={activo}
-            controlId="url-video"
-            label="Vídeo de la escena"
-            placeHolder="https://www.youtube.com/watch?v=..."
-            value={urlVideo}
-            feedBack={urlVideoFeedBack}
-            type="text"
-            name="url-video"
-            handleChange={(urlVideo) =>
-              handleChange(
-                urlVideo,
-                setUrlVideo,
-                setUrlVideoFeedBack,
-                feedBackEscena.urlVideo
-              )
-            }
-          />
-
-          {(escenaTipoId === 2 || escenaTipoId === 3) && (
-            <InputForm
-              activo={activo}
-              controlId="url-video-apoyo"
-              label="Vídeo de apoyo de la escena"
-              placeHolder="https://www.youtube.com/watch?v=..."
-              value={urlVideoApoyo}
-              feedBack={urlVideoApoyoFeedBack}
-              type="text"
-              name="url-video-apoyo"
-              handleChange={(urlVideoApoyo) =>
-                handleChange(
-                  urlVideoApoyo,
-                  setUrlVideoApoyo,
-                  setUrlVideoApoyoFeedBack,
-                  feedBackEscena.urlVideoApoyo
+          <Form.Group>
+            <Form.Label>Selecciona el video 360</Form.Label>
+            <FormSelect
+              id="video"
+              value={video}
+              disabled={activo}
+              onChange={(video) =>
+                handleChangeVideo(
+                  video,
+                  setVideo,
+                  setVideoFeedBack,
+                  feedBackEscena.video
                 )
               }
-            />
+            >
+              <option className="text-center" value="0">
+                -- Seleccione el video 360 --
+              </option>
+              {videosEscenario.map((video) => (
+                <option key={video.id} value={video.id}>
+                  {video.nombre}
+                </option>
+              ))}
+            </FormSelect>
+            <p className="error-msg">{videoFeedBack}</p>
+          </Form.Group>
+
+          {(escenaTipoId === 2 || escenaTipoId === 3) && (
+            <Form.Group>
+              <Form.Label>Selecciona el video 360 de apoyo</Form.Label>
+              <FormSelect
+                id="video-apoyo"
+                value={videoApoyo}
+                disabled={activo}
+                onChange={(videoApoyo) =>
+                  handleChangeVideo(
+                    videoApoyo,
+                    setVideoApoyo,
+                    setVideoApoyoFeedBack,
+                    feedBackEscena.videoApoyo
+                  )
+                }
+              >
+                <option className="text-center" value="0">
+                  -- Seleccione el video 360 de apoyo --
+                </option>
+                {videosEscenario.map((video) => (
+                  <option key={video.id} value={video.id}>
+                    {video.nombre}
+                  </option>
+                ))}
+              </FormSelect>
+              <p className="error-msg">{videoApoyoFeedBack}</p>
+            </Form.Group>
           )}
 
           {escenaTipoId === 3 && (
-            <InputForm
-              activo={activo}
-              controlId="url-video-refuerzo"
-              label="Vídeo de refuerzo de la escena"
-              placeHolder="https://www.youtube.com/watch?v=..."
-              value={urlVideoRefuerzo}
-              feedBack={urlVideoRefuerzoFeedBack}
-              type="text"
-              name="url-video-refuerzo"
-              handleChange={(urlVideoRefuerzo) =>
-                handleChange(
-                  urlVideoRefuerzo,
-                  setUrlVideoRefuerzo,
-                  setUrlVideoRefuerzoFeedBack,
-                  feedBackEscena.urlVideoRefuerzo
-                )
-              }
-            />
+            <Form.Group>
+              <Form.Label>Selecciona el video 360 de refuerzo</Form.Label>
+              <FormSelect
+                id="video-refuerzo"
+                value={videoRefuerzo}
+                disabled={activo}
+                onChange={(videoRefuerzo) =>
+                  handleChangeVideo(
+                    videoRefuerzo,
+                    setVideoRefuerzo,
+                    setVideoRefuerzoFeedBack,
+                    feedBackEscena.videoRefuerzo
+                  )
+                }
+              >
+                <option className="text-center" value="0">
+                  -- Seleccione el video 360 de refuerzo --
+                </option>
+                {videosEscenario.map((video) => (
+                  <option key={video.id} value={video.id}>
+                    {video.nombre}
+                  </option>
+                ))}
+              </FormSelect>
+              <p className="error-msg">{videoRefuerzoFeedBack}</p>
+            </Form.Group>
           )}
 
           <div id="modal-footer">

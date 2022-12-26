@@ -47,7 +47,6 @@ export default function CrearEscenario(props) {
 
   const mostrarAlerta = (texto, icono) => {
     swal({
-      title: "Escenario",
       text: texto,
       icon: icono,
       buttons: "aceptar",
@@ -78,8 +77,8 @@ export default function CrearEscenario(props) {
             break;
         }
         handleClose();
+        setSubmitActivo(true);
       });
-      setSubmitActivo(true);
     } else {
       if (!titulo) setTituloFeedBack(feedBackEscenario.titulo);
 
@@ -118,7 +117,7 @@ export default function CrearEscenario(props) {
             </Col>
             <Col sm={7}>
               <Form.Group>
-                <Form.Label>Selecciona el lenguaje</Form.Label>
+                <Form.Label>Lenguaje del escenario virtual</Form.Label>
                 <FormSelect
                   id="lenguaje-selector"
                   value={lenguaje}

@@ -50,7 +50,6 @@ export default function CrearRespuesta(props) {
 
   const mostrarAlerta = (texto, icono) => {
     swal({
-      title: "Respuesta",
       text: texto,
       icon: icono,
       buttons: "aceptar",
@@ -85,8 +84,8 @@ export default function CrearRespuesta(props) {
             break;
         }
         handleClose();
+        setSubmitActivo(true);
       });
-      setSubmitActivo(true);
     } else {
       if (!numeroCorrectas)
         setNumeroCorrectasFeedBack(feedBackRespuesta.numeroCorrectas);
