@@ -4,9 +4,11 @@ import swal from "sweetalert";
 import { feedBackEscenario } from "../constantes/feedBack";
 import InputForm from "../componentes/InputForm";
 import CheckForm from "../componentes/CheckForm";
+import VideoModal from "../componentes/VideoModal";
 import InputDropVideos from "../componentes/InputDropVideos";
 import BotonEliminarVideoSubido from "../componentes/BotonEliminarVideoSubido";
 import { VideosEscenarioContext } from "../context/VideosEscenarioContext";
+import { BsFillPlayCircleFill } from "react-icons/bs";
 import Spinner from "react-bootstrap/Spinner";
 import {
   modificarEscenario,
@@ -27,6 +29,8 @@ export default function ModificarEscenario(props) {
   const [lenguajeFeedBack, setLenguajeFeedBack] = useState("");
   const [submitActivo, setSubmitActivo] = useState(true);
   const [cargandoVideos, setCargandoVideos] = useState(false);
+  const [localizacionVideo, setLocalizacionVideo] = useState("");
+  const [mostrarVideo, setMostrarVideo] = useState(false);
   const { videosEscenario, setVideosEscenario } = useContext(
     VideosEscenarioContext
   );
@@ -244,6 +248,16 @@ export default function ModificarEscenario(props) {
               <div className="drop-file-preview-grid">
                 {videosEscenario.map((video) => (
                   <div key={video.id} className="drop-file-preview-item">
+                    <div
+                      className="drop-file-preview-item-play"
+                      onClick={() => {
+                        setLocalizacionVideo(video.localizacion);
+                        setMostrarVideo(true);
+                      }}
+                    >
+                      <BsFillPlayCircleFill />
+                    </div>
+
                     <Image
                       alt="mp4 icono"
                       src={process.env.PUBLIC_URL + "/icons/mp4FileIcon.png"}
@@ -279,6 +293,12 @@ export default function ModificarEscenario(props) {
           )}
         </div>
       </Form>
+
+      <VideoModal
+        show={mostrarVideo}
+        onHide={() => setMostrarVideo(false)}
+        localizacion={localizacionVideo}
+      />
     </div>
   );
 }
