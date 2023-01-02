@@ -267,10 +267,12 @@ export default function ModificarEscenario(props) {
                       <p>{video.nombre}</p>
                     </div>
 
-                    <BotonEliminarVideoSubido
-                      handleEliminarVideo={handleEliminarVideo}
-                      id={video.id}
-                    />
+                    {modificable && (
+                      <BotonEliminarVideoSubido
+                        handleEliminarVideo={handleEliminarVideo}
+                        id={video.id}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
