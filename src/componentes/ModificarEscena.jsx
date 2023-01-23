@@ -31,16 +31,16 @@ export default function ModificarEscena(props) {
   useEffect(() => {
     setId(escena.id);
     setTitulo(escena.titulo);
-    setVideo(escena.video_id);
+    setVideo(escena.video.id);
     setEscenaTipoId(escena.escena_tipo_id);
     setVideoFeedBack("");
 
     switch (escena.escena_tipo_id) {
       case 3:
-        setVideoRefuerzo(escena.video_refuerzo_id);
+        setVideoRefuerzo(escena.video_refuerzo.id);
         setVideoRefuerzoFeedBack("");
       case 2:
-        setVideoApoyo(escena.video_apoyo_id);
+        setVideoApoyo(escena.video_apoyo.id);
         setVideoApoyoFeedBack("");
         break;
       default:
@@ -49,9 +49,9 @@ export default function ModificarEscena(props) {
 
     setEstadoIncicial({
       titulo: escena.titulo,
-      video: escena.video_id,
-      videoApoyo: escena.video_apoyo_id,
-      videoRefuerzo: escena.video_refuerzo_id,
+      video: escena.video.id,
+      videoApoyo: escena.video_apoyo?.id,
+      videoRefuerzo: escena.video_refuerzo?.id,
     });
   }, [escena]);
 

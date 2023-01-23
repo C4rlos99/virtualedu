@@ -106,144 +106,146 @@ export default function Registrarse() {
   return redireccion ? (
     <Navigate to="/iniciar-sesion" replace />
   ) : (
-    <Container style={{ maxWidth: 650 }}>
-      <div className="text-center">
-        <Image
-          alt="Logo de la web"
-          src={process.env.PUBLIC_URL + "/icons/exampleIncon.png"}
-          className="img-fluid mb-3"
-          width="150"
-          height="150"
-        />
-      </div>
+    <div className="wrapper">
+      <Container style={{ maxWidth: 650 }}>
+        <div className="text-center">
+          <Image
+            alt="Logo de la web"
+            src={process.env.PUBLIC_URL + "/icons/exampleIncon.png"}
+            className="img-fluid mb-3"
+            width="150"
+            height="150"
+          />
+        </div>
 
-      <div className="border rounded-3 p-4">
-        <h2>Crear cuenta</h2>
-        <hr></hr>
-        <Form onSubmit={handleSubmit}>
+        <div className="border rounded-3 p-4">
+          <h2>Crear cuenta</h2>
+          <hr></hr>
+          <Form onSubmit={handleSubmit}>
+            <Row xs={1} md={2}>
+              <Col md={5}>
+                <InputForm
+                  controlId="nombre"
+                  label="Nombre"
+                  placeHolder="Nombre"
+                  value={nombre}
+                  feedBack={nombreFeedBack}
+                  type="text"
+                  name="nombre"
+                  handleChange={(nombre) =>
+                    handleChange(
+                      nombre,
+                      setNombre,
+                      setNombreFeedBack,
+                      regex.nombre,
+                      feedBackRegistro.nombre
+                    )
+                  }
+                />
+              </Col>
+
+              <Col md={7}>
+                <InputForm
+                  controlId="apelliodos"
+                  label="Apellidos"
+                  placeHolder="Apellidos"
+                  value={apellidos}
+                  feedBack={apellidosFeedBack}
+                  type="text"
+                  name="apellido"
+                  handleChange={(apellido) =>
+                    handleChange(
+                      apellido,
+                      setApellidos,
+                      setApellidosFeedBack,
+                      regex.apellidos,
+                      feedBackRegistro.apellidos
+                    )
+                  }
+                />
+              </Col>
+
+              <Col md={12}>
+                <InputForm
+                  controlId="correo"
+                  label="Correo electrónico"
+                  placeHolder="correo@example.com"
+                  value={correo}
+                  feedBack={correoFeedBack}
+                  type="email"
+                  name="correo"
+                  handleChange={(correo) =>
+                    handleChange(
+                      correo,
+                      setCorreo,
+                      setCorreoFeedBack,
+                      regex.correo,
+                      feedBackRegistro.correo
+                    )
+                  }
+                />
+              </Col>
+
+              <Col>
+                <InputForm
+                  controlId="password"
+                  label="Contraseña"
+                  placeHolder="Contraseña"
+                  value={password}
+                  feedBack={passwordFeedBack}
+                  type="password"
+                  name="password"
+                  handleChange={(password) =>
+                    handleChange(
+                      password,
+                      setPassword,
+                      setPasswordFeedBack,
+                      regex.password,
+                      feedBackRegistro.password
+                    )
+                  }
+                />
+              </Col>
+
+              <Col>
+                <InputForm
+                  controlId="rePassword"
+                  label="Repita la contraseña"
+                  placeHolder="Repita la contraseña"
+                  value={rePassword}
+                  feedBack={rePasswordFeedBack}
+                  type="password"
+                  name="rePassword"
+                  handleChange={(rePassword) =>
+                    handleChange(
+                      rePassword,
+                      setRePassword,
+                      setRePasswordFeedBack,
+                      regexRePassword,
+                      feedBackRegistro.rePassword
+                    )
+                  }
+                />
+              </Col>
+            </Row>
+
+            <Button variant="primary" type="submit" disabled={!activo}>
+              Continuar
+            </Button>
+          </Form>
+
+          <hr></hr>
+
           <Row xs={1} md={2}>
-            <Col md={5}>
-              <InputForm
-                controlId="nombre"
-                label="Nombre"
-                placeHolder="Nombre"
-                value={nombre}
-                feedBack={nombreFeedBack}
-                type="text"
-                name="nombre"
-                handleChange={(nombre) =>
-                  handleChange(
-                    nombre,
-                    setNombre,
-                    setNombreFeedBack,
-                    regex.nombre,
-                    feedBackRegistro.nombre
-                  )
-                }
-              />
+            <Col md="auto">
+              <p>¿Ya tienes una cuenta?</p>
             </Col>
-
-            <Col md={7}>
-              <InputForm
-                controlId="apelliodos"
-                label="Apellidos"
-                placeHolder="Apellidos"
-                value={apellidos}
-                feedBack={apellidosFeedBack}
-                type="text"
-                name="apellido"
-                handleChange={(apellido) =>
-                  handleChange(
-                    apellido,
-                    setApellidos,
-                    setApellidosFeedBack,
-                    regex.apellidos,
-                    feedBackRegistro.apellidos
-                  )
-                }
-              />
-            </Col>
-
-            <Col md={12}>
-              <InputForm
-                controlId="correo"
-                label="Correo electrónico"
-                placeHolder="correo@example.com"
-                value={correo}
-                feedBack={correoFeedBack}
-                type="email"
-                name="correo"
-                handleChange={(correo) =>
-                  handleChange(
-                    correo,
-                    setCorreo,
-                    setCorreoFeedBack,
-                    regex.correo,
-                    feedBackRegistro.correo
-                  )
-                }
-              />
-            </Col>
-
-            <Col>
-              <InputForm
-                controlId="password"
-                label="Contraseña"
-                placeHolder="Contraseña"
-                value={password}
-                feedBack={passwordFeedBack}
-                type="password"
-                name="password"
-                handleChange={(password) =>
-                  handleChange(
-                    password,
-                    setPassword,
-                    setPasswordFeedBack,
-                    regex.password,
-                    feedBackRegistro.password
-                  )
-                }
-              />
-            </Col>
-
-            <Col>
-              <InputForm
-                controlId="rePassword"
-                label="Repita la contraseña"
-                placeHolder="Repita la contraseña"
-                value={rePassword}
-                feedBack={rePasswordFeedBack}
-                type="password"
-                name="rePassword"
-                handleChange={(rePassword) =>
-                  handleChange(
-                    rePassword,
-                    setRePassword,
-                    setRePasswordFeedBack,
-                    regexRePassword,
-                    feedBackRegistro.rePassword
-                  )
-                }
-              />
+            <Col md="auto">
+              <Link to={"/iniciar-sesion"}>Iniciar sesión</Link>
             </Col>
           </Row>
-
-          <Button variant="primary" type="submit" disabled={!activo}>
-            Continuar
-          </Button>
-        </Form>
-
-        <hr></hr>
-
-        <Row xs={1} md={2}>
-          <Col md="auto">
-            <p>¿Ya tienes una cuenta?</p>
-          </Col>
-          <Col md="auto">
-            <Link to={"/iniciar-sesion"}>Iniciar sesión</Link>
-          </Col>
-        </Row>
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </div>
   );
 }

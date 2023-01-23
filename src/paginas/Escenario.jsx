@@ -31,7 +31,7 @@ export default function Escenario(props) {
     obtenerEscenas(id).then((resultado) => {
       switch (resultado.status) {
         case 200:
-          setEscenaRaiz(resultado.escenas);
+          setEscenaRaiz(resultado.escena);
           break;
         case 403:
           mostrarAlerta(resultado.mensaje, "error", "Escenario");
