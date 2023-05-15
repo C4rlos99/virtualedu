@@ -11,11 +11,13 @@ export default function Registrarse() {
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [correo, setCorreo] = useState("");
+  const [googleSheetUrl, setGoogleSheetUrl] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [nombreFeedBack, setNombreFeedBack] = useState("");
   const [apellidosFeedBack, setApellidosFeedBack] = useState("");
   const [correoFeedBack, setCorreoFeedBack] = useState("");
+  const [googleSheetUrlFeedBack, setGoogleSheetUrlFeedBack] = useState("");
   const [passwordFeedBack, setPasswordFeedBack] = useState("");
   const [rePasswordFeedBack, setRePasswordFeedBack] = useState("");
   const [activo, setActivo] = useState(true);
@@ -48,6 +50,9 @@ export default function Registrarse() {
         nombre: nombre,
         apellidos: apellidos,
         correo: correo,
+        spread_sheet_id: /\/([\w-_]{15,})\/(.*?gid=(\d+))?/.exec(
+          googleSheetUrl
+        )[1],
         password: password,
         rePassword: rePassword,
       }).then((resultado) => {
@@ -87,7 +92,7 @@ export default function Registrarse() {
   };
 
   const valido = (valor, patron) => {
-    return patron.test(valor.trim());
+    return patron != "" ? patron.test(valor.trim()) : true;
   };
 
   const handleChange = (
@@ -126,7 +131,7 @@ export default function Registrarse() {
               <Col md={5}>
                 <InputForm
                   controlId="nombre"
-                  label="Nombre"
+                  label="Nombre*"
                   placeHolder="Nombre"
                   value={nombre}
                   feedBack={nombreFeedBack}
@@ -147,7 +152,7 @@ export default function Registrarse() {
               <Col md={7}>
                 <InputForm
                   controlId="apelliodos"
-                  label="Apellidos"
+                  label="Apellidos*"
                   placeHolder="Apellidos"
                   value={apellidos}
                   feedBack={apellidosFeedBack}
@@ -168,7 +173,7 @@ export default function Registrarse() {
               <Col md={12}>
                 <InputForm
                   controlId="correo"
-                  label="Correo electrónico"
+                  label="Correo electrónico*"
                   placeHolder="correo@example.com"
                   value={correo}
                   feedBack={correoFeedBack}
@@ -186,10 +191,31 @@ export default function Registrarse() {
                 />
               </Col>
 
+              <Col md={12}>
+                <InputForm
+                  controlId="googleSheet"
+                  label="Enlace a la hoja de cálculo de google (Editable para cualquier usuario)"
+                  placeHolder="https://docs.google.com/spreadsheets/d/1kB5NrwxAgeeoRfdgJ4l1FYJJr-RIDltMVfm8_4jfAM4/edit#gid=0"
+                  value={googleSheetUrl}
+                  feedBack={googleSheetUrlFeedBack}
+                  type="text"
+                  name="googleSheet"
+                  handleChange={(googleSheetUrl) =>
+                    handleChange(
+                      googleSheetUrl,
+                      setGoogleSheetUrl,
+                      setGoogleSheetUrlFeedBack,
+                      "",
+                      ""
+                    )
+                  }
+                />
+              </Col>
+
               <Col>
                 <InputForm
                   controlId="password"
-                  label="Contraseña"
+                  label="Contraseña*"
                   placeHolder="Contraseña"
                   value={password}
                   feedBack={passwordFeedBack}
@@ -210,7 +236,7 @@ export default function Registrarse() {
               <Col>
                 <InputForm
                   controlId="rePassword"
-                  label="Repita la contraseña"
+                  label="Repita la contraseña*"
                   placeHolder="Repita la contraseña"
                   value={rePassword}
                   feedBack={rePasswordFeedBack}
