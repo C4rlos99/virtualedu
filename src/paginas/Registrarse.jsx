@@ -50,9 +50,9 @@ export default function Registrarse() {
         nombre: nombre,
         apellidos: apellidos,
         correo: correo,
-        spread_sheet_id: /\/([\w-_]{15,})\/(.*?gid=(\d+))?/.exec(
-          googleSheetUrl
-        )[1],
+        spread_sheet_id: googleSheetUrl
+          ? /\/([\w-_]{15,})\/(.*?gid=(\d+))?/.exec(googleSheetUrl)[1]
+          : null,
         password: password,
         rePassword: rePassword,
       }).then((resultado) => {
@@ -112,14 +112,14 @@ export default function Registrarse() {
     <Navigate to="/iniciar-sesion" replace />
   ) : (
     <div className="wrapper">
-      <Container style={{ maxWidth: 650 }}>
+      <Container style={{ maxWidth: 650, marginTop: 20 }}>
         <div className="text-center">
           <Image
             alt="Logo de la web"
-            src={process.env.PUBLIC_URL + "/icons/exampleIncon.png"}
+            src={process.env.PUBLIC_URL + "/icons/virtualEdu_logo.png"}
             className="img-fluid mb-3"
-            width="150"
-            height="150"
+            width="280"
+            height="280"
           />
         </div>
 

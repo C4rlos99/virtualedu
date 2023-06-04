@@ -31,7 +31,7 @@ export default function Header(props) {
           <Link to={"/escenarios"}>
             <Image
               alt="Logo de la web"
-              src={process.env.PUBLIC_URL + "/icons/exampleIncon.png"}
+              src={process.env.PUBLIC_URL + "/icons/virtualEdu_logo.png"}
               width="45"
               height="45"
             />{" "}

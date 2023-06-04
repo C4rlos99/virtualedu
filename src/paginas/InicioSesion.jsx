@@ -105,14 +105,14 @@ export default function InicioSesion() {
     <Navigate to="/escenarios" replace />
   ) : (
     <div className="wrapper">
-      <Container style={{ maxWidth: 400 }}>
+      <Container style={{ maxWidth: 400, marginTop: 20 }}>
         <div className="text-center">
           <Image
             alt="Logo de la web"
-            src={process.env.PUBLIC_URL + "/icons/exampleIncon.png"}
+            src={process.env.PUBLIC_URL + "/icons/virtualEdu_logo.png"}
             className="img-fluid mb-3"
-            width="150"
-            height="150"
+            width="280"
+            height="280"
           />
         </div>
 
