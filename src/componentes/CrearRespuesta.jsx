@@ -7,25 +7,15 @@ import { feedBackRespuesta } from "../constantes/feedBack.js";
 import { crearRespuesta } from "../servicios/respuestaServicio.js";
 
 export default function CrearRespuesta(props) {
-  const {
-    show,
-    onHide,
-    setMostrarFormRespuesta,
-    activo,
-    handleAnadirRespuesta,
-    escenaId,
-  } = props;
+  const { show, onHide, setMostrarFormRespuesta, activo, handleAnadirRespuesta, escenaId } = props;
   const [palabrasCorrectas, setPalabrasCorrectas] = useState("");
   const [numeroCorrectas, setNumeroCorrectas] = useState("");
   const [palabrasIncorrectas, setPalabrasIncorrectas] = useState("");
   const [numeroIncorrectas, setNumeroIncorrectas] = useState("");
   const [numeroCorrectasFeedBack, setNumeroCorrectasFeedBack] = useState("");
-  const [numeroIncorrectasFeedBack, setNumeroIncorrectasFeedBack] =
-    useState("");
-  const [palabrasCorrectasFeedBack, setPalabrasCorrectasFeedBack] =
-    useState("");
-  const [palabrasIncorrectasFeedBack, setPalabrasIncorrectasFeedBack] =
-    useState("");
+  const [numeroIncorrectasFeedBack, setNumeroIncorrectasFeedBack] = useState("");
+  const [palabrasCorrectasFeedBack, setPalabrasCorrectasFeedBack] = useState("");
+  const [palabrasIncorrectasFeedBack, setPalabrasIncorrectasFeedBack] = useState("");
 
   const [submitActivo, setSubmitActivo] = useState(true);
 
@@ -87,11 +77,9 @@ export default function CrearRespuesta(props) {
         setSubmitActivo(true);
       });
     } else {
-      if (!numeroCorrectas)
-        setNumeroCorrectasFeedBack(feedBackRespuesta.numeroCorrectas);
+      if (!numeroCorrectas) setNumeroCorrectasFeedBack(feedBackRespuesta.numeroCorrectas);
 
-      if (!palabrasCorrectas)
-        setPalabrasCorrectasFeedBack(feedBackRespuesta.palabrasCorrectas);
+      if (!palabrasCorrectas) setPalabrasCorrectasFeedBack(feedBackRespuesta.palabrasCorrectas);
     }
   };
 
@@ -99,7 +87,7 @@ export default function CrearRespuesta(props) {
     <Modal show={show} onHide={onHide} centered>
       <div id="modal-form">
         <h4 id="modal-titulo" className="text-center">
-          Escena
+          Respuesta
         </h4>
         <Form>
           <InputForm
@@ -111,14 +99,7 @@ export default function CrearRespuesta(props) {
             feedBack={numeroCorrectasFeedBack}
             type="number"
             name="numero-correctas"
-            handleChange={(numeroCorrectas) =>
-              handleChange(
-                numeroCorrectas,
-                setNumeroCorrectas,
-                setNumeroCorrectasFeedBack,
-                feedBackRespuesta.numeroCorrectas
-              )
-            }
+            handleChange={(numeroCorrectas) => handleChange(numeroCorrectas, setNumeroCorrectas, setNumeroCorrectasFeedBack, feedBackRespuesta.numeroCorrectas)}
           />
 
           <TextAreaForm
@@ -130,12 +111,7 @@ export default function CrearRespuesta(props) {
             feedBack={palabrasCorrectasFeedBack}
             name="palabras-correctas"
             handleChange={(palabrasCorrectas) =>
-              handleChange(
-                palabrasCorrectas,
-                setPalabrasCorrectas,
-                setPalabrasCorrectasFeedBack,
-                feedBackRespuesta.palabrasCorrectas
-              )
+              handleChange(palabrasCorrectas, setPalabrasCorrectas, setPalabrasCorrectasFeedBack, feedBackRespuesta.palabrasCorrectas)
             }
           />
 
@@ -148,14 +124,7 @@ export default function CrearRespuesta(props) {
             feedBack={numeroIncorrectasFeedBack}
             type="number"
             name="numero-incorrectas"
-            handleChange={(numeroIncorrectas) =>
-              handleChange(
-                numeroIncorrectas,
-                setNumeroIncorrectas,
-                setNumeroIncorrectasFeedBack,
-                ""
-              )
-            }
+            handleChange={(numeroIncorrectas) => handleChange(numeroIncorrectas, setNumeroIncorrectas, setNumeroIncorrectasFeedBack, "")}
           />
 
           <TextAreaForm
@@ -166,32 +135,15 @@ export default function CrearRespuesta(props) {
             value={palabrasIncorrectas}
             feedBack={palabrasIncorrectasFeedBack}
             name="palabras-incorrectas"
-            handleChange={(palabrasIncorrectas) =>
-              handleChange(
-                palabrasIncorrectas,
-                setPalabrasIncorrectas,
-                setPalabrasIncorrectasFeedBack,
-                ""
-              )
-            }
+            handleChange={(palabrasIncorrectas) => handleChange(palabrasIncorrectas, setPalabrasIncorrectas, setPalabrasIncorrectasFeedBack, "")}
           />
 
           <div id="modal-footer">
-            <Button
-              id="modal-cancelar"
-              variant="secondary"
-              onClick={handleClose}
-            >
+            <Button id="modal-cancelar" variant="secondary" onClick={handleClose}>
               Cancelar
             </Button>
 
-            <Button
-              disabled={!submitActivo}
-              id="modal-guardar"
-              variant="primary"
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-            >
+            <Button disabled={!submitActivo} id="modal-guardar" variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
               Guardar
             </Button>
           </div>
