@@ -1,5 +1,4 @@
-// const apiURL = "http://localhost:8000/api/";
-const apiURL = "https://virtualedu-api-production.up.railway.app/api/";
+import { apiURL } from "../constantes/apiConfig";
 
 export const obtenerResultados = async (escenarioId) => {
   try {
