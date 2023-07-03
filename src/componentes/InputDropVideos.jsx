@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import swal from "sweetalert";
 import { subirVideos } from "../servicios/videoServicio";
+import mp4Icon from "../icons/mp4FileIcon.png";
 import { BsXLg } from "react-icons/bs";
 import "../style.css";
 
@@ -80,18 +81,9 @@ export default function DropFileVideos(props) {
 
   return (
     <>
-      <div
-        ref={wrapperRef}
-        className="drop-file-input"
-        onDragEnter={onDragEnter}
-        onDragLeave={onDragLeave}
-        onDrop={onDrop}
-      >
+      <div ref={wrapperRef} className="drop-file-input" onDragEnter={onDragEnter} onDragLeave={onDragLeave} onDrop={onDrop}>
         <div className="drop-file-input-label">
-          <p>
-            Arrastra y suelta los archivos .mp4 aquí o haz click para
-            seleccionarlos
-          </p>
+          <p>Arrastra y suelta los archivos .mp4 aquí o haz click para seleccionarlos</p>
         </div>
         <input type="file" multiple onChange={handleDropVideo} />
       </div>
@@ -102,10 +94,7 @@ export default function DropFileVideos(props) {
           <div className="drop-file-preview-grid">
             {nuevosVideos.map((nuevoVideo, index) => (
               <div key={index} className="drop-file-preview-item">
-                <Image
-                  alt="mp4 icono"
-                  src={process.env.PUBLIC_URL + "/icons/mp4FileIcon.png"}
-                />
+                <Image alt="mp4 icono" src={mp4Icon} />
 
                 <div className="drop-file-preview-item-info">
                   <p>{nuevoVideo.name}</p>
@@ -118,13 +107,7 @@ export default function DropFileVideos(props) {
           </div>
 
           <div className="d-flex justify-content-center" id="subir-videos-div">
-            <Button
-              disabled={nuevosVideos.length <= 0 || !submitActivo}
-              id="subir-videos"
-              variant="primary"
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-            >
+            <Button disabled={nuevosVideos.length <= 0 || !submitActivo} id="subir-videos" variant="primary" type="submit" onClick={(e) => handleSubmit(e)}>
               Subir videos
             </Button>
           </div>
