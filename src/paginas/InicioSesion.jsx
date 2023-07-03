@@ -2,10 +2,8 @@ import React, { useContext, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { BsInfoCircle } from "react-icons/bs";
 import { feedBackInicioSesion } from "../constantes/feedBack.js";
-import {
-  iniciarSesion,
-  obtenerUsuarioAutenticado,
-} from "../servicios/usuarioServicio";
+import logo from "../icons/virtualEdu_logo.png";
+import { iniciarSesion, obtenerUsuarioAutenticado } from "../servicios/usuarioServicio";
 import { Link, Navigate } from "react-router-dom";
 import InputForm from "../componentes/InputForm";
 import { UsuarioContext } from "../context/UsuarioContext.js";
@@ -46,28 +44,18 @@ export default function InicioSesion() {
         switch (resultado.status) {
           case 200:
             obtenerEscenaTipos().then((resultado) => {
-              if (resultado.status === 200)
-                localStorage.setItem(
-                  "escenaTipos",
-                  JSON.stringify(resultado.escena_tipos)
-                );
+              if (resultado.status === 200) localStorage.setItem("escenaTipos", JSON.stringify(resultado.escena_tipos));
             });
 
             obtenerLenguajes().then((resultado) => {
-              localStorage.setItem(
-                "lenguajes",
-                JSON.stringify(resultado.lenguajes)
-              );
+              localStorage.setItem("lenguajes", JSON.stringify(resultado.lenguajes));
             });
 
             obtenerUsuarioAutenticado().then((resultado) => {
               switch (resultado.status) {
                 case 200:
                   setUsuario(resultado.usuario);
-                  localStorage.setItem(
-                    "usuario",
-                    JSON.stringify(resultado.usuario)
-                  );
+                  localStorage.setItem("usuario", JSON.stringify(resultado.usuario));
                   setRedireccion(true);
                   break;
                 case 401:
@@ -107,13 +95,7 @@ export default function InicioSesion() {
     <div className="wrapper">
       <Container style={{ maxWidth: 400, marginTop: 20 }}>
         <div className="text-center">
-          <Image
-            alt="Logo de la web"
-            src={process.env.PUBLIC_URL + "/icons/virtualEdu_logo.png"}
-            className="img-fluid mb-3"
-            width="280"
-            height="280"
-          />
+          <Image alt="Logo de la web" src={logo} className="img-fluid mb-3" width="280" height="280" />
         </div>
 
         <div className="border rounded-3 p-4">
@@ -136,14 +118,7 @@ export default function InicioSesion() {
               feedBack={correoFeedBack}
               type="email"
               name="correo"
-              handleChange={(correo) =>
-                handleChange(
-                  correo,
-                  setCorreo,
-                  setCorreoFeedBack,
-                  feedBackInicioSesion.correo
-                )
-              }
+              handleChange={(correo) => handleChange(correo, setCorreo, setCorreoFeedBack, feedBackInicioSesion.correo)}
             />
 
             <InputForm
@@ -154,14 +129,7 @@ export default function InicioSesion() {
               feedBack={passwordFeedBack}
               type="password"
               name="password"
-              handleChange={(password) =>
-                handleChange(
-                  password,
-                  setPassword,
-                  setPasswordFeedBack,
-                  feedBackInicioSesion.password
-                )
-              }
+              handleChange={(password) => handleChange(password, setPassword, setPasswordFeedBack, feedBackInicioSesion.password)}
             />
 
             <Button variant="primary" type="submit" disabled={!activo}>

@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import InputForm from "../componentes/InputForm";
 import { feedBackRegistro } from "../constantes/feedBack.js";
+import logo from "../icons/virtualEdu_logo.png";
 import { regex } from "../constantes/regex.js";
 import swal from "sweetalert";
 import { registarUsuario } from "../servicios/usuarioServicio";
@@ -50,9 +51,7 @@ export default function Registrarse() {
         nombre: nombre,
         apellidos: apellidos,
         correo: correo,
-        spread_sheet_id: googleSheetUrl
-          ? /\/([\w-_]{15,})\/(.*?gid=(\d+))?/.exec(googleSheetUrl)[1]
-          : null,
+        spread_sheet_id: googleSheetUrl ? /\/([\w-_]{15,})\/(.*?gid=(\d+))?/.exec(googleSheetUrl)[1] : null,
         password: password,
         rePassword: rePassword,
       }).then((resultado) => {
@@ -62,8 +61,7 @@ export default function Registrarse() {
             setRedireccion(true);
             break;
           case 422:
-            if (resultado.errores.correo)
-              setCorreoFeedBack(resultado.errores.correo[0]);
+            if (resultado.errores.correo) setCorreoFeedBack(resultado.errores.correo[0]);
             else {
               mostrarAlerta(resultado.mensaje, "error");
             }
@@ -74,20 +72,15 @@ export default function Registrarse() {
         setActivo(true);
       });
     } else {
-      if (!valido(nombre, regex.nombre))
-        setNombreFeedBack(feedBackRegistro.nombre);
+      if (!valido(nombre, regex.nombre)) setNombreFeedBack(feedBackRegistro.nombre);
 
-      if (!valido(apellidos, regex.apellidos))
-        setApellidosFeedBack(feedBackRegistro.apellidos);
+      if (!valido(apellidos, regex.apellidos)) setApellidosFeedBack(feedBackRegistro.apellidos);
 
-      if (!valido(correo, regex.correo))
-        setCorreoFeedBack(feedBackRegistro.correo);
+      if (!valido(correo, regex.correo)) setCorreoFeedBack(feedBackRegistro.correo);
 
-      if (!valido(password, regex.password))
-        setPasswordFeedBack(feedBackRegistro.password);
+      if (!valido(password, regex.password)) setPasswordFeedBack(feedBackRegistro.password);
 
-      if (!valido(rePassword, regexRePassword))
-        setRePasswordFeedBack(feedBackRegistro.rePassword);
+      if (!valido(rePassword, regexRePassword)) setRePasswordFeedBack(feedBackRegistro.rePassword);
     }
   };
 
@@ -95,13 +88,7 @@ export default function Registrarse() {
     return patron != "" ? patron.test(valor.trim()) : true;
   };
 
-  const handleChange = (
-    valor,
-    setEstadoCampo,
-    setEstadoFeedBack,
-    patron,
-    feedBack
-  ) => {
+  const handleChange = (valor, setEstadoCampo, setEstadoFeedBack, patron, feedBack) => {
     if (valido(valor, patron)) feedBack = "";
 
     setEstadoCampo(valor);
@@ -114,13 +101,7 @@ export default function Registrarse() {
     <div className="wrapper">
       <Container style={{ maxWidth: 650, marginTop: 20 }}>
         <div className="text-center">
-          <Image
-            alt="Logo de la web"
-            src={process.env.PUBLIC_URL + "/icons/virtualEdu_logo.png"}
-            className="img-fluid mb-3"
-            width="280"
-            height="280"
-          />
+          <Image alt="Logo de la web" src={logo} className="img-fluid mb-3" width="280" height="280" />
         </div>
 
         <div className="border rounded-3 p-4">
@@ -137,15 +118,7 @@ export default function Registrarse() {
                   feedBack={nombreFeedBack}
                   type="text"
                   name="nombre"
-                  handleChange={(nombre) =>
-                    handleChange(
-                      nombre,
-                      setNombre,
-                      setNombreFeedBack,
-                      regex.nombre,
-                      feedBackRegistro.nombre
-                    )
-                  }
+                  handleChange={(nombre) => handleChange(nombre, setNombre, setNombreFeedBack, regex.nombre, feedBackRegistro.nombre)}
                 />
               </Col>
 
@@ -158,15 +131,7 @@ export default function Registrarse() {
                   feedBack={apellidosFeedBack}
                   type="text"
                   name="apellido"
-                  handleChange={(apellido) =>
-                    handleChange(
-                      apellido,
-                      setApellidos,
-                      setApellidosFeedBack,
-                      regex.apellidos,
-                      feedBackRegistro.apellidos
-                    )
-                  }
+                  handleChange={(apellido) => handleChange(apellido, setApellidos, setApellidosFeedBack, regex.apellidos, feedBackRegistro.apellidos)}
                 />
               </Col>
 
@@ -179,15 +144,7 @@ export default function Registrarse() {
                   feedBack={correoFeedBack}
                   type="email"
                   name="correo"
-                  handleChange={(correo) =>
-                    handleChange(
-                      correo,
-                      setCorreo,
-                      setCorreoFeedBack,
-                      regex.correo,
-                      feedBackRegistro.correo
-                    )
-                  }
+                  handleChange={(correo) => handleChange(correo, setCorreo, setCorreoFeedBack, regex.correo, feedBackRegistro.correo)}
                 />
               </Col>
 
@@ -200,15 +157,7 @@ export default function Registrarse() {
                   feedBack={googleSheetUrlFeedBack}
                   type="text"
                   name="googleSheet"
-                  handleChange={(googleSheetUrl) =>
-                    handleChange(
-                      googleSheetUrl,
-                      setGoogleSheetUrl,
-                      setGoogleSheetUrlFeedBack,
-                      "",
-                      ""
-                    )
-                  }
+                  handleChange={(googleSheetUrl) => handleChange(googleSheetUrl, setGoogleSheetUrl, setGoogleSheetUrlFeedBack, "", "")}
                 />
               </Col>
 
@@ -221,15 +170,7 @@ export default function Registrarse() {
                   feedBack={passwordFeedBack}
                   type="password"
                   name="password"
-                  handleChange={(password) =>
-                    handleChange(
-                      password,
-                      setPassword,
-                      setPasswordFeedBack,
-                      regex.password,
-                      feedBackRegistro.password
-                    )
-                  }
+                  handleChange={(password) => handleChange(password, setPassword, setPasswordFeedBack, regex.password, feedBackRegistro.password)}
                 />
               </Col>
 
@@ -242,15 +183,7 @@ export default function Registrarse() {
                   feedBack={rePasswordFeedBack}
                   type="password"
                   name="rePassword"
-                  handleChange={(rePassword) =>
-                    handleChange(
-                      rePassword,
-                      setRePassword,
-                      setRePasswordFeedBack,
-                      regexRePassword,
-                      feedBackRegistro.rePassword
-                    )
-                  }
+                  handleChange={(rePassword) => handleChange(rePassword, setRePassword, setRePasswordFeedBack, regexRePassword, feedBackRegistro.rePassword)}
                 />
               </Col>
             </Row>

@@ -8,12 +8,10 @@ import VideoModal from "../componentes/VideoModal";
 import InputDropVideos from "../componentes/InputDropVideos";
 import BotonEliminarVideoSubido from "../componentes/BotonEliminarVideoSubido";
 import { VideosEscenarioContext } from "../context/VideosEscenarioContext";
+import mp4Icon from "../icons/mp4FileIcon.png";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import Spinner from "react-bootstrap/Spinner";
-import {
-  modificarEscenario,
-  obtenerEscenario,
-} from "../servicios/escenarioServicio";
+import { modificarEscenario, obtenerEscenario } from "../servicios/escenarioServicio";
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 
@@ -31,9 +29,7 @@ export default function ModificarEscenario(props) {
   const [cargandoVideos, setCargandoVideos] = useState(false);
   const [localizacionVideo, setLocalizacionVideo] = useState("");
   const [mostrarVideo, setMostrarVideo] = useState(false);
-  const { videosEscenario, setVideosEscenario } = useContext(
-    VideosEscenarioContext
-  );
+  const { videosEscenario, setVideosEscenario } = useContext(VideosEscenarioContext);
 
   useEffect(() => {
     obtenerEscenario(id).then((resultado) => {
@@ -70,16 +66,12 @@ export default function ModificarEscenario(props) {
 
   const handleChangeTitulo = (titulo) => {
     setTitulo(titulo);
-    titulo
-      ? setTituloFeedBack("")
-      : setTituloFeedBack(feedBackEscenario.titulo);
+    titulo ? setTituloFeedBack("") : setTituloFeedBack(feedBackEscenario.titulo);
   };
 
   const handleChangeLenguaje = (e) => {
     setLenguaje(e.target.value);
-    e.target.value !== "0"
-      ? setLenguajeFeedBack("")
-      : setLenguajeFeedBack(feedBackEscenario.lenguaje);
+    e.target.value !== "0" ? setLenguajeFeedBack("") : setLenguajeFeedBack(feedBackEscenario.lenguaje);
   };
 
   const handleChangeVisible = (visible) => {
@@ -159,37 +151,23 @@ export default function ModificarEscenario(props) {
               type="text"
               name="titulo-escenario"
               activo={modificable}
-              handleChange={(titulo) =>
-                handleChangeTitulo(
-                  titulo,
-                  setTitulo,
-                  setTituloFeedBack,
-                  feedBackEscenario.titulo
-                )
-              }
+              handleChange={(titulo) => handleChangeTitulo(titulo, setTitulo, setTituloFeedBack, feedBackEscenario.titulo)}
             />
           </Col>
 
           <Col sm={10} md={4}>
             <Form.Group>
               <Form.Label>Lenguaje del escenario virtual</Form.Label>
-              <FormSelect
-                id="lenguaje-selector"
-                value={lenguaje}
-                disabled={!modificable}
-                onChange={(lenguaje) => handleChangeLenguaje(lenguaje)}
-              >
+              <FormSelect id="lenguaje-selector" value={lenguaje} disabled={!modificable} onChange={(lenguaje) => handleChangeLenguaje(lenguaje)}>
                 <option className="text-center" value="0">
                   -- Seleccione el lenguaje --
                 </option>
                 {localStorage.getItem("lenguajes") &&
-                  JSON.parse(localStorage.getItem("lenguajes")).map(
-                    (lenguaje) => (
-                      <option key={lenguaje.id} value={lenguaje.id}>
-                        {lenguaje.nombre}
-                      </option>
-                    )
-                  )}
+                  JSON.parse(localStorage.getItem("lenguajes")).map((lenguaje) => (
+                    <option key={lenguaje.id} value={lenguaje.id}>
+                      {lenguaje.nombre}
+                    </option>
+                  ))}
               </FormSelect>
               <p className="error-msg">{lenguajeFeedBack}</p>
             </Form.Group>
@@ -258,49 +236,28 @@ export default function ModificarEscenario(props) {
                       <BsFillPlayCircleFill />
                     </div>
 
-                    <Image
-                      alt="mp4 icono"
-                      src={process.env.PUBLIC_URL + "/icons/mp4FileIcon.png"}
-                    />
+                    <Image alt="mp4 icono" src={mp4Icon} />
 
                     <div className="drop-file-preview-item-info">
                       <p>{video.nombre}</p>
                     </div>
 
-                    {modificable && (
-                      <BotonEliminarVideoSubido
-                        handleEliminarVideo={handleEliminarVideo}
-                        id={video.id}
-                      />
-                    )}
+                    {modificable && <BotonEliminarVideoSubido handleEliminarVideo={handleEliminarVideo} id={video.id} />}
                   </div>
                 ))}
               </div>
             ) : (
-              <div
-                className="d-flex justify-content-center"
-                id="file-uploaded-label"
-              >
+              <div className="d-flex justify-content-center" id="file-uploaded-label">
                 <p>Aún no se han subido videos para este escenario</p>
               </div>
             )}
           </div>
 
-          {modificable && (
-            <InputDropVideos
-              handleAnadirVideos={handleAnadirVideos}
-              setCargandoVideos={setCargandoVideos}
-              escenarioId={id}
-            />
-          )}
+          {modificable && <InputDropVideos handleAnadirVideos={handleAnadirVideos} setCargandoVideos={setCargandoVideos} escenarioId={id} />}
         </div>
       </Form>
 
-      <VideoModal
-        show={mostrarVideo}
-        onHide={() => setMostrarVideo(false)}
-        localizacion={localizacionVideo}
-      />
+      <VideoModal show={mostrarVideo} onHide={() => setMostrarVideo(false)} localizacion={localizacionVideo} />
     </div>
   );
 }

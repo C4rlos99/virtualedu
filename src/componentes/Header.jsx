@@ -5,6 +5,7 @@ import { NavDropdown } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import { UsuarioContext } from "../context/UsuarioContext.js";
 import { cerrarSesion } from "../servicios/usuarioServicio.js";
+import logo from "../icons/virtualEdu_logo.png";
 import "../style.css";
 import swal from "sweetalert";
 
@@ -29,40 +30,21 @@ export default function Header(props) {
       <Container>
         <Navbar.Brand id="web-title">
           <Link to={"/escenarios"}>
-            <Image
-              alt="Logo de la web"
-              src={process.env.PUBLIC_URL + "/icons/virtualEdu_logo.png"}
-              width="45"
-              height="45"
-            />{" "}
-            Virtual Edu
+            <Image alt="Logo de la web" src={logo} width="45" height="45" /> Virtual Edu
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse
-          className="justify-content-end"
-          id="responsive-navbar-nav"
-        >
+        <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link className="nav-link" to={"/escenarios"}>
               Escenarios
             </Link>
           </Nav>
           <Nav>
-            <NavDropdown
-              title={
-                usuario !== null
-                  ? `${usuario.nombre} ${usuario.apellidos}`
-                  : "Nombre Usuario"
-              }
-              id="collasible-nav-dropdown"
-            >
+            <NavDropdown title={usuario !== null ? `${usuario.nombre} ${usuario.apellidos}` : "Nombre Usuario"} id="collasible-nav-dropdown">
               <NavDropdown.Item
                 onClick={() => {
-                  mostrarAlerta(
-                    "Clave de usuario",
-                    `Tu clave es: ${usuario ? usuario.clave : "Sin clave"}`
-                  );
+                  mostrarAlerta("Clave de usuario", `Tu clave es: ${usuario ? usuario.clave : "Sin clave"}`);
                 }}
               >
                 Ver clave
@@ -74,21 +56,13 @@ export default function Header(props) {
                   cerrarSesion().then((resultado) => {
                     switch (resultado.status) {
                       case 200:
-                        mostrarAlerta(
-                          "Cerrar sesión",
-                          resultado.mensaje,
-                          "success"
-                        );
+                        mostrarAlerta("Cerrar sesión", resultado.mensaje, "success");
                         localStorage.clear();
                         setUsuario(null);
                         setRedireccion(true);
                         break;
                       case 401:
-                        mostrarAlerta(
-                          "Cerrar sesión",
-                          resultado.mensaje,
-                          "error"
-                        );
+                        mostrarAlerta("Cerrar sesión", resultado.mensaje, "error");
                         break;
                       default:
                         break;
